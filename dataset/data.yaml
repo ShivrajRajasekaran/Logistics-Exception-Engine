@@ -1,0 +1,18 @@
+# Unified logistics exception dataset - RT-DETR / YOLO bbox format
+#
+# Two classes, both outside the COCO label set. COCO contains backpack,
+# handbag and suitcase, but no box, package, parcel, or carton category, so an
+# off-the-shelf checkpoint cannot serve this task.
+#
+# Reduced from an earlier 3-class scheme after a data-quality audit of the
+# first training run. See MEMO.md for the measured evidence behind the cut.
+
+path: ./dataset
+train: train/images
+val: val/images
+test: test/images
+
+nc: 2
+names:
+  0: package
+  1: damaged-package

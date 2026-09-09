@@ -1,0 +1,26 @@
+# One-command evaluation path:
+#   cp .env.example .env   (add OPENAI_API_KEY, optional - see README)
+#   docker compose up --build
+#   curl http://localhost:8000/health
+#
+# Weights and sample images are bind-mounted rather than baked into the image,
+# so a reviewer can swap a checkpoint without a rebuild.
+
+services:
+  exception-engine:
+    build: .
+    image: logistics-exception-engine:1.0.0
+    container_name: exception-engine
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      WEIGHTS_PATH: /app/weights/best.pt
+      CONFIDENCE_THRESHOLD: "0.25"
+      GUARDRAIL_THRESHOLD: "0.65"
+      LOG_LEVEL: INFO
+    volumes:
+      - ./weights:/app/weights:ro
+      - ./sample_images:/app/sample_images:ro
+    restart: unless-stopped

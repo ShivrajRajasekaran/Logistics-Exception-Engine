@@ -1,0 +1,25 @@
+# Keep the build context small. Without this, `docker build` uploads the venv
+# (several GB of torch) and the entire image dataset before the first layer runs.
+
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Datasets and training artifacts are not needed to serve the model.
+dataset/_raw/
+dataset/train/
+dataset/val/
+dataset/test/
+runs/
+
+# Weights are bind-mounted by docker-compose, not baked in.
+weights/
+
+.env
+.git/
+.gitignore
+tests/
+*.md
+*.pdf

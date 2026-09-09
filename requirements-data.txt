@@ -1,0 +1,17 @@
+# Dataset acquisition only. Needed to run scripts/prepare_dataset.py, and
+# nothing else. Kept separate from requirements.txt so the serving image does
+# not carry the Roboflow SDK and its transitive dependencies.
+#
+# Install after requirements.txt:
+#   pip install -r requirements-data.txt
+#
+# Note: roboflow 1.1.60 pins opencv-python-headless==4.10.0.84 exactly, which
+# is why requirements.txt holds that same version rather than a newer one.
+
+roboflow==1.1.60
+
+# roboflow 1.1.60 calls pillow_heif.register_avif_opener() at import time.
+# pillow-heif 1.0 removed that function (AVIF moved into Pillow itself), so an
+# unpinned install makes `import roboflow` fail with AttributeError. Held below
+# 1.0 until the SDK catches up.
+pillow-heif==0.22.0

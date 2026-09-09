@@ -1,0 +1,48 @@
+{
+  "seed": 42,
+  "total_images": 2869,
+  "split_counts": {
+    "train": 2007,
+    "test": 431,
+    "val": 431
+  },
+  "class_instances_total": {
+    "damaged-package": 1584,
+    "package": 1623
+  },
+  "class_instances_per_split": {
+    "train": {
+      "damaged-package": 1117,
+      "package": 1137
+    },
+    "test": {
+      "damaged-package": 227,
+      "package": 242
+    },
+    "val": {
+      "damaged-package": 240,
+      "package": 244
+    }
+  },
+  "images_per_source": {
+    "parcel-box-damage": 745,
+    "moratuwa-parcel-damage": 74,
+    "haw-packages": 1614,
+    "packages2-damaged": 292,
+    "biradar-damage": 54,
+    "box-damage-open": 85
+  },
+  "dropped_annotations": {
+    "duplicate-image": 83,
+    "invoice": 1,
+    "label": 37,
+    "paint": 9
+  },
+  "groups": 1506,
+  "split_ratios_requested": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "stratified_by": "source project, then capture-sequence group"
+}

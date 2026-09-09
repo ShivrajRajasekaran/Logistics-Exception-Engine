@@ -1,0 +1,40 @@
+# Base requirements: API serving and CPU inference.
+#
+# This file deliberately does NOT pin a CUDA build of torch. pip's default
+# index serves CPU wheels on Windows, which is what the Docker image wants.
+# For GPU training on this project's hardware, install requirements-cuda.txt
+# INSTEAD of the torch/torchvision lines below. See REPRODUCIBILITY.md.
+#
+# Python 3.11 is required. Ultralytics 8.3.x + torch 2.7 do not ship wheels
+# for every 3.13 dependency, and 3.11 matches the Docker base image.
+
+# --- Deep learning ---
+torch==2.7.0
+torchvision==0.22.0
+ultralytics==8.3.145
+
+# --- API layer ---
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.4
+python-multipart==0.0.20
+
+# --- Reasoning layer: direct SDK only, NO agentic frameworks ---
+openai==1.82.0
+python-dotenv==1.1.0
+
+# --- Imaging / numerics ---
+# Both OpenCV distributions are pinned to the SAME version on purpose.
+# Ultralytics depends on opencv-python; roboflow pins opencv-python-headless
+# ==4.10.0.84. Left unpinned, pip installs headless 4.10 alongside full 5.0,
+# and whichever `import cv2` resolves first wins - a genuinely unreproducible
+# environment. Holding both at 4.10.0.84 keeps one OpenCV API in play.
+opencv-python==4.10.0.84
+opencv-python-headless==4.10.0.84
+numpy==2.1.1
+pillow==11.2.1
+pyyaml==6.0.2
+
+# NOTE: the Roboflow SDK is NOT here. It is only needed to build the dataset,
+# never to serve the model, so it lives in requirements-data.txt and stays out
+# of the Docker image.

@@ -1,0 +1,21 @@
+# GPU training requirements for Blackwell-class NVIDIA hardware (sm_120).
+#
+# WHY THIS FILE EXISTS
+# The RTX 50-series (Blackwell, compute capability 12.0) has no compiled
+# kernels in any torch wheel built against CUDA 12.1 or 12.4. Installing the
+# default PyPI torch on this hardware produces a runtime failure of the form
+#   "no kernel image is available for execution on the device"
+# only once a tensor is actually moved to the GPU. Import and
+# torch.cuda.is_available() can both succeed while training is still broken,
+# so the install must be verified with a real allocation. See REPRODUCIBILITY.md.
+#
+# USAGE (Python 3.11 venv, run BEFORE requirements.txt):
+#   pip install -r requirements-cuda.txt
+#   pip install -r requirements.txt --no-deps-upgrade-torch
+# In practice: install this file first, then requirements.txt will see torch
+# already satisfied at the correct version and leave it alone.
+
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
