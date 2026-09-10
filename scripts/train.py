@@ -83,6 +83,17 @@ def train(args: argparse.Namespace) -> Path:
         flipud=0.0,
         mosaic=1.0,
         close_mosaic=10,
+        # Geometric augmentation is set explicitly rather than left on the
+        # Ultralytics defaults (scale=0.5, degrees=0.0, translate=0.1), because
+        # those defaults let the first model separate the classes by box size
+        # alone: `package` boxes covered a median 2.4% of frame against
+        # 17.6-37.4% for `damaged-package`, a split that follows the source
+        # project rather than the physical class. Wide scale jitter forces the
+        # same object to appear at many sizes, and rotation breaks the
+        # per-source camera-angle regularity.
+        scale=args.scale,
+        degrees=args.degrees,
+        translate=args.translate,
         val=True,
         plots=True,
     )
@@ -103,6 +114,9 @@ def train(args: argparse.Namespace) -> Path:
         "weight_decay": args.weight_decay,
         "warmup_epochs": args.warmup_epochs,
         "workers": args.workers,
+        "scale": args.scale,
+        "degrees": args.degrees,
+        "translate": args.translate,
         "strict_deterministic": args.strict_deterministic,
         "cudnn_benchmark": torch.backends.cudnn.benchmark,
         "torch": torch.__version__,
@@ -133,6 +147,14 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--weight-decay", dest="weight_decay", type=float, default=1e-4)
     p.add_argument("--warmup-epochs", dest="warmup_epochs", type=float, default=3.0)
     p.add_argument("--patience", type=int, default=15)
+    # Anti-shortcut geometric augmentation. Defaults here are deliberately far
+    # wider than the Ultralytics defaults; see the comment in train() for why.
+    p.add_argument("--scale", type=float, default=0.9,
+                   help="random scale gain (Ultralytics default 0.5)")
+    p.add_argument("--degrees", type=float, default=10.0,
+                   help="random rotation in degrees (Ultralytics default 0.0)")
+    p.add_argument("--translate", type=float, default=0.2,
+                   help="random translation fraction (Ultralytics default 0.1)")
     p.add_argument("--strict-deterministic", dest="strict_deterministic",
                    action="store_true",
                    help="bitwise-reproducible cuDNN kernels; roughly an order of "

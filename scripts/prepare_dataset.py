@@ -254,7 +254,84 @@ def remap_label_file(label_path: Path, source_names: List[str],
     return "\n".join(lines) if lines else None
 
 
-def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> dict:
+def check_source_independence(source_class_counts: Dict[str, Counter],
+                              max_concentration: float,
+                              allow_skew: bool) -> dict:
+    """
+    Fail the build when a class is supplied almost entirely by one source.
+
+    WHY THIS GATE EXISTS
+    The first model trained from this pipeline reached 0.601 mAP50 and a
+    `package` recall of exactly 1.000, then turned out to be a source
+    classifier rather than a damage detector: no source carried both classes,
+    so "which dataset is this image from" predicted the label perfectly. That
+    was discovered by auditing predictions AFTER two training runs. It is
+    cheaper to catch here, before any GPU time is spent.
+
+    Two numbers are reported per class:
+      concentration - share of instances from that class's largest single source
+      sources       - how many sources contribute the class at all
+    Plus the count of sources carrying more than one class, which is the
+    quantity that actually determines whether the shortcut is available.
+    """
+    classes = sorted(TARGET_CLASSES)
+    totals = {c: sum(counts[c] for counts in source_class_counts.values()) for c in classes}
+    concentration, dominant = {}, {}
+    for c in classes:
+        per_src = {s: counts[c] for s, counts in source_class_counts.items() if counts[c]}
+        if not per_src or not totals[c]:
+            concentration[c], dominant[c] = 1.0, "none"
+            continue
+        top_source = max(per_src, key=per_src.get)
+        dominant[c] = top_source
+        concentration[c] = per_src[top_source] / totals[c]
+
+    multi_class_sources = [s for s, counts in source_class_counts.items()
+                           if sum(1 for c in classes if counts[c]) > 1]
+
+    log("\n" + "=" * 72)
+    log("CLASS-SOURCE INDEPENDENCE CHECK")
+    log("=" * 72)
+    log("   %-22s %10s %8s  %s" % ("class", "top-source", "sources", "dominant source"))
+    for c in classes:
+        n_src = sum(1 for counts in source_class_counts.values() if counts[c])
+        log("   %-22s %9.1f%% %8d  %s"
+            % (c, 100 * concentration[c], n_src, dominant[c]))
+    log("\n   sources carrying more than one class: %d of %d  %s"
+        % (len(multi_class_sources), len(source_class_counts),
+           multi_class_sources or "(none)"))
+
+    worst = max(concentration, key=concentration.get) if concentration else None
+    report = {
+        "concentration_per_class": {c: round(concentration[c], 4) for c in classes},
+        "dominant_source_per_class": dominant,
+        "multi_class_sources": multi_class_sources,
+        "threshold": max_concentration,
+        "passed": bool(worst and concentration[worst] <= max_concentration),
+    }
+
+    if worst and concentration[worst] > max_concentration:
+        message = (
+            "Class-source independence FAILED: '%s' draws %.1f%% of its instances "
+            "from a single source (%s), above the %.0f%% threshold, and only %d "
+            "source(s) carry more than one class.\n"
+            "A detector trained on this split can separate the classes by source "
+            "appearance alone, which will not transfer to unseen data.\n"
+            "Fix the data, or pass --allow-source-skew to proceed deliberately."
+            % (worst, 100 * concentration[worst], dominant[worst],
+               100 * max_concentration, len(multi_class_sources))
+        )
+        if not allow_skew:
+            raise RuntimeError(message)
+        log("\n   WARNING (proceeding under --allow-source-skew):\n   "
+            + message.replace("\n", "\n   "))
+        report["overridden"] = True
+
+    return report
+
+
+def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float,
+          max_concentration: float = 0.95, allow_skew: bool = False) -> dict:
     """Merge, remap, split, and write the unified dataset."""
     random.seed(SEED)
 
@@ -325,6 +402,22 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
             assignments[name] = split
             assigned[split] += len(groups[name])
 
+    # Pre-flight: tally class instances per source from the staged items and gate
+    # the build BEFORE any files are written. Failing here costs nothing; failing
+    # after the write loop would leave a corrupt dataset on disk and waste the
+    # copy of several thousand images.
+    source_class_counts = defaultdict(Counter)
+    for _, content, group in staged:
+        source_name = group.split("::")[0]
+        for line in content.splitlines():
+            if line:
+                idx = int(line.split()[0])
+                name = [k for k, v in TARGET_CLASSES.items() if v == idx][0]
+                source_class_counts[source_name][name] += 1
+
+    independence = check_source_independence(
+        source_class_counts, max_concentration, allow_skew)
+
     for split in SPLIT_RATIOS:
         for sub in ("images", "labels"):
             path = OUT_DIR / split / sub
@@ -374,6 +467,8 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
 
     report = {
         "seed": SEED,
+        "class_source_independence": independence,
+        "class_instances_per_source": {s: dict(c) for s, c in source_class_counts.items()},
         "total_images": total,
         "split_counts": dict(split_counts),
         "class_instances_total": dict(class_stats),
@@ -424,6 +519,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build the unified logistics dataset")
     parser.add_argument("--inspect", action="store_true",
                         help="download and print source class vocabularies, then exit")
+    parser.add_argument("--max-concentration", type=float, default=0.95,
+                        help="fail if any class draws more than this share of its "
+                             "instances from one source (default 0.95)")
+    parser.add_argument("--allow-source-skew", action="store_true",
+                        help="downgrade the class-source independence failure to a "
+                             "warning; use only when the skew is a deliberate, "
+                             "documented choice")
     parser.add_argument("--background-ratio", type=float, default=0.10,
                         help="max background images as a fraction of annotated images")
     args = parser.parse_args()
@@ -444,7 +546,8 @@ def main() -> int:
         return 0
 
     inspect(downloaded)
-    report = build(downloaded, args.background_ratio)
+    report = build(downloaded, args.background_ratio,
+                   args.max_concentration, args.allow_source_skew)
     return 0 if report else 1
 
 

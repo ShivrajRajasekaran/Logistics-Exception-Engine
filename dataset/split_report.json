@@ -1,5 +1,42 @@
 {
   "seed": 42,
+  "class_source_independence": {
+    "concentration_per_class": {
+      "damaged-package": 0.4754,
+      "package": 0.9963
+    },
+    "dominant_source_per_class": {
+      "damaged-package": "parcel-box-damage",
+      "package": "haw-packages"
+    },
+    "multi_class_sources": [
+      "biradar-damage"
+    ],
+    "threshold": 0.95,
+    "passed": false,
+    "overridden": true
+  },
+  "class_instances_per_source": {
+    "parcel-box-damage": {
+      "damaged-package": 753
+    },
+    "moratuwa-parcel-damage": {
+      "damaged-package": 81
+    },
+    "haw-packages": {
+      "package": 1617
+    },
+    "packages2-damaged": {
+      "damaged-package": 382
+    },
+    "biradar-damage": {
+      "damaged-package": 69,
+      "package": 6
+    },
+    "box-damage-open": {
+      "damaged-package": 299
+    }
+  },
   "total_images": 2869,
   "split_counts": {
     "train": 2007,
