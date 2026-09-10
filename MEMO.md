@@ -7,16 +7,14 @@
 
 ## 1. Domain, dataset sourcing, and labelling
 
-Inbound parcel triage at a sorting hub is a good constrained detection problem: the
-classes are visually concrete, the decision is binary (normal flow or exception bay),
-and errors cost in both directions. It also forces a non-COCO label set. COCO has
-backpack, handbag and suitcase, but no box, package, parcel or carton, so no
-off-the-shelf checkpoint can serve this task. Both final classes are non-COCO.
+Parcel triage at a sorting hub: concrete classes, a binary decision (normal flow or
+exception bay), cost in both directions. COCO has backpack, handbag and suitcase but no
+box, package, parcel or carton, so no off-the-shelf checkpoint serves it. Both classes
+are non-COCO.
 
-The dataset merges six public Roboflow Universe object-detection projects (CC BY 4.0).
-`scripts/prepare_dataset.py` is the reproducible definition; `dataset/split_report.json`
-is its committed output. No single source covers the task, so the merge is the real
-engineering, and it is where a dataset most easily gets silently corrupted.
+Six Roboflow Universe detection projects (CC BY 4.0), merged by
+`scripts/prepare_dataset.py`. No single source covers the task, so the merge is the real
+engineering and the easiest place to corrupt a dataset silently.
 
 | Source | Images | Contributes |
 | :--- | ---: | :--- |
@@ -24,51 +22,39 @@ engineering, and it is where a dataset most easily gets silently corrupted.
 | project-hffml/parcel-box-damage | 745 | damaged (severity tiers) |
 | damaged-package/packages2 | 292 | damaged |
 | box-prfzk/box-a2mjf | 89 | damaged, opened |
-| university-of-moratuwa/parcel-damage | 74 | damaged, second institution |
+| university-of-moratuwa/parcel-damage | 74 | damaged, 2nd institution |
 | bhagyashri-biradar/damage-package | 54 | damaged, wet, holed |
 
-**Labelling decisions.** `damage_A/B/C` are severity grades of one defect, applied
-inconsistently between the two institutions that use them, so all three collapse into
-`damaged-package`. Training three classes to reproduce an inconsistent human judgement
-would yield three weak classes instead of one usable one. `Open box`, `wet Package` and
-`Package with hole` fold in for the same reason: they trigger the identical operational
-path. `Invoice`, `paint` and `label` are dropped and counted, never silently absorbed.
+`damage_A/B/C` are severity grades of one defect applied inconsistently across the two
+institutions using them, so all three collapse into `damaged-package`; `Open box`, `wet
+Package` and `Package with hole` fold in on the same operational path. `Invoice`, `paint`
+and `label` are dropped and counted, never silently absorbed.
 
 ## 2. Pivots, and what drove them
 
-Three classes were cut, each on measured evidence rather than preference.
+**`person` and `compromised-seal`** were cut pre-training: no source carries person boxes
+beside parcels, and `Open box` plus `open` total 35 instances, which memorises rather
+than trains.
 
-**`person` and `compromised-seal`** were cut before training. No downloadable source
-carries person boxes alongside parcels. `Open box` plus `open` total 35 instances across
-every source combined, which memorises rather than trains.
-
-**`printed-label` was cut after a full 3-class training run** that scored 0.243 mAP50.
-The audit found its source was food-packaging expiry codes, not logistics routing slips.
-That source was 36% of training data and reached 17% recall while the logistics source
-reached 99%. Dropping it and its class moved overall mAP50 from **0.243 to 0.601**.
-Baseline artefacts are preserved under `runs/archive/` rather than discarded.
-
-Two of the three sources in the original plan turned out to be *classification* projects
-with no boxes at all. That is why `prepare_dataset.py --inspect` prints each source's
-real class vocabulary before anything is built.
+**`printed-label` was cut after a full 3-class run** scoring 0.243 mAP50. Its source was
+food-packaging expiry codes, not routing slips: 36% of training data at 17% recall while
+the logistics source hit 99%. Dropping it moved mAP50 **0.243 to 0.601**; baselines kept
+in `runs/archive/`. Two planned sources proved to be *classification* projects with no
+boxes, which is why `--inspect` prints each source's real vocabulary first.
 
 ## 3. Split strategy
 
-70/15/15, seeded at 42: 2,869 images into 2,007 / 431 / 431, with 1,623 `package` and
-1,584 `damaged-package` instances. Three leakage controls:
+70/15/15 at seed 42: 2,869 images into 2,007 / 431 / 431; 1,623 `package`, 1,584
+`damaged-package`.
 
-**Grouped by capture sequence.** Roboflow exports contain augmented copies under names
-like `IMG_0412_jpg.rf.<hash>`. Splitting on raw filenames would put copies of one photo
-in both train and test. Groups move as units. This also correctly collapsed a 240-image
-source into a single group once we found all 240 were frames of one video clip.
-
-**Content-hash dedup.** 83 duplicate images appear across projects, dropped before splitting.
-
-**Stratified per source, deficit-greedy.** Splitting one pooled list gave 70/18.6/11.4
-with validation holding 1,090 `package` against 318 in test, making the two
-non-comparable. The build *raises* on filename collision or split overlap: an earlier
-version silently overwrote 239 training images, caught only by asserting the report
-count against files on disk.
+**Grouped by capture sequence,** because Roboflow ships augmented copies
+(`IMG_0412_jpg.rf.<hash>`) and splitting on filenames puts copies of one photo in train
+and test. This also collapsed a 240-image source into one group once we found all 240
+were frames of a single clip. **Content-hash dedup** removed 83 cross-project duplicates.
+**Stratified per source, deficit-greedy:** one pooled list gave 70/18.6/11.4 with
+validation holding 1,090 `package` against 318 in test. The build *raises* on filename
+collision or split overlap; an earlier version silently overwrote 239 training images,
+caught only by asserting the report count against files on disk.
 
 ## 4. Results, and why the headline number is misleading
 
@@ -131,32 +117,28 @@ hundred frames where intact and damaged parcels co-occur.
 
 ## 6. Part B: the reasoning layer
 
-**No framework.** `app/reasoning.py` and `app/main.py` import no orchestration library.
-Control flow is a sequence of `if` statements in `reason()`; the single LLM call goes
-through the official OpenAI SDK. `grep -rE "langchain|llama_index|crewai|autogen"`
-returns only the two docstrings declaring their absence.
+**No framework.** Neither module imports an orchestration library; control flow is plain
+`if` statements in `reason()`, and the one LLM call uses the official OpenAI SDK.
+`scripts/audit_submission.py` verifies this by AST over real imports, not by grepping
+prose.
 
-**Routing** is deterministic keyword matching, chosen over an LLM classifier because it
-must be explainable line by line and must not spend a network call deciding whether a
-network call is needed. Single words match on word boundaries, so "sealant supplier"
-never reaches the GPU. Four outcomes: `VISION_REQUIRED`, `LEDGER_ONLY`,
-`UNSUPPORTED_CAPABILITY`, `OUT_OF_SCOPE`.
+**Routing** is deterministic keyword matching, not an LLM classifier: it must be
+explainable line by line and must not spend a network call deciding whether one is
+needed. Word-boundary matching keeps "sealant supplier" off the GPU. Four outcomes:
+`VISION_REQUIRED`, `LEDGER_ONLY`, `UNSUPPORTED_CAPABILITY`, `OUT_OF_SCOPE`.
 
-`UNSUPPORTED_CAPABILITY` is checked **first**, and exists because of the class cuts
-above. "Is the seal on this box intact?" matches `box` and `intact` as visual tokens;
-without that precedence the detector would run, return parcel boxes, and the LLM would
-answer a question about seals using evidence about cartons. "The model has no seal class"
-is a different and more useful answer than a guess. Two unit tests assert the vision and
-unsupported vocabularies stay disjoint, since an overlap would silently make the vision
-entry dead code.
+`UNSUPPORTED_CAPABILITY` is checked **first**. "Is the seal on this box intact?" matches
+`box` and `intact`; without that precedence the detector runs and the LLM answers a seal
+question from carton evidence. Two tests assert the vocabularies stay disjoint, since an
+overlap would silently make the vision entry dead code.
 
-**Guardrail:** threshold 0.65 on peak `damaged-package` confidence, with three outcomes.
-A weak defect below 0.65 halts before the prompt is assembled. No defect but a parcel
-located above 0.65 returns `CLEAR`. No defect *and* no parcel located also halts, because
-the frame may be empty or unreadable, and "detected nothing" is not "nothing is wrong".
-That third case is the one most implementations get wrong.
+**Guardrail:** 0.65 on peak `damaged-package` confidence. A weak defect below it halts
+before the prompt is assembled. No defect but a parcel above 0.65 returns `CLEAR`. No
+defect *and* no parcel located also halts: the frame may be unreadable, and "detected
+nothing" is not "nothing is wrong". That third case is the one most implementations get
+wrong.
 
-**Unstaged worked example**, produced by the trained model on a real test image:
+**Unstaged example,** trained model on a real test image:
 
 ```
 detections: damaged-package 0.4879, damaged-package 0.4418
@@ -165,12 +147,11 @@ summary:    peak critical-class confidence 0.49 is below the operational
             threshold 0.65. Routing to manual inspection rather than guessing.
 ```
 
-No LLM call happens on that path. Given section 4 this guardrail is doing real work: a
-model with 0.275 precision on damage **must** refuse rather than narrate, or it would
-produce confident liability claims against a named carrier from noise.
+No LLM call happens there. Per section 4 that is real work: a model at 0.275 precision on
+damage **must** refuse rather than narrate, or it invents liability claims against a named
+carrier from noise.
 
-**Ledger reconciliation.** `IMMUTABLE_TRANSIT_LEDGER` holds two records that exercise
-both branches. `PKG-8821` left origin `INTACT`, so damage found here is the carrier's.
-`PKG-9940` left `ALREADY_DAMAGED`, so identical detections are *not* a new claim.
-Without that second record the layer could rubber-stamp every detection as liability and
-still appear to work.
+**Ledger.** Two records exercise both branches. `PKG-8821` left origin `INTACT`, so damage
+here is the carrier's. `PKG-9940` left `ALREADY_DAMAGED`, so identical detections are
+*not* a new claim. Without it the layer could rubber-stamp everything as liability and
+still look correct.

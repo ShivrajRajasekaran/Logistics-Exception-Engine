@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app import reasoning
 
 
-IMAGE = "sample_images/parcel.jpg"
+IMAGE = "sample_images/damaged_parcel.jpg"
 
 
 def det(label, confidence, bbox=None):

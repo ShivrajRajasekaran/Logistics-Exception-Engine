@@ -1,8 +1,9 @@
-# One-command evaluation path:
-#   cp .env.example .env   (add OPENAI_API_KEY, optional - see README)
+# One-command evaluation path (no .env required):
 #   docker compose up --build
 #   curl http://localhost:8000/health
 #
+# OPENAI_API_KEY is optional and read from the shell if exported; without it
+# /reason returns a labelled deterministic summary instead of LLM prose.
 # Weights and sample images are bind-mounted rather than baked into the image,
 # so a reviewer can swap a checkpoint without a rebuild.
 
@@ -13,9 +14,9 @@ services:
     container_name: exception-engine
     ports:
       - "8000:8000"
-    env_file:
-      - .env
     environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
       WEIGHTS_PATH: /app/weights/best.pt
       CONFIDENCE_THRESHOLD: "0.25"
       GUARDRAIL_THRESHOLD: "0.65"

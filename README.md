@@ -62,8 +62,11 @@ cp .env.example .env                   # OPENAI_API_KEY optional, see below
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
-Weights load from `WEIGHTS_PATH` (default `weights/best.pt`). To retrain from scratch,
-follow [REPRODUCIBILITY.md](REPRODUCIBILITY.md): build the dataset, run
+Model weights (`weights/best.pt`) are included directly in this repository. No
+separate download is required: clone, install, and the API serves the trained
+model immediately. They load from `WEIGHTS_PATH`, which defaults to that path.
+
+To retrain from scratch, follow [REPRODUCIBILITY.md](REPRODUCIBILITY.md): build the dataset, run
 `python scripts/train.py`, then copy `runs/train/rtdetr_logistics_v1/weights/best.pt`
 to `weights/best.pt`.
 
