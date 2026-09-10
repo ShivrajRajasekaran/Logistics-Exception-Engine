@@ -19,15 +19,8 @@ log = logging.getLogger("exception-engine.reasoning")
 
 GUARDRAIL_THRESHOLD = float(os.getenv("GUARDRAIL_THRESHOLD", "0.65"))
 
-# When true, an image with zero critical-class detections also halts as
-# INSUFFICIENT_INFORMATION. Default false: a legible image with no defect is a
-# genuine CLEAR result, and reporting it as "insufficient" would be dishonest.
 STRICT_ZERO_DETECTION_HALT = os.getenv("STRICT_ZERO_DETECTION_HALT", "false").lower() == "true"
 
-# --- Intent routing vocabulary -------------------------------------------
-# Deterministic keyword routing, deliberately chosen over an LLM classifier:
-# the router must be explainable line-by-line and must not cost a network call
-# just to decide whether a network call is needed.
 
 VISION_TOKENS = {
     "damage", "damaged", "dent", "dented", "torn", "tear", "ripped", "crushed",
@@ -36,18 +29,7 @@ VISION_TOKENS = {
     "photo", "picture", "count", "how many", "box", "carton", "parcel", "package",
     "defect", "anomaly", "claim", "liability",
 }
-# Note what is NOT here: label, barcode, seal, tape, tamper. Each names a
-# concept the trained model cannot see, so each lives in UNSUPPORTED_TOKENS
-# below. A token must never appear in both sets - the unsupported check runs
-# first, so a duplicate would silently make the vision entry dead code.
 
-# Questions that ARE about the image but name something this model cannot
-# detect. These get an explicit capability refusal rather than a detector call.
-#
-# Routing them to the detector would be the worst outcome: it would return
-# packages, and the LLM would then answer a question about people using boxes.
-# Saying "I was not trained for that" is the honest response, and it is a
-# different failure from "I looked and could not tell".
 UNSUPPORTED_TOKENS = {
     "person", "people", "worker", "operator", "staff", "anyone", "human",
     "label", "labels", "barcode", "printed", "readable", "legible", "address",
@@ -55,7 +37,6 @@ UNSUPPORTED_TOKENS = {
     "seal", "tape", "tamper", "tampered", "sealed",
 }
 
-# Why each is unsupported, surfaced to the caller so the limit is legible.
 UNSUPPORTED_REASONS = {
     "label": "the printed-label class was cut; the model localises parcels, not markings",
     "labels": "the printed-label class was cut; the model localises parcels, not markings",
@@ -91,7 +72,6 @@ LEDGER_TOKENS = {
     "sku", "shipped", "who handled", "when did", "route", "ledger", "record",
 }
 
-# Questions that touch neither the image nor the parcel record.
 OUT_OF_SCOPE_TOKENS = {
     "weather", "stock price", "capital of", "translate", "joke", "recipe",
     "who are you", "your name", "sla definition", "company policy", "holiday",
@@ -129,25 +109,18 @@ def route_intent(query: str, image_path: Optional[str]) -> Tuple[str, str]:
     ledger = _hits(text, LEDGER_TOKENS)
     unsupported = _hits(text, UNSUPPORTED_TOKENS)
 
-    # Rule 0: the question is visual but names something outside this model's
-    # label set. Checked FIRST, ahead of the generic visual match, because
-    # "is the seal on this box intact" hits `box` and `intact` too - and
-    # answering it from package detections would be a confident wrong answer.
     if unsupported:
         reasons = sorted({UNSUPPORTED_REASONS[t] for t in unsupported})
         return ROUTE_UNSUPPORTED, "asks about %s; %s" % (sorted(unsupported), "; ".join(reasons))
 
-    # Rule 1: clearly unrelated to this parcel, and nothing visual asked.
     if out_of_scope and not vision:
         return ROUTE_OUT_OF_SCOPE, "matched out-of-scope terms %s with no visual intent" % sorted(out_of_scope)
 
-    # Rule 2: no visual vocabulary at all -> the pixels cannot help.
     if not vision:
         if ledger:
             return ROUTE_LEDGER, "matched record-only terms %s; parcel history answers this" % sorted(ledger)
         return ROUTE_OUT_OF_SCOPE, "no visual or record vocabulary matched"
 
-    # Rule 3: visual intent but no image supplied -> cannot run the detector.
     if not image_path:
         return ROUTE_LEDGER, "visual intent detected but no image_path supplied; falling back to record"
 
@@ -174,8 +147,6 @@ def evaluate_guardrail(detections: List[dict], max_critical: float) -> Tuple[boo
     if not has_critical:
         if STRICT_ZERO_DETECTION_HALT:
             return False, "No critical-class detection reached the confidence threshold."
-        # Trust a negative only if the parcel itself was located confidently.
-        # Otherwise the frame may be blank, dark, or badly framed.
         from app.detector import ANCHOR_CLASS
 
         container = [d for d in detections
@@ -194,8 +165,6 @@ def evaluate_guardrail(detections: List[dict], max_critical: float) -> Tuple[boo
     return True, ("Peak critical-class confidence %.2f clears threshold %.2f."
                   % (max_critical, GUARDRAIL_THRESHOLD))
 
-
-# --- LLM synthesis --------------------------------------------------------
 
 SYSTEM_PROMPT = """You are a logistics exception adjudicator at a parcel sorting hub.
 
@@ -235,7 +204,7 @@ def synthesize(query: str, detections: List[dict], counts: Dict[str, int],
         return _deterministic_fallback(detections, counts, ledger_record)
 
     try:
-        from openai import OpenAI  # official SDK, imported directly
+        from openai import OpenAI
 
         client = OpenAI(api_key=api_key)
         completion = client.chat.completions.create(
@@ -248,7 +217,7 @@ def synthesize(query: str, detections: List[dict], counts: Dict[str, int],
             ],
         )
         return completion.choices[0].message.content.strip()
-    except Exception as exc:  # network down, quota exhausted, bad key
+    except Exception as exc:
         log.warning("LLM synthesis failed (%s); using deterministic fallback", exc)
         return _deterministic_fallback(detections, counts, ledger_record, error=str(exc))
 
@@ -269,9 +238,6 @@ def _deterministic_fallback(detections: List[dict], counts: Dict[str, int],
         prefix = "[deterministic fallback - LLM error: %s] " % error[:80]
 
     if not detections and ledger_record:
-        # Ledger-only route: there were never any detections to describe, so
-        # summarising "no objects observed" would answer a question nobody
-        # asked. Report the custody record instead.
         hops = ledger_record.get("transit_history", [])
         body = ("Carrier of record is %s. Origin hub %s dispatched this parcel at %s "
                 "with label status '%s' and seal status '%s', under manifest %s. "

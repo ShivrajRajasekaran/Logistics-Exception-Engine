@@ -69,7 +69,6 @@ def train(args: argparse.Namespace) -> Path:
         project=args.project,
         name=args.name,
         exist_ok=True,
-        # --- optimizer: fixed, not auto-selected ---
         optimizer="AdamW",
         lr0=args.lr0,
         lrf=args.lrf,
@@ -77,14 +76,13 @@ def train(args: argparse.Namespace) -> Path:
         warmup_epochs=args.warmup_epochs,
         cos_lr=True,
         patience=args.patience,
-        # --- augmentation: train split only ---
         hsv_h=0.015,
         hsv_s=0.7,
         hsv_v=0.4,
         fliplr=0.5,
-        flipud=0.0,       # parcels are gravity-oriented; vertical flip is unphysical
+        flipud=0.0,
         mosaic=1.0,
-        close_mosaic=10,  # disable mosaic for final 10 epochs to fix box regression
+        close_mosaic=10,
         val=True,
         plots=True,
     )
@@ -124,26 +122,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description="Fine-tune RT-DETR-L for logistics exception detection")
     p.add_argument("--model", default="rtdetr-l.pt", help="RT-DETR backbone checkpoint")
     p.add_argument("--data", default="dataset/data.yaml")
-    # Defaults are the recommended configuration for this project's hardware
-    # (RTX 5050 Laptop, 8 GB). Running `python scripts/train.py` with no flags
-    # reproduces the documented run.
-    #
-    # epochs 40: the first run measured ~4 min/epoch (3.7 it/s), not the 33 min
-    #   projected from a cold-start reading, so a longer schedule is cheap.
-    #   `patience` stops early if val mAP plateaus, as it did at epoch 14 on the
-    #   noisier 3-class dataset. Costs at most ~2.7 h.
-    # batch 4:  batch 8 at 640px raises torch.OutOfMemoryError on 7.96 GB,
-    #   measured, not assumed.
-    # imgsz 640: RT-DETR's pretrained resolution. Dropping to 512 speeds the
-    #   run but loses detail on small defects, which is what we most need.
     p.add_argument("--epochs", type=int, default=40)
     p.add_argument("--batch", type=int, default=4)
     p.add_argument("--imgsz", type=int, default=640)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--device", default="0", help="'0' for first GPU, 'cpu' to force CPU")
-    # Windows spawns dataloader workers as full processes rather than forking,
-    # so a high worker count costs more in start-up than it returns in
-    # throughput. 4 is a better default here than the Linux-oriented 8.
     p.add_argument("--workers", type=int, default=4)
     p.add_argument("--lr0", type=float, default=1e-4)
     p.add_argument("--lrf", type=float, default=0.01)

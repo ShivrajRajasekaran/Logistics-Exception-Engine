@@ -40,16 +40,6 @@ ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/bmp", "ima
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", str(20 * 1024 * 1024)))
 
 
-# ---------------------------------------------------------------------------
-# Simulated immutable transit ledger.
-#
-# Stands in for the append-only custody database a real 3PL would query. Two
-# records, chosen to exercise both branches of the reconciliation logic:
-#   PKG-8821 left origin INTACT, so damage found here is the carrier's.
-#   PKG-9940 left origin ALREADY_DAMAGED, so damage here is NOT a new claim.
-# That second record is the one that stops the LLM from rubber-stamping every
-# detection as a carrier liability.
-# ---------------------------------------------------------------------------
 IMMUTABLE_TRANSIT_LEDGER = {
     "PKG-8821": {
         "package_id": "PKG-8821",
@@ -222,14 +212,10 @@ async def reason(payload: ReasonRequest):
     """
     ledger_record: Optional[dict] = IMMUTABLE_TRANSIT_LEDGER.get(payload.package_id)
 
-    # --- Step 1: intent routing ------------------------------------------
     route, rationale = reasoning.route_intent(payload.query, payload.image_path)
     log.info("reason | package=%s | route=%s | %s", payload.package_id, route, rationale)
 
     if route == reasoning.ROUTE_UNSUPPORTED:
-        # Visual question, but about something outside the trained label set.
-        # Distinct from INSUFFICIENT_INFORMATION on purpose: there we looked and
-        # the evidence was too weak, here we never had the capability at all.
         return ReasonResponse(
             package_id=payload.package_id,
             status="UNSUPPORTED_CAPABILITY",
@@ -282,7 +268,6 @@ async def reason(payload: ReasonRequest):
             ledger_record=ledger_record,
         )
 
-    # --- Step 2: detection ------------------------------------------------
     _require_model()
     image = _load_image_from_path(payload.image_path)
     detections, elapsed_ms = detector.run_inference(image)
@@ -290,10 +275,8 @@ async def reason(payload: ReasonRequest):
     log.info("reason | detections=%d | peak_critical=%.3f | %.1f ms",
              len(detections), max_critical, elapsed_ms)
 
-    # --- Step 3: confidence guardrail ------------------------------------
     passed, explanation = reasoning.evaluate_guardrail(detections, max_critical)
     if not passed:
-        # Hard stop. No LLM call is made on this path.
         log.info("reason | GUARDRAIL HALT | no LLM call | %s", explanation)
         return ReasonResponse(
             package_id=payload.package_id,
@@ -309,7 +292,6 @@ async def reason(payload: ReasonRequest):
             ledger_record=ledger_record,
         )
 
-    # --- Steps 4 and 5: ledger reconciliation, then synthesis -------------
     counts = detector.summarize(detections)
     summary = reasoning.synthesize(payload.query, detections, counts, ledger_record)
 

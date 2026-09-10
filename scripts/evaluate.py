@@ -33,8 +33,6 @@ def evaluate(args: argparse.Namespace) -> dict:
 
     names = model.names
     per_class = {}
-    # Ultralytics exposes per-class arrays indexed by ap_class_index, not by
-    # raw class id - mapping through it avoids silently mislabelling rows.
     for row, class_id in enumerate(metrics.box.ap_class_index):
         per_class[names[int(class_id)]] = {
             "precision": round(float(metrics.box.p[row]), 4),

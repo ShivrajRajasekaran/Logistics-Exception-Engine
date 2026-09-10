@@ -19,18 +19,10 @@ log = logging.getLogger("exception-engine.detector")
 WEIGHTS_PATH = os.getenv("WEIGHTS_PATH", "weights/best.pt")
 CONFIDENCE_THRESHOLD = float(os.getenv("CONFIDENCE_THRESHOLD", "0.25"))
 
-# Classes that can justify a liability claim.
-#
-# Only `damaged-package` is evidence of an exception. `package` is located for
-# framing checks - it tells us the camera actually saw a parcel, which is what
-# lets the guardrail distinguish "this parcel is fine" from "I cannot see
-# anything at all". It may never gate a claim by itself.
 CRITICAL_CLASSES = {"damaged-package"}
 
-# Detected, but never evidence of damage on its own.
 CONTEXT_CLASSES = {"package"}
 
-# The class whose presence makes a negative finding trustworthy.
 ANCHOR_CLASS = "package"
 
 _model = None
@@ -54,7 +46,7 @@ def load_model(weights: str = None):
             "fetch the released weights (see README) before serving."
         )
 
-    from ultralytics import RTDETR  # imported lazily to keep startup errors readable
+    from ultralytics import RTDETR
 
     _model = RTDETR(str(path))
     _class_names = dict(_model.names)

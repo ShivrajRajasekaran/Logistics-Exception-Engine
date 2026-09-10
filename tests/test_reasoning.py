@@ -17,7 +17,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app import reasoning  # noqa: E402
+from app import reasoning
 
 
 IMAGE = "sample_images/parcel.jpg"

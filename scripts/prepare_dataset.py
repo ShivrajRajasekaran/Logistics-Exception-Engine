@@ -40,24 +40,6 @@ load_dotenv()
 SEED = 42
 SPLIT_RATIOS = {"train": 0.70, "val": 0.15, "test": 0.15}
 
-# Unified target scheme. Indices must match dataset/data.yaml.
-#
-# Data-driven, not convenient. Three classes from earlier designs were cut,
-# each for a measured reason (full narrative in MEMO.md):
-#
-#   `person`           - no downloadable source carries person boxes alongside
-#                        parcels.
-#   `compromised-seal` - 35 instances across every source combined. A class
-#                        that size is memorised, not learned. Folded into
-#                        `damaged-package`, which triggers the same operational
-#                        path: divert to the exception bay.
-#   `printed-label`    - its one real source was food-packaging expiry codes,
-#                        a different domain from logistics routing slips. In a
-#                        3-class run it reached 0.053 mAP50 while dragging the
-#                        whole model to 0.243.
-#
-# Both surviving classes are outside COCO, which has backpack, handbag and
-# suitcase but no box, package, parcel, or carton category.
 TARGET_CLASSES = {
     "package": 0,
     "damaged-package": 1,
@@ -65,23 +47,8 @@ TARGET_CLASSES = {
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
-# ---------------------------------------------------------------------------
-# Source registry.
-#
-# `remap` maps a SOURCE class name (lowercased, as it appears in that project's
-# data.yaml) to one of our target class names. A source class absent from this
-# dict is DROPPED, and every drop is counted and reported. Do not add a
-# catch-all: silently absorbing unknown classes is how label sets rot.
-#
-# Run --inspect first. Roboflow projects rename classes between versions, so
-# these keys must be confirmed against the actual export, not assumed.
-# ---------------------------------------------------------------------------
 SOURCES = [
     {
-        # Largest damage source. damage_A/B/C are SEVERITY tiers of the same
-        # defect, not distinct defect types, so all three collapse to one class.
-        # Keeping them separate would train three classes to reproduce a
-        # judgement call that the source annotators applied inconsistently.
         "name": "parcel-box-damage",
         "workspace": "project-hffml",
         "project": "parcel-box-damage-classification",
@@ -93,9 +60,6 @@ SOURCES = [
         },
     },
     {
-        # Same severity scheme, different institution. Useful precisely because
-        # it is a different capture setup: it stops the model from learning one
-        # lab's lighting as a proxy for damage.
         "name": "moratuwa-parcel-damage",
         "workspace": "university-of-moratuwa-ztkqd",
         "project": "parcel-damage-detection",
@@ -107,8 +71,6 @@ SOURCES = [
         },
     },
     {
-        # Primary source of INTACT parcels, and the class counterweight to the
-        # damage sources above.
         "name": "haw-packages",
         "workspace": "haw-odap3",
         "project": "packages-iw8aw",
@@ -128,9 +90,6 @@ SOURCES = [
         },
     },
     {
-        # "Open box", "wet Package" and "Package with hole" all fold into
-        # damaged-package: operationally they trigger the same exception path.
-        # "Invoice" is dropped - it is a document, not a parcel condition.
         "name": "biradar-damage",
         "workspace": "bhagyashri-biradar",
         "project": "damage-package-detection",
@@ -144,8 +103,6 @@ SOURCES = [
         },
     },
     {
-        # "label" and "paint" are dropped: `printed-label` was cut as a class
-        # (see the pivot note in MEMO.md), and "paint" has 3 instances.
         "name": "box-damage-open",
         "workspace": "box-prfzk",
         "project": "box-a2mjf",
@@ -157,22 +114,6 @@ SOURCES = [
     },
 ]
 
-# DROPPED SOURCES, and why. Kept here rather than deleted, because the reason
-# they were removed is the most useful thing this file records.
-#
-# object-detection-5pf5v/packaging-defect-detection (1806 images)
-#   Supplied 1592 `package` and all 1502 `printed-label` instances. It is FOOD
-#   packaging with printed expiry-date codes, not logistics parcels. In the
-#   first 3-class run it was 36% of training data and reached 17% recall,
-#   while the logistics source reached 99%. The model was being asked to learn
-#   one label class spanning expiry codes and routing slips. Removing it also
-#   removed the `printed-label` class.
-#
-# mohamed-traore-2ekkp/boxes-on-a-conveyer-belt (240 images)
-#   All 240 images are frames of a SINGLE candy-factory video clip, so they
-#   carry roughly one clip's worth of information, and they are food packaging
-#   for the same reason as above. Correctly grouped into one split by the
-#   sequence grouping below, which is what exposed how little they add.
 
 RAW_DIR = Path("dataset/_raw")
 OUT_DIR = Path("dataset")
@@ -298,7 +239,6 @@ def remap_label_file(label_path: Path, source_names: List[str],
             continue
 
         coords = parts[1:5]
-        # Guard against malformed exports: coordinates must be normalized.
         try:
             values = [float(c) for c in coords]
         except ValueError:
@@ -318,7 +258,7 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
     """Merge, remap, split, and write the unified dataset."""
     random.seed(SEED)
 
-    staged: List[Tuple[Path, str, str]] = []   # (image_path, label_text, group)
+    staged: List[Tuple[Path, str, str]] = []
     backgrounds: List[Tuple[Path, str]] = []
     class_stats = Counter()
     drop_stats = Counter()
@@ -332,7 +272,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
             continue
 
         for image_path, label_path in collect_pairs(root):
-            # Content hash dedupe: the same photo appears across projects.
             digest = hashlib.md5(image_path.read_bytes()).hexdigest()
             if digest in seen_hashes:
                 drop_stats["duplicate-image"] += 1
@@ -352,8 +291,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
         log("\n[build] No usable annotations produced. Run --inspect and fix SOURCES.")
         return {}
 
-    # Keep a bounded number of background images so the model learns what an
-    # undamaged scene looks like without drowning in empty frames.
     cap = int(len(staged) * max_background_ratio)
     random.shuffle(backgrounds)
     for image_path, group in backgrounds[:cap]:
@@ -361,17 +298,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
     log("[build] kept %d background images (cap %d of %d available)"
         % (min(cap, len(backgrounds)), cap, len(backgrounds)))
 
-    # --- Grouped, source-stratified split ---------------------------------
-    # Whole groups move together so augmented copies of one photo cannot
-    # straddle splits.
-    #
-    # The split is stratified PER SOURCE rather than run over one shuffled
-    # pool. Assigning from a single pool produced 70/18.6/11.4 with wildly
-    # different class mixes per split - validation held 1090 `package`
-    # instances against 318 in test - because the sources differ in size and
-    # in what they annotate. Splitting each source 70/15/15 independently
-    # keeps every domain proportionally represented in all three splits, which
-    # is what makes val and test comparable to each other at all.
     groups = defaultdict(list)
     for item in staged:
         groups[item[2]].append(item)
@@ -388,16 +314,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
         random.shuffle(names)
         source_total = sum(len(groups[n]) for n in names)
 
-        # Deficit-greedy packing: walk groups largest-first and drop each into
-        # whichever split is currently furthest below its target share.
-        #
-        # The obvious alternative - walk groups in order and switch splits once
-        # a running fraction crosses 0.70 / 0.85 - overshoots badly when a
-        # source has a few large groups, because the group that crosses the
-        # threshold lands entirely on the wrong side of it. That produced
-        # 75/14/11 instead of 70/15/15. Largest-first placement means the
-        # biggest, most disruptive groups get placed while all three splits
-        # still have room to absorb them.
         names.sort(key=lambda n: len(groups[n]), reverse=True)
         assigned = {"train": 0, "val": 0, "test": 0}
         for name in names:
@@ -409,7 +325,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
             assignments[name] = split
             assigned[split] += len(groups[name])
 
-    # --- Write ------------------------------------------------------------
     for split in SPLIT_RATIOS:
         for sub in ("images", "labels"):
             path = OUT_DIR / split / sub
@@ -426,11 +341,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
         stem = "%s_%s" % (group.split("::")[0], image_path.stem)
         stem = re.sub(r"[^A-Za-z0-9_.-]", "_", stem)[:110]
 
-        # Truncating to a fixed length collides: several Roboflow exports use
-        # long names that are identical in their first 110 characters, and the
-        # copy below would silently overwrite the earlier file. That cost 239
-        # training images before it was caught by comparing the split report
-        # against the file count on disk. The path digest makes the stem unique.
         stem = "%s_%s" % (stem, hashlib.md5(str(image_path).encode()).hexdigest()[:8])
 
         shutil.copy2(image_path, OUT_DIR / split / "images" / (stem + image_path.suffix))
@@ -444,17 +354,12 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
                 name = [k for k, v in TARGET_CLASSES.items() if v == idx][0]
                 split_class_counts[split][name] += 1
 
-    # --- Leakage assertion -------------------------------------------------
     overlap = ((written_stems["train"] & written_stems["test"])
                | (written_stems["train"] & written_stems["val"])
                | (written_stems["val"] & written_stems["test"]))
     if overlap:
         raise RuntimeError("Split leakage: %d filenames appear in multiple splits" % len(overlap))
 
-    # --- Write-completeness assertion --------------------------------------
-    # Every staged image must exist on disk. Without this check a filename
-    # collision silently drops images: the report claims one count, the trainer
-    # sees another, and nothing complains. That happened once here.
     for split in SPLIT_RATIOS:
         on_disk = len(list((OUT_DIR / split / "images").iterdir()))
         if on_disk != split_counts[split]:
@@ -463,10 +368,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
                 "Output filenames are colliding."
                 % (split, split_counts[split], on_disk))
 
-    # --- Invalidate Ultralytics label caches -------------------------------
-    # Ultralytics caches its label scan per split directory. A cache left over
-    # from a previous build makes the next training run silently consume the
-    # OLD split while the new files sit unused.
     for cache in OUT_DIR.rglob("*.cache"):
         cache.unlink()
         log("[build] removed stale label cache %s" % cache)
@@ -485,7 +386,6 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float) -> d
     }
     Path("dataset/split_report.json").write_text(json.dumps(report, indent=2))
 
-    # --- Report ------------------------------------------------------------
     log("\n" + "=" * 72)
     log("DATASET BUILD REPORT")
     log("=" * 72)
