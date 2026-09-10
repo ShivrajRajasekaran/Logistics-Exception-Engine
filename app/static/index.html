@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Logistics Exception Engine</title>
+<style>
+  :root{
+    --bg:#0f1116; --panel:#171a21; --panel2:#1e222b; --line:#2a2f3a;
+    --tx:#e6e9ef; --dim:#9aa3b2; --accent:#5b9dff;
+    --ok:#3fb950; --warn:#d29922; --bad:#f85149; --neutral:#8b949e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);
+    font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  h1{margin:0;font-size:17px;font-weight:600;letter-spacing:.2px}
+  .sub{color:var(--dim);font-size:12.5px}
+  #modelbar{margin-left:auto;font-size:12px;color:var(--dim);
+    display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--neutral)}
+  .dot.up{background:var(--ok)} .dot.down{background:var(--bad)}
+  main{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px 24px;
+    align-items:start}
+  @media(max-width:1000px){main{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    overflow:hidden}
+  .card h2{margin:0;padding:12px 16px;font-size:13px;font-weight:600;
+    border-bottom:1px solid var(--line);background:var(--panel2);
+    letter-spacing:.3px;text-transform:uppercase;color:var(--dim)}
+  .body{padding:16px}
+  label{display:block;font-size:12px;color:var(--dim);margin:0 0 5px}
+  input[type=text],select,textarea{width:100%;background:var(--bg);
+    color:var(--tx);border:1px solid var(--line);border-radius:6px;
+    padding:8px 10px;font:13px/1.4 inherit;margin-bottom:12px}
+  textarea{resize:vertical;min-height:56px}
+  button{background:var(--accent);color:#fff;border:0;border-radius:6px;
+    padding:9px 15px;font:600 13px/1 inherit;cursor:pointer}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.5;cursor:not-allowed;filter:none}
+  button.ghost{background:transparent;color:var(--tx);border:1px solid var(--line)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .drop{border:1.5px dashed var(--line);border-radius:8px;padding:26px 16px;
+    text-align:center;color:var(--dim);cursor:pointer;transition:.15s;font-size:13px}
+  .drop:hover,.drop.over{border-color:var(--accent);color:var(--tx);
+    background:rgba(91,157,255,.06)}
+  canvas{width:100%;border-radius:8px;display:block;background:#000}
+  .hide{display:none}
+  .badge{display:inline-block;padding:4px 11px;border-radius:20px;
+    font-size:11.5px;font-weight:700;letter-spacing:.4px}
+  .b-EXCEPTION_FLAGGED{background:rgba(248,81,73,.16);color:var(--bad)}
+  .b-CLEAR{background:rgba(63,185,80,.16);color:var(--ok)}
+  .b-INSUFFICIENT_INFORMATION{background:rgba(210,153,34,.16);color:var(--warn)}
+  .b-UNSUPPORTED_CAPABILITY{background:rgba(139,148,158,.18);color:var(--neutral)}
+  .b-ANSWERED_WITHOUT_VISION{background:rgba(91,157,255,.16);color:var(--accent)}
+  .summary{margin:12px 0;padding:12px 14px;background:var(--bg);
+    border-left:3px solid var(--line);border-radius:0 6px 6px 0;font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+  th{text-align:left;color:var(--dim);font-weight:500;font-size:11px;
+    text-transform:uppercase;letter-spacing:.4px;padding:6px 8px;
+    border-bottom:1px solid var(--line)}
+  td{padding:6px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:0}
+  .swatch{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px}
+  .meta{color:var(--dim);font-size:12px;margin-top:10px}
+  pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;
+    padding:11px;overflow:auto;max-height:280px;font-size:11.5px;
+    color:var(--dim);margin:10px 0 0}
+  .err{color:var(--bad);font-size:12.5px;margin-top:8px}
+  .note{font-size:11.5px;color:var(--dim);margin-top:9px;line-height:1.45}
+  .kv{font-size:12px;color:var(--dim)}
+  .kv b{color:var(--tx);font-weight:600}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Logistics Exception Engine</h1>
+  <span class="sub">RT-DETR-L parcel detection + framework-free reasoning layer</span>
+  <div id="modelbar"><span class="dot" id="dot"></span><span id="mstat">checking…</span></div>
+</header>
+
+<main>
+  <!-- ============ PART A ============ -->
+  <section class="card">
+    <h2>Part A &middot; Detection</h2>
+    <div class="body">
+      <div class="drop" id="drop">
+        Drop a parcel image here, or click to choose
+        <input type="file" id="file" accept="image/*" class="hide">
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <button id="run" disabled>Run detection</button>
+        <button id="dl" class="ghost hide">Download annotated PNG</button>
+        <button id="tog" class="ghost hide">Raw JSON</button>
+      </div>
+
+      <div id="derr" class="err"></div>
+
+      <div id="dout" class="hide" style="margin-top:14px">
+        <canvas id="cv"></canvas>
+        <div class="meta" id="dmeta"></div>
+        <table id="dtab"></table>
+        <pre id="djson" class="hide"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PART B ============ -->
+  <section class="card">
+    <h2>Part B &middot; Reasoning</h2>
+    <div class="body">
+      <label for="pkg">Package ID (transit ledger)</label>
+      <select id="pkg">
+        <option value="PKG-8821">PKG-8821 &mdash; Apex Logistics, origin INTACT</option>
+        <option value="PKG-9940">PKG-9940 &mdash; Meridian Freight, origin ALREADY_DAMAGED</option>
+        <option value="PKG-0000">PKG-0000 &mdash; not in ledger</option>
+      </select>
+
+      <label for="img">Server-side image path</label>
+      <select id="img">
+        <option value="sample_images/damaged_parcel.jpg">sample_images/damaged_parcel.jpg</option>
+        <option value="sample_images/intact_parcel.jpg">sample_images/intact_parcel.jpg</option>
+        <option value="">(none — no image supplied)</option>
+      </select>
+
+      <label for="q">Question</label>
+      <textarea id="q">Is this parcel damaged enough to raise a carrier claim?</textarea>
+
+      <div class="row">
+        <button id="ask">Ask</button>
+        <button id="tog2" class="ghost hide">Raw JSON</button>
+      </div>
+
+      <div class="note">
+        Try these to exercise each route:<br>
+        &bull; <i>"Which carrier handled this in transit?"</i> &rarr; ledger only, no inference<br>
+        &bull; <i>"How many people are in this image?"</i> &rarr; unsupported capability<br>
+        &bull; <i>"What is the weather in Chennai?"</i> &rarr; out of scope
+      </div>
+
+      <div id="rerr" class="err"></div>
+
+      <div id="rout" class="hide" style="margin-top:14px">
+        <span class="badge" id="rbadge"></span>
+        <span class="kv" id="rflags" style="margin-left:10px"></span>
+        <div class="summary" id="rsum"></div>
+        <table id="rtab"></table>
+        <pre id="rjson" class="hide"></pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const COLOR = {"package":"#3fb950","damaged-package":"#f85149"};
+const $ = id => document.getElementById(id);
+let picked = null, lastDetect = null;
+
+/* ---------- health ---------- */
+fetch("/health").then(r=>r.json()).then(h=>{
+  $("dot").className = "dot " + (h.model_loaded ? "up":"down");
+  $("mstat").textContent = h.model_loaded
+    ? `model ready · ${h.classes.join(", ")} · guardrail ${h.guardrail_threshold}`
+    : "model NOT loaded";
+}).catch(()=>{ $("dot").className="dot down"; $("mstat").textContent="API unreachable"; });
+
+/* ---------- file picking ---------- */
+const drop = $("drop");
+drop.onclick = () => $("file").click();
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave = () => drop.classList.remove("over");
+drop.ondrop = e => {
+  e.preventDefault(); drop.classList.remove("over");
+  if (e.dataTransfer.files[0]) take(e.dataTransfer.files[0]);
+};
+$("file").onchange = e => { if (e.target.files[0]) take(e.target.files[0]); };
+
+function take(f){
+  picked = f;
+  drop.innerHTML = `<b style="color:var(--tx)">${f.name}</b><br>${(f.size/1024).toFixed(0)} KB`;
+  $("run").disabled = false;
+}
+
+/* ---------- Part A ---------- */
+$("run").onclick = async () => {
+  if (!picked) return;
+  $("derr").textContent = ""; $("run").disabled = true; $("run").textContent = "Detecting…";
+  try{
+    const fd = new FormData(); fd.append("file", picked);
+    const res = await fetch("/api/v1/detect", {method:"POST", body:fd});
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || `HTTP ${res.status}`);
+    lastDetect = data;
+    draw(picked, data);
+    $("dout").classList.remove("hide");
+    $("dl").classList.remove("hide"); $("tog").classList.remove("hide");
+    $("djson").textContent = JSON.stringify(data, null, 2);
+  }catch(err){ $("derr").textContent = "Detection failed: " + err.message; }
+  $("run").disabled = false; $("run").textContent = "Run detection";
+};
+
+function draw(file, data){
+  const img = new Image();
+  img.onload = () => {
+    const cv = $("cv"), cx = cv.getContext("2d");
+    cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+    cx.drawImage(img, 0, 0);
+    const lw = Math.max(2, Math.round(cv.width/300));
+    const fs = Math.max(13, Math.round(cv.width/38));
+    cx.lineWidth = lw; cx.font = `600 ${fs}px system-ui,sans-serif`;
+    cx.textBaseline = "top";
+
+    data.detections.forEach(d => {
+      const [x1,y1,x2,y2] = d.bbox, col = COLOR[d.label] || "#5b9dff";
+      cx.strokeStyle = col; cx.strokeRect(x1, y1, x2-x1, y2-y1);
+      const tag = `${d.label} ${d.confidence.toFixed(3)}`;
+      const tw = cx.measureText(tag).width, th = fs*1.45;
+      const ty = y1 - th < 0 ? y1 : y1 - th;
+      cx.fillStyle = col; cx.fillRect(x1 - lw/2, ty, tw + fs*0.7, th);
+      cx.fillStyle = "#000"; cx.fillText(tag, x1 + fs*0.28, ty + th*0.18);
+    });
+    URL.revokeObjectURL(img.src);
+  };
+  img.src = URL.createObjectURL(file);
+
+  $("dmeta").innerHTML =
+    `<b>${data.count}</b> detection(s) &middot; ${data.image_size[0]}&times;${data.image_size[1]} px `
+    + `&middot; ${data.inference_time_ms.toFixed(1)} ms inference`;
+
+  $("dtab").innerHTML = data.detections.length
+    ? `<tr><th>Class</th><th>Confidence</th><th>Box [x1,y1,x2,y2]</th></tr>` +
+      data.detections.map(d => {
+        const c = COLOR[d.label] || "#5b9dff";
+        return `<tr><td><span class="swatch" style="background:${c}"></span>${d.label}</td>`
+             + `<td>${d.confidence.toFixed(4)}</td>`
+             + `<td class="kv">${d.bbox.map(v=>v.toFixed(1)).join(", ")}</td></tr>`;
+      }).join("")
+    : `<tr><td class="kv">Nothing detected above the 0.25 serving threshold.</td></tr>`;
+}
+
+$("dl").onclick = () => {
+  const a = document.createElement("a");
+  a.download = `detection_${Date.now()}.png`;
+  a.href = $("cv").toDataURL("image/png");
+  a.click();
+};
+$("tog").onclick = () => $("djson").classList.toggle("hide");
+$("tog2").onclick = () => $("rjson").classList.toggle("hide");
+
+/* ---------- Part B ---------- */
+$("ask").onclick = async () => {
+  $("rerr").textContent = ""; $("ask").disabled = true; $("ask").textContent = "Reasoning…";
+  try{
+    const payload = {package_id: $("pkg").value, query: $("q").value};
+    if ($("img").value) payload.image_path = $("img").value;
+
+    const res = await fetch("/api/v1/reason", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.detail ? JSON.stringify(d.detail) : `HTTP ${res.status}`);
+
+    $("rbadge").textContent = d.status;
+    $("rbadge").className = "badge b-" + d.status;
+    $("rflags").innerHTML =
+      `vision: <b>${d.requires_vision_model}</b> &nbsp; guardrail: <b>${d.guardrail_passed}</b>`
+      + (d.max_critical_confidence !== null && d.max_critical_confidence !== undefined
+          ? ` &nbsp; peak: <b>${d.max_critical_confidence.toFixed(4)}</b>` : "");
+    $("rsum").textContent = d.decision_summary;
+
+    $("rtab").innerHTML = (d.detections && d.detections.length)
+      ? `<tr><th>Class</th><th>Confidence</th></tr>` + d.detections.map(x =>
+          `<tr><td><span class="swatch" style="background:${COLOR[x.label]||"#5b9dff"}"></span>`
+          + `${x.label}</td><td>${x.confidence.toFixed(4)}</td></tr>`).join("")
+      : "";
+
+    $("rjson").textContent = JSON.stringify(d, null, 2);
+    $("rout").classList.remove("hide"); $("tog2").classList.remove("hide");
+  }catch(err){ $("rerr").textContent = "Reasoning failed: " + err.message; }
+  $("ask").disabled = false; $("ask").textContent = "Ask";
+};
+</script>
+</body>
+</html>

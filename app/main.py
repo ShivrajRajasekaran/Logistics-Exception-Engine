@@ -23,7 +23,7 @@ import cv2
 import numpy as np
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from app import detector, reasoning
 from app.schemas import DetectResponse, ReasonRequest, ReasonResponse
@@ -35,6 +35,8 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)-7s | %(name)s | %(message)s",
 )
 log = logging.getLogger("exception-engine.api")
+
+STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/bmp", "image/webp"}
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", str(20 * 1024 * 1024)))
@@ -155,6 +157,20 @@ def _require_model() -> None:
             detail=("Detection model is not loaded. Train with scripts/train.py or place "
                     "a checkpoint at the path given by WEIGHTS_PATH."),
         )
+
+
+@app.get("/", include_in_schema=False)
+def ui():
+    """Single-page demo console.
+
+    Served from this app rather than a second container so `docker compose up`
+    still brings up the whole system. Returns 404 rather than 500 if the asset
+    is missing, since the API must stay usable without it.
+    """
+    index = STATIC_DIR / "index.html"
+    if not index.exists():
+        raise HTTPException(status_code=404, detail="UI asset not found.")
+    return FileResponse(index)
 
 
 @app.get("/health")

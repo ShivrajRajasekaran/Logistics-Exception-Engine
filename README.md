@@ -78,11 +78,27 @@ are reviewable without credentials.
 
 ```bash
 docker compose up --build
-curl http://localhost:8000/health
 ```
 
+Then open **<http://localhost:8000/>** for the demo console, or hit the API directly.
 Weights and sample images are bind-mounted, so a checkpoint can be swapped without a
 rebuild.
+
+### Demo console
+
+The container serves a single-page UI at `/` alongside the API, so one command brings up
+the whole system. It has no build step and no CDN dependencies, so it works offline.
+
+* **Detection panel** draws bounding boxes on a canvas with class colours and confidence
+  values, and exports the annotated result as a PNG.
+* **Reasoning panel** shows the status as a colour-coded badge, with preset questions that
+  exercise each routing branch: a custody question that spends no inference, a question
+  about people that returns `UNSUPPORTED_CAPABILITY`, and an unrelated one that returns
+  `OUT_OF_SCOPE`.
+* **Raw JSON** toggles on both panels, so the exact API response sits beside the visual.
+
+The UI is convenience only. Both endpoints are fully usable without it, and it is excluded
+from the OpenAPI schema at `/docs`.
 
 ## Endpoints
 
