@@ -435,14 +435,20 @@ Both sample routes are excluded from the OpenAPI schema. They exist for the cons
 
 `reports/` holds the committed diagnostics so a reviewer never has to retrain to see them:
 
-| File | What it shows |
-| :--- | :--- |
-| `confusion_matrix.png` | normalised confusion matrix, v3 on the held-out test split |
-| `pr_curve.png` | precision-recall curve per class, v3 on the held-out test split |
-| `training_curves.png` | loss and mAP across the v3 run, 58 epochs completed of 60 |
-| `metrics_test_split.json` | the exact numbers quoted in MEMO.md |
-| `shortcuts_v1.json` / `shortcuts_v3.json` | shortcut-dependence before and after the dataset fix |
-| `dedup_sweep.json` | the IoU threshold sweep behind the 0.7 choice |
+| File | Model | What it shows |
+| :--- | :--- | :--- |
+| `metrics_test_split.json` | v3 | the exact numbers quoted in MEMO.md, including confusion behaviour and per-source recall |
+| `confusion_matrix.png` | v3 | normalised confusion matrix on the held-out test split |
+| `pr_curve.png` | v3 | precision-recall curve per class on the held-out test split |
+| `training_curves.png` | v3 | loss and mAP across the run, 58 epochs completed of 60 |
+| `shortcuts_v1.json` / `shortcuts_v3.json` | v1, v3 | shortcut-dependence before and after the dataset fix |
+| `dedup_sweep.json` | v3 | the IoU threshold sweep behind the 0.7 choice |
+| `metrics_baseline_persource.json` | v1 | the per-source collapse that triggered the dataset pivot |
+| `metrics_3class_baseline.json` | v0 | the superseded 3-class baseline, kept for the comparison |
+
+> The `weights` field inside the older JSON files reads `weights/best.pt` because that
+> path held the then-current checkpoint when each was generated. It now holds v3. Use the
+> **Model** column above, not that field, to tell which checkpoint produced a file.
 
 Regenerate the tables, including the two analyses the brief asks for:
 

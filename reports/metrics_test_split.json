@@ -1,5 +1,5 @@
 {
-  "weights": "weights\\best_v3.pt",
+  "weights": "weights\\best.pt",
   "split": "test",
   "imgsz": 640,
   "conf_threshold": 0.001,
@@ -25,10 +25,10 @@
     }
   },
   "speed_ms": {
-    "preprocess": 0.42,
-    "inference": 24.27,
+    "preprocess": 0.49,
+    "inference": 25.3,
     "loss": 0.0,
-    "postprocess": 0.49
+    "postprocess": 0.88
   },
   "confusion": {
     "package": {
