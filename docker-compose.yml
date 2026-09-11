@@ -4,8 +4,9 @@
 #
 # OPENAI_API_KEY is optional and read from the shell if exported; without it
 # /reason returns a labelled deterministic summary instead of LLM prose.
-# Weights and sample images are bind-mounted rather than baked into the image,
-# so a reviewer can swap a checkpoint without a rebuild.
+# Weights and sample images are baked into the image, so `docker run` alone
+# works. These read-only bind mounts shadow the same paths during local
+# development, so a reviewer can swap a checkpoint without a rebuild.
 
 services:
   exception-engine:
