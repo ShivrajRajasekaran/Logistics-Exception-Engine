@@ -182,7 +182,7 @@ as `CLEAR` rather than "insufficient", because we know the camera actually saw a
   "requires_vision_model": true,
   "guardrail_passed": true,
   "max_critical_confidence": 0.0,
-  "decision_summary": "[deterministic fallback - LLM unavailable] No defect class detected. Observed objects: {'package': 1}.",
+  "decision_summary": "[deterministic fallback - no LLM key configured] No defect class detected. Observed objects: {'package': 1}.",
   "detections": [
     {"label": "package", "confidence": 0.967, "bbox": [350.95, 205.96, 412.55, 302.25]}
   ]

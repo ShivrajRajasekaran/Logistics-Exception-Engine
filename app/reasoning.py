@@ -248,6 +248,25 @@ def synthesize(query: str, detections: List[dict], counts: Dict[str, int],
         return _deterministic_fallback(detections, counts, ledger_record, error=str(exc))
 
 
+def _describe_llm_error(error: str) -> str:
+    """
+    Condense a provider exception into a short readable cause.
+
+    The raw string is already written to the log at WARNING. Splicing 80
+    characters of it into decision_summary put a truncated JSON error blob at
+    the front of the operator-facing answer, which is what the demo console and
+    the API response both surface first.
+    """
+    text = error.lower()
+    if "429" in text or "rate limit" in text or "quota" in text:
+        return "LLM provider rate limit"
+    if "401" in text or "403" in text or "api key" in text or "authentic" in text:
+        return "LLM credentials rejected"
+    if "timeout" in text or "timed out" in text or "connection" in text:
+        return "LLM provider unreachable"
+    return "LLM call failed"
+
+
 def _deterministic_fallback(detections: List[dict], counts: Dict[str, int],
                             ledger_record: Optional[dict], error: str = None) -> str:
     """
@@ -259,9 +278,9 @@ def _deterministic_fallback(detections: List[dict], counts: Dict[str, int],
     from app.detector import CRITICAL_CLASSES
 
     defects = [d for d in detections if d["label"] in CRITICAL_CLASSES]
-    prefix = "[deterministic fallback - LLM unavailable] "
+    prefix = "[deterministic fallback - no LLM key configured] "
     if error:
-        prefix = "[deterministic fallback - LLM error: %s] " % error[:80]
+        prefix = "[deterministic fallback - %s] " % _describe_llm_error(error)
 
     if not detections and ledger_record:
         hops = ledger_record.get("transit_history", [])

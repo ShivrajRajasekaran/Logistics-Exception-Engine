@@ -173,6 +173,31 @@ def ui():
     return FileResponse(index)
 
 
+@app.get("/samples/{name}", include_in_schema=False)
+def sample_image(name: str):
+    """Serve a bundled sample image so the demo console can show thumbnails.
+
+    Resolves the path and confirms it is inside sample_images/ before serving:
+    accepting a bare name from the URL would otherwise let `../` escape the
+    directory and read arbitrary files.
+    """
+    root = (Path(__file__).resolve().parent.parent / "sample_images").resolve()
+    target = (root / name).resolve()
+    if root not in target.parents or not target.is_file():
+        raise HTTPException(status_code=404, detail="No such sample image.")
+    return FileResponse(target)
+
+
+@app.get("/api/v1/samples", include_in_schema=False)
+def list_samples():
+    """Names of the bundled samples, so the UI never hardcodes a filename."""
+    root = Path(__file__).resolve().parent.parent / "sample_images"
+    if not root.is_dir():
+        return {"samples": []}
+    return {"samples": sorted(p.name for p in root.iterdir()
+                              if p.suffix.lower() in {".jpg", ".jpeg", ".png"})}
+
+
 @app.get("/health")
 def health():
     """Readiness probe. Also surfaces the thresholds, so a reviewer can see
