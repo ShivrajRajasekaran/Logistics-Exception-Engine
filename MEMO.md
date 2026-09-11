@@ -1,4 +1,4 @@
-# Technical Memo: Parcel Exception Detection & Reasoning API
+# Technical Memo: Logistics Parcel Exception Detection & Reasoning API
 
 **Track:** CV + Applied ML Engineering — RT-DETR-L detection with a framework-free reasoning layer
 
