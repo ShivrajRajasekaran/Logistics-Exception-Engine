@@ -1,4 +1,4 @@
-# Parcel Exception Detection &amp; Reasoning API
+# Logistics Parcel Exception Detection &amp; Reasoning API
 
 **A logistics damage-triage service that knows when to stay silent.**
 
