@@ -36,16 +36,26 @@ COPY app/ ./app/
 COPY scripts/ ./scripts/
 COPY dataset/data.yaml ./dataset/data.yaml
 
+# Baked in as a self-sufficient default. docker-compose overrides both with
+# identical read-only bind mounts for local development; a standalone
+# `docker run`, or a host that only speaks Dockerfile (Hugging Face Spaces,
+# Render, a bare VM), has no compose step and needs these present already.
+COPY weights/best.pt ./weights/best.pt
+COPY sample_images/ ./sample_images/
+
 # Non-root. Ultralytics writes a settings file at import, so give the runtime
 # user a writable home and config dir.
 RUN useradd --create-home --uid 1000 appuser \
-    && mkdir -p /app/weights /app/sample_images /tmp/Ultralytics \
+    && mkdir -p /tmp/Ultralytics \
     && chown -R appuser:appuser /app /tmp/Ultralytics
 USER appuser
 
+# HF Spaces (and most single-container PaaS hosts) inject $PORT and expect
+# the process to bind it; default to 8000 for docker-compose/local `docker run`.
+ENV PORT=8000
 EXPOSE 8000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-    CMD curl -fsS http://localhost:8000/health || exit 1
+    CMD curl -fsS http://localhost:${PORT}/health || exit 1
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]

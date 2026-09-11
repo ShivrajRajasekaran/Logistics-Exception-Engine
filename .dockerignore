@@ -14,8 +14,13 @@ dataset/val/
 dataset/test/
 runs/
 
-# Weights are bind-mounted by docker-compose, not baked in.
-weights/
+# The serving checkpoint is baked in so the image is self-sufficient on a
+# host with no docker-compose (Hugging Face Spaces, Render, a bare VM).
+# docker-compose still bind-mounts weights/ read-only over the same path, so
+# swapping a checkpoint locally never needs a rebuild. Other checkpoints
+# (best_v3.pt, experiment weights) are excluded to keep the image small.
+weights/*
+!weights/best.pt
 
 .env
 .git/
