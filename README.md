@@ -293,6 +293,13 @@ Verified on all three paths: `/health`, `/api/v1/samples`, `/samples/{name}` and
 `/api/v1/detect` all serve correctly from a container started with zero volumes and zero
 environment file, and again with a non-default `PORT`.
 
+Measured footprint: **311 MiB idle** with the checkpoint loaded, **530 MiB peak** during
+inference. That rules out 512 MB free tiers and makes Hugging Face Spaces the right free
+host. [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) deploys there on every
+push to `main` once a token is configured.
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for host comparison, setup and the manual path.
+
 ---
 
 ## Endpoints
@@ -538,3 +545,4 @@ experiments/
 | :--- | :--- |
 | [MEMO.md](MEMO.md) | the two-page technical memo: sourcing, pivots, results, five failure cases |
 | [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | hardware, environment, dataset build, training command, evaluation |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | measured footprint, host comparison, automated and manual deployment |

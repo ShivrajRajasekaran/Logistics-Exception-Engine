@@ -1,0 +1,110 @@
+# Deploy the serving container to a Hugging Face Space.
+#
+# WHY THIS HOST
+# The container was measured at 311 MiB idle with the checkpoint loaded and
+# 530 MiB peak during inference. That rules out the 512 MB free tiers offered
+# by several PaaS providers. A Hugging Face Space on free `cpu-basic` hardware
+# has 2 vCPU and 16 GB, so it fits with room to spare, and it builds the
+# Dockerfile itself rather than requiring a 2.79 GB image push.
+#
+# WHY A FRESH COMMIT RATHER THAN A HISTORY PUSH
+# weights/best.pt is a 63 MB regular git blob here. The Hub requires files over
+# 10 MB to be LFS pointers, so pushing this repository's history would need the
+# whole history rewritten into LFS. Building one fresh commit in a temp
+# directory sidesteps that and keeps the Space repository small.
+#
+# SETUP (once)
+#   1. Create the Space: huggingface.co -> New Space -> Docker SDK,
+#      CPU basic (free). Do not let it generate a Dockerfile.
+#   2. Repository Settings -> Secrets and variables -> Actions:
+#        secret   HF_TOKEN     a Hugging Face token with write scope
+#        variable HF_USERNAME  your Hugging Face username
+#        variable HF_SPACE     the Space name, e.g. logistics-exception-engine
+#
+# Without those the job exits cleanly with a message rather than failing, so a
+# fork or a clone with no Hugging Face account still gets a green build.
+
+name: Deploy to Hugging Face Space
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Confirm deployment is configured
+        id: gate
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ] || [ -z "${{ vars.HF_USERNAME }}" ] || [ -z "${{ vars.HF_SPACE }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "HF_TOKEN, HF_USERNAME or HF_SPACE is not set. Skipping deployment."
+            echo "See the setup notes at the top of this workflow file."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Git LFS
+        if: steps.gate.outputs.configured == 'true'
+        run: git lfs install
+
+      - name: Assemble the Space repository
+        if: steps.gate.outputs.configured == 'true'
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/space && mkdir -p /tmp/space
+
+          # Only what the container needs to build and serve. The checkpoint
+          # is named explicitly: copying weights/ wholesale would sweep in any
+          # experiment checkpoints sitting beside the shipped one.
+          cp -r app scripts sample_images /tmp/space/
+          mkdir -p /tmp/space/weights && cp weights/best.pt /tmp/space/weights/
+          cp Dockerfile requirements.txt /tmp/space/
+          mkdir -p /tmp/space/dataset && cp dataset/data.yaml /tmp/space/dataset/
+
+          # Spaces identifies a Docker Space from README front matter, and
+          # app_port must match the port the container listens on.
+          {
+            echo "---"
+            echo "title: Logistics Exception Engine"
+            echo "emoji: 📦"
+            echo "colorFrom: blue"
+            echo "colorTo: gray"
+            echo "sdk: docker"
+            echo "app_port: 8000"
+            echo "pinned: false"
+            echo "---"
+            echo
+            sed 's/^# .*/# Logistics Exception Engine/' README.md
+          } > /tmp/space/README.md
+
+      - name: Push to the Space
+        if: steps.gate.outputs.configured == 'true'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd /tmp/space
+          git init -q -b main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git lfs track "*.pt"
+          git add .gitattributes .
+          git commit -q -m "Deploy ${GITHUB_SHA::7} from ${GITHUB_REPOSITORY}"
+
+          # The Space is a deployment target, not a source of truth, so a single
+          # replacing commit is correct here and keeps its history from growing
+          # a 63 MB LFS object per push.
+          git push --force \
+            "https://user:${HF_TOKEN}@huggingface.co/spaces/${{ vars.HF_USERNAME }}/${{ vars.HF_SPACE }}" \
+            main
+
+          echo "Deployed. The Space builds the Dockerfile; watch its Logs tab."
+          echo "URL: https://${{ vars.HF_USERNAME }}-${{ vars.HF_SPACE }}.hf.space/"
