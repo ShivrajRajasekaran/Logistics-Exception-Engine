@@ -169,8 +169,9 @@ small kernels that Ultralytics' Python-loop deformable attention launches.
 
 ### Command
 
-Run from the repository root with the venv active. All defaults are already the
-recommended values, so no flags are needed:
+Run from the repository root with the venv active. Both flags are required: the
+script's defaults (`--epochs 40 --name rtdetr_logistics_v1`) reproduce the superseded
+v1 configuration, not the shipped v3 model.
 
 ```bash
 python scripts/train.py --name dataset_v3 --epochs 60

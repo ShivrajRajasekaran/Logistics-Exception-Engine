@@ -89,8 +89,9 @@ damaged 419 correct / 19 called package / 165 missed.
 0.934, but 0.000 on `packages2` and `biradar`, and down on `moratuwa` (0.455→0.273) and
 `parcel-box-damage` (0.570→0.395). **V3 traded one source dependence for another rather
 than becoming source-independent**; source-only predictability is still 0.79 against a
-0.56 baseline. Failure case 3 gives the mechanism. Expect near 0.625 on a hidden set
-resembling newbox and materially less on other capture styles. One real gain: newbox
+0.56 baseline. Failure case 3 gives the mechanism. Hidden-set performance may therefore
+vary materially with capture style; the 0.625 figure is a measurement on our own held-out
+split, not a forecast for an unseen distribution. One real gain: newbox
 `package` recall 0.000 → 0.559, so V3 finds intact parcels outside `haw-packages`.
 
 ## 5. Five failure cases (shipped model, each image inspected)

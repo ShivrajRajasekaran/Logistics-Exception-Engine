@@ -211,9 +211,18 @@ Model weights (`weights/best.pt`) are committed to this repository. No separate 
 is required: clone, install, and the API serves the trained model immediately. They load
 from `WEIGHTS_PATH`, which defaults to that path.
 
+> **`weights/best.pt` is the shipped v3 checkpoint**, selected by Ultralytics fitness from
+> the v3 run at epoch 43 of 58 completed. It is byte-identical to
+> `runs/train/dataset_v3/weights/best.pt`.
+
 To retrain from scratch, follow [REPRODUCIBILITY.md](REPRODUCIBILITY.md): build the
-dataset, run `python scripts/train.py`, then copy
-`runs/train/rtdetr_logistics_v1/weights/best.pt` to `weights/best.pt`.
+dataset, then run the v3 training command. The two flags matter, because the script's
+defaults reproduce the superseded v1 configuration, not v3:
+
+```bash
+python scripts/train.py --name dataset_v3 --epochs 60
+cp runs/train/dataset_v3/weights/best.pt weights/best.pt
+```
 
 > **Without an API key** the service still runs end to end. `/reason` returns a clearly
 > labelled deterministic summary instead of LLM prose, so routing and guardrail behaviour
@@ -428,9 +437,9 @@ Both sample routes are excluded from the OpenAPI schema. They exist for the cons
 
 | File | What it shows |
 | :--- | :--- |
-| `confusion_matrix.png` | normalised confusion matrix from the training run |
-| `pr_curve.png` | precision-recall curve per class |
-| `training_curves.png` | loss and mAP across all 40 epochs |
+| `confusion_matrix.png` | normalised confusion matrix, v3 on the held-out test split |
+| `pr_curve.png` | precision-recall curve per class, v3 on the held-out test split |
+| `training_curves.png` | loss and mAP across the v3 run, 58 epochs completed of 60 |
 | `metrics_test_split.json` | the exact numbers quoted in MEMO.md |
 | `shortcuts_v1.json` / `shortcuts_v3.json` | shortcut-dependence before and after the dataset fix |
 | `dedup_sweep.json` | the IoU threshold sweep behind the 0.7 choice |
@@ -506,7 +515,13 @@ weights/          best.pt, the shipped checkpoint
 sample_images/    three parcels covering CLEAR, flagged and refused
 reports/          committed metrics, curves and diagnostics
 dataset/          data.yaml, split_report.json  (images rebuilt by prepare_dataset.py)
-runs/             archive/ holds the superseded 3-class baseline for comparison
+runs/train/       dataset_v3/ is the shipped run; rtdetr_logistics_v1/ is the v1 baseline
+
+experiments/
+  v0_3class/      the superseded 3-class baseline
+  v1_baseline/    v1 metrics, kept for the before/after comparison
+  v2_rejected/    the normalisation experiment, rejected on its own merits
+  v3_final/       the shipped run: manifest, results.csv, metrics
 ```
 
 ---
