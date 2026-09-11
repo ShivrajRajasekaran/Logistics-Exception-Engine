@@ -6,7 +6,7 @@
 
 ## 1. Domain, sourcing, labelling
 
-Logistics Parcel triage at a sorting hub: concrete classes, a binary operational decision (normal
+Logistics parcel triage at a sorting hub: concrete classes, a binary operational decision (normal
 flow or exception bay), cost in both directions. COCO has backpack, handbag and suitcase
 but no box, package, parcel or carton, so both final classes are non-COCO.
 
