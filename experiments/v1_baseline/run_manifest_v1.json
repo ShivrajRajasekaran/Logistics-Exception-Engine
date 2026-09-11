@@ -1,0 +1,20 @@
+{
+  "model": "rtdetr-l.pt",
+  "data": "dataset\\data.yaml",
+  "epochs": 40,
+  "batch": 4,
+  "imgsz": 640,
+  "seed": 42,
+  "optimizer": "AdamW",
+  "lr0": 0.0001,
+  "lrf": 0.01,
+  "weight_decay": 0.0001,
+  "warmup_epochs": 3.0,
+  "workers": 4,
+  "strict_deterministic": false,
+  "cudnn_benchmark": true,
+  "torch": "2.7.0+cu128",
+  "cuda": "12.8",
+  "device_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "best_weights": "runs\\train\\rtdetr_logistics_v1\\weights\\best.pt"
+}

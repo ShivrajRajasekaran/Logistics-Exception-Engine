@@ -2,21 +2,25 @@
   "seed": 42,
   "class_source_independence": {
     "concentration_per_class": {
-      "damaged-package": 0.4754,
-      "package": 0.9963
+      "damaged-package": 0.5712,
+      "package": 0.5517
     },
     "dominant_source_per_class": {
-      "damaged-package": "parcel-box-damage",
+      "damaged-package": "newbox-mixed",
       "package": "haw-packages"
     },
     "multi_class_sources": [
+      "newbox-mixed",
       "biradar-damage"
     ],
     "threshold": 0.95,
-    "passed": false,
-    "overridden": true
+    "passed": true
   },
   "class_instances_per_source": {
+    "newbox-mixed": {
+      "damaged-package": 2110,
+      "package": 1308
+    },
     "parcel-box-damage": {
       "damaged-package": 753
     },
@@ -37,31 +41,32 @@
       "damaged-package": 299
     }
   },
-  "total_images": 2869,
+  "total_images": 6258,
   "split_counts": {
-    "train": 2007,
-    "test": 431,
-    "val": 431
+    "test": 939,
+    "train": 4379,
+    "val": 940
   },
   "class_instances_total": {
-    "damaged-package": 1584,
-    "package": 1623
+    "damaged-package": 3694,
+    "package": 2931
   },
   "class_instances_per_split": {
-    "train": {
-      "damaged-package": 1117,
-      "package": 1137
-    },
     "test": {
-      "damaged-package": 227,
-      "package": 242
+      "damaged-package": 603,
+      "package": 385
+    },
+    "train": {
+      "damaged-package": 2460,
+      "package": 2160
     },
     "val": {
-      "damaged-package": 240,
-      "package": 244
+      "damaged-package": 631,
+      "package": 386
     }
   },
   "images_per_source": {
+    "newbox-mixed": 3389,
     "parcel-box-damage": 745,
     "moratuwa-parcel-damage": 74,
     "haw-packages": 1614,
@@ -70,16 +75,21 @@
     "box-damage-open": 85
   },
   "dropped_annotations": {
-    "duplicate-image": 83,
+    "duplicate-image": 261,
     "invoice": 1,
     "label": 37,
     "paint": 9
   },
-  "groups": 1506,
+  "groups": 2133,
   "split_ratios_requested": {
     "train": 0.7,
     "val": 0.15,
     "test": 0.15
   },
-  "stratified_by": "source project, then capture-sequence group"
+  "stratified_by": "source project, then capture-sequence group",
+  "canonical_normalization": false,
+  "canonical_size": null,
+  "bottleneck_size": null,
+  "resolution_only_accuracy": 0.7905,
+  "distinct_resolutions": 3
 }

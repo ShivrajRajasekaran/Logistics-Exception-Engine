@@ -141,7 +141,22 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--imgsz", type=int, default=640)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--device", default="0", help="'0' for first GPU, 'cpu' to force CPU")
-    p.add_argument("--workers", type=int, default=4)
+    # Windows spawns dataloader workers as full processes rather than forking.
+    # Each commits its own torch runtime and CUDA context, and on this 16 GB
+    # machine that is the binding constraint - not VRAM, which peaks at 3.7 GB
+    # of 8 GB.
+    #
+    # Measured during a failed run at workers=4: Windows commit charge hit its
+    # 23.7 GB limit, a host allocation failed with "fatal : Memory allocation
+    # failure", and the next CUDA call died with "CUDA error: unknown error"
+    # inside the AdamW foreach kernel. It is a host-memory failure surfacing as
+    # a CUDA error, which is why lowering batch size or freeing VRAM does not
+    # help. At workers=2 the same run passed iteration 271 at 3.38 it/s with
+    # zero failures, against a crash at iteration 7 with workers=4.
+    #
+    # Headroom remained only ~0.5 GB even at 2, so do not raise this without
+    # watching commit charge. Use --workers 0 if the machine is otherwise busy.
+    p.add_argument("--workers", type=int, default=2)
     p.add_argument("--lr0", type=float, default=1e-4)
     p.add_argument("--lrf", type=float, default=0.01)
     p.add_argument("--weight-decay", dest="weight_decay", type=float, default=1e-4)

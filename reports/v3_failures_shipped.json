@@ -1,0 +1,4172 @@
+[
+ {
+  "image": "biradar-damage_damage11_jpg.rf.1d62bb5811a1b921f64187e5a5485189_4cae1428.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.038,
+  "gt_area": 0.02578,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage11_jpg.rf.4bc37ae2d9b3c78b947aabede0a50934_8e291c0b.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.079,
+  "gt_area": 0.05663,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage11_jpg.rf.4bc37ae2d9b3c78b947aabede0a50934_8e291c0b.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.091,
+  "gt_area": 0.06522,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage11_jpg.rf.4bc37ae2d9b3c78b947aabede0a50934_8e291c0b.jpg",
+  "src": "biradar-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6227,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "biradar-damage_damage13_jpg.rf.1fc9fefb725628462fa9f3607b3e914a_5570f55a.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.085,
+  "gt_area": 0.07828,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage13_jpg.rf.1fc9fefb725628462fa9f3607b3e914a_5570f55a.jpg",
+  "src": "biradar-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9255,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "biradar-damage_damage13_jpg.rf.93d3018777b545eb82c5bf74919cefda_f9897362.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.081,
+  "gt_area": 0.08021,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage13_jpg.rf.93d3018777b545eb82c5bf74919cefda_f9897362.jpg",
+  "src": "biradar-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9362,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "biradar-damage_damage1_jpg.rf.33cc5a5f66e61fbbdfb01124b1af22b6_54d91d53.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.039,
+  "gt_area": 0.16317,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage38_jpg.rf.000584150798ddac9f57eeba9fbb4cdb_c60dcdc6.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.226,
+  "gt_area": 0.06122,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage54_jpg.rf.b488b3001f9a739fdd08ec8b9e4a9ec1_9fa00363.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.113,
+  "gt_area": 0.06563,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage54_jpg.rf.b488b3001f9a739fdd08ec8b9e4a9ec1_9fa00363.jpg",
+  "src": "biradar-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8098,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "biradar-damage_damage9_jpg.rf.572cffd1091d88abd00699d5cbce6d01_85fc5aba.jpg",
+  "src": "biradar-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.206,
+  "gt_area": 0.12578,
+  "kind": "MISSED"
+ },
+ {
+  "image": "biradar-damage_damage9_jpg.rf.572cffd1091d88abd00699d5cbce6d01_85fc5aba.jpg",
+  "src": "biradar-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7103,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.39ad5b32ba30ee3cde67a907a9cb66f1_5ff830dc.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.256,
+  "gt_area": 0.01007,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.39ad5b32ba30ee3cde67a907a9cb66f1_5ff830dc.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.126,
+  "gt_area": 0.00677,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.39ad5b32ba30ee3cde67a907a9cb66f1_5ff830dc.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.428,
+  "gt_area": 0.13443,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.39ad5b32ba30ee3cde67a907a9cb66f1_5ff830dc.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8165,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.5860c79921b1d007deca381d69946dd7_c0fe37f0.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.213,
+  "gt_area": 0.00677,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.5860c79921b1d007deca381d69946dd7_c0fe37f0.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7502,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.5860c79921b1d007deca381d69946dd7_c0fe37f0.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7162,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.5860c79921b1d007deca381d69946dd7_c0fe37f0.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6426,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.58ef9245174006ee78e8d1f87e28af41_b3ca5210.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7641,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.a7a7a4f07db7c5b3921dd56492c90c85_1ed6743c.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.342,
+  "gt_area": 0.01007,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.a7a7a4f07db7c5b3921dd56492c90c85_1ed6743c.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.417,
+  "gt_area": 0.13432,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_173921-removebg-preview_png.rf.a7a7a4f07db7c5b3921dd56492c90c85_1ed6743c.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.109,
+  "gt_area": 0.01851,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.6429184ee25958da84344d8b4f77d28e_d7f851ce.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8097,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.6b2279c81bfb7eece6b0049c9595e782_cd479fd7.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7571,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.6b2279c81bfb7eece6b0049c9595e782_cd479fd7.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7301,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.6b2279c81bfb7eece6b0049c9595e782_cd479fd7.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6901,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.85aa5181633996f7bf439c954e3a021d_34625a0d.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.213,
+  "gt_area": 0.01723,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.85aa5181633996f7bf439c954e3a021d_34625a0d.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.00216,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.85aa5181633996f7bf439c954e3a021d_34625a0d.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.387,
+  "gt_area": 0.00087,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.85aa5181633996f7bf439c954e3a021d_34625a0d.jpg",
+  "src": "box-damage-open",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.137,
+  "gt_area": 0.02229,
+  "kind": "MISSED"
+ },
+ {
+  "image": "box-damage-open_IMG_20221028_174044-removebg-preview_png.rf.85aa5181633996f7bf439c954e3a021d_34625a0d.jpg",
+  "src": "box-damage-open",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7201,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "haw-packages_final_1085_jpg.rf.4eb5bdc3cc272391fd99bc6234c3406a_b31c88b8.jpg",
+  "src": "haw-packages",
+  "gt": "package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.039,
+  "gt_area": 0.03854,
+  "kind": "MISSED"
+ },
+ {
+  "image": "haw-packages_final_1085_jpg.rf.4eb5bdc3cc272391fd99bc6234c3406a_b31c88b8.jpg",
+  "src": "haw-packages",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6538,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "haw-packages_final_1134_jpg.rf.0c8863f25a04a0cbec8fe250d9700832_223fc5d2.jpg",
+  "src": "haw-packages",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8149,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "moratuwa-parcel-damage_Compressed-20-19-_jpg.rf.e9f705b05f08f92efaa2275fc82c1657_b2904335.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.261,
+  "gt_area": 0.18628,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_Compressed-20-19-_jpg.rf.e9f705b05f08f92efaa2275fc82c1657_b2904335.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8377,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "moratuwa-parcel-damage_Compressed-20-23-_jpg.rf.0913d40f014643fda18c711efef162a7_1a89903e.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.327,
+  "gt_area": 0.14605,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_Compressed-20-4-_jpg.rf.63bf55e3a3a9da53ff0ff54bb9c79086_8693ee9b.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.14,
+  "gt_area": 0.11768,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-22-_jpg.rf.e056ae5b4b4f4029cbdc3553b1e239de_ecbcf795.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.387,
+  "gt_area": 0.27529,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-23-20Hole_jpg.rf.b1fa800e9e2221f239aab9bf8f723775_6f4430c0.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.443,
+  "gt_area": 0.22511,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-23-_jpg.rf.2f167fe6aa641002daa97a44ba77237e_a21ea6ae.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.02862,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-24-20Hole_jpg.rf.26164688dff1b61ac58042fa45a3195b_aca9fa3e.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.044,
+  "gt_area": 0.03154,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-44-20Hole_jpg.rf.c260d64035cf36a8e6bcc88d9ee70891_47c864a8.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.07,
+  "gt_area": 0.05179,
+  "kind": "MISSED"
+ },
+ {
+  "image": "moratuwa-parcel-damage_download-20-44-20Hole_jpg.rf.c260d64035cf36a8e6bcc88d9ee70891_47c864a8.jpg",
+  "src": "moratuwa-parcel-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7074,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_02_2_3_jpg.rf.1d45a3c7e091cead882cc7cf680fb9f2_b414eb17.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8824,
+  "iou": 0.775,
+  "gt_area": 0.57838,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_02_2_3_jpg.rf.1d45a3c7e091cead882cc7cf680fb9f2_b414eb17.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8824,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_11_1_1_jpg.rf.037e8257cf3ae6a5f6738d42b6469ba5_5b7556f1.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9082,
+  "iou": 0.851,
+  "gt_area": 0.66231,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_11_1_1_jpg.rf.037e8257cf3ae6a5f6738d42b6469ba5_5b7556f1.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9082,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_11_1_1_jpg.rf.a0fc45757e03414e859ec12ba033a18c_7eea3717.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9164,
+  "iou": 0.863,
+  "gt_area": 0.6629,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_11_1_1_jpg.rf.a0fc45757e03414e859ec12ba033a18c_7eea3717.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9164,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_11_1_5_jpg.rf.9057773011141551919084d41676b166_99892998.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7287,
+  "iou": 0.873,
+  "gt_area": 0.46624,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_11_1_5_jpg.rf.9057773011141551919084d41676b166_99892998.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7287,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.3db15855a68db8bc55388e78310ea87e_5e2162be.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.8346,
+  "iou": 0.898,
+  "gt_area": 0.63932,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.3db15855a68db8bc55388e78310ea87e_5e2162be.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8346,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.40573713d883e4d101a4cc7b18bdadf0_0e10e4e3.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.886,
+  "iou": 0.913,
+  "gt_area": 0.63932,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.40573713d883e4d101a4cc7b18bdadf0_0e10e4e3.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.886,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.4378154b71b6e41e7b69b98bd305f9be_3a5e85b4.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.8758,
+  "iou": 0.918,
+  "gt_area": 0.63932,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_2_1_jpg.rf.4378154b71b6e41e7b69b98bd305f9be_3a5e85b4.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8758,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_2_2_jpg.rf.9217067ac8f1291ac8d03c2059b42f70_236ae0dc.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8514,
+  "iou": 0.858,
+  "gt_area": 0.6724,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_2_2_jpg.rf.9217067ac8f1291ac8d03c2059b42f70_236ae0dc.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8514,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_2_6_jpg.rf.d650ac247073f5de2034a9f1c42f0942_83bf3383.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6022,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_3_1_jpg.rf.d3ad72cef79dfb0d0d678061e30cd54e_0e6ea466.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9016,
+  "iou": 0.852,
+  "gt_area": 0.50388,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_3_1_jpg.rf.d3ad72cef79dfb0d0d678061e30cd54e_0e6ea466.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9016,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_3_4_jpg.rf.609b7d03abb5afeb71fca65512650d21_31d1e6ca.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9178,
+  "iou": 0.881,
+  "gt_area": 0.75375,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_3_4_jpg.rf.609b7d03abb5afeb71fca65512650d21_31d1e6ca.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9178,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_12_3_4_jpg.rf.ed36c1682cc6136c311cdc42547dedf0_597df2ba.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8998,
+  "iou": 0.875,
+  "gt_area": 0.7531,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_12_3_4_jpg.rf.ed36c1682cc6136c311cdc42547dedf0_597df2ba.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8998,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.0b9f945af505945b5b9b8a5e153e2512_e7792247.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7563,
+  "iou": 0.863,
+  "gt_area": 0.34559,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.0b9f945af505945b5b9b8a5e153e2512_e7792247.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7563,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.74a5651ba4482ce6ff2e498c098dfede_9bc8977e.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7457,
+  "iou": 0.842,
+  "gt_area": 0.34604,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.74a5651ba4482ce6ff2e498c098dfede_9bc8977e.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7457,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.e33314ed9e71817b9ed02f39b0eb1fe4_e79e7a35.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7939,
+  "iou": 0.881,
+  "gt_area": 0.34604,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_20_1_5_jpg.rf.e33314ed9e71817b9ed02f39b0eb1fe4_e79e7a35.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7939,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.5fea1f06ba84566c8c721bdbdb03ddc2_ce5e7eb1.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.837,
+  "iou": 0.726,
+  "gt_area": 0.54395,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.5fea1f06ba84566c8c721bdbdb03ddc2_ce5e7eb1.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.837,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.e6712ed2e695ef5c939e61ced2d79981_c47d6844.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7564,
+  "iou": 0.702,
+  "gt_area": 0.54395,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.e6712ed2e695ef5c939e61ced2d79981_c47d6844.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7564,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.fc3ca999b075257e99a3d2463778ab45_7bbf847c.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.705,
+  "iou": 0.77,
+  "gt_area": 0.54395,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_2mlfxdLeX-Cardboard-file-box_avif.rf.fc3ca999b075257e99a3d2463778ab45_7bbf847c.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.705,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_30_2_5_jpg.rf.83c453e7a8fb6f333fbae5e12752b2bf_be795958.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.6772,
+  "iou": 0.865,
+  "gt_area": 0.25985,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_30_2_5_jpg.rf.83c453e7a8fb6f333fbae5e12752b2bf_be795958.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6772,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_30_2_5_jpg.rf.d37f023593c9b2a5f04e17b95643eee5_b2478eda.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.6435,
+  "iou": 0.759,
+  "gt_area": 0.26064,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_30_2_5_jpg.rf.d37f023593c9b2a5f04e17b95643eee5_b2478eda.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6435,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_35_2_1_jpg.rf.5e18b2c8c10eba1c40135f23a6b7a592_db8e5a0f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9078,
+  "iou": 0.902,
+  "gt_area": 0.63931,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_35_2_1_jpg.rf.5e18b2c8c10eba1c40135f23a6b7a592_db8e5a0f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9078,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_35_2_5_jpg.rf.3893b8ae10bc452b60660387a4c862fe_4c02b158.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7444,
+  "iou": 0.882,
+  "gt_area": 0.56332,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_35_2_5_jpg.rf.3893b8ae10bc452b60660387a4c862fe_4c02b158.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7444,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_35_2_5_jpg.rf.91b25bf909d162c260ac8256abd30d2e_33903968.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.6739,
+  "iou": 0.84,
+  "gt_area": 0.56332,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_35_2_5_jpg.rf.91b25bf909d162c260ac8256abd30d2e_33903968.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6739,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_38_2_5_jpg.rf.e11d963f2852d44f02b7a595329dde6f_4254dc29.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.6069,
+  "iou": 0.585,
+  "gt_area": 0.17568,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_38_2_5_jpg.rf.e11d963f2852d44f02b7a595329dde6f_4254dc29.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6069,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_4_jpg.rf.54ec980376c92e83602706ac6b3ba814_f3d1a6d0.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8937,
+  "iou": 0.903,
+  "gt_area": 0.43528,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_4_jpg.rf.54ec980376c92e83602706ac6b3ba814_f3d1a6d0.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8937,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_4_jpg.rf.7df61cd0ee19228f670d20898b198811_96e197bb.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8824,
+  "iou": 0.924,
+  "gt_area": 0.43528,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_4_jpg.rf.7df61cd0ee19228f670d20898b198811_96e197bb.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8824,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_5_jpg.rf.f34a4d0edb173859815b366dce48e806_d368cfd1.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7517,
+  "iou": 0.854,
+  "gt_area": 0.28184,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_5_jpg.rf.f34a4d0edb173859815b366dce48e806_d368cfd1.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7517,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.a48d151985cd1a1b14e507bfda2029c1_566a61b7.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7273,
+  "iou": 0.864,
+  "gt_area": 0.23314,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.a48d151985cd1a1b14e507bfda2029c1_566a61b7.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7273,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.ddbfc74c783ce18c90fdd7442cadf057_2a387aa8.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8661,
+  "iou": 0.839,
+  "gt_area": 0.23314,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.ddbfc74c783ce18c90fdd7442cadf057_2a387aa8.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8661,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.e705de38ae6461e81d82cd46f4beb42c_6454ca52.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7677,
+  "iou": 0.903,
+  "gt_area": 0.23314,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_39_1_6_jpg.rf.e705de38ae6461e81d82cd46f4beb42c_6454ca52.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7677,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_1_1_jpg.rf.bffe7d561b0967b8a9d13912f04d30c4_8c8ab4df.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9006,
+  "iou": 0.895,
+  "gt_area": 0.58321,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_1_1_jpg.rf.bffe7d561b0967b8a9d13912f04d30c4_8c8ab4df.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9006,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_1_3_jpg.rf.4f3d20e104594e12a72211b3ea46e851_278fddee.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.821,
+  "iou": 0.948,
+  "gt_area": 0.42094,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_1_3_jpg.rf.4f3d20e104594e12a72211b3ea46e851_278fddee.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.821,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_1_3_jpg.rf.5f3cddd9131e91ccac7d2b5f434b6b49_fc2524d7.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7161,
+  "iou": 0.964,
+  "gt_area": 0.42094,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_1_3_jpg.rf.5f3cddd9131e91ccac7d2b5f434b6b49_fc2524d7.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7161,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_1_5_jpg.rf.e30231c58cc89df84932468e4cdb47bd_8b9251b7.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7516,
+  "iou": 0.805,
+  "gt_area": 0.23051,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_1_5_jpg.rf.e30231c58cc89df84932468e4cdb47bd_8b9251b7.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7516,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_2_4_jpg.rf.d69fef7985b2e5bfb74834e31941e7e6_e270a9e4.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7606,
+  "iou": 0.703,
+  "gt_area": 0.30823,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_2_4_jpg.rf.d69fef7985b2e5bfb74834e31941e7e6_e270a9e4.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7606,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_2_4_jpg.rf.f8feb64567e965109f837fffa7c07d1c_0bd27b36.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8729,
+  "iou": 0.73,
+  "gt_area": 0.30885,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_2_4_jpg.rf.f8feb64567e965109f837fffa7c07d1c_0bd27b36.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8729,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_40_2_6_jpg.rf.58dbc774f439a3a4780f9b2e30a4757f_b110a493.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.6767,
+  "iou": 0.888,
+  "gt_area": 0.27532,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_40_2_6_jpg.rf.58dbc774f439a3a4780f9b2e30a4757f_b110a493.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6767,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.72f771c6b25599598cbcacbdf7377ecc_c54afcfc.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7682,
+  "iou": 0.996,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.72f771c6b25599598cbcacbdf7377ecc_c54afcfc.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7682,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.7a46b25636b7f31e17332841d2dec915_404d2fd7.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8547,
+  "iou": 0.995,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.7a46b25636b7f31e17332841d2dec915_404d2fd7.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8547,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.9c6d0ca5cb68d89d8fb7fd003cb309e4_15847bca.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7837,
+  "iou": 0.995,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_41_jpg.rf.9c6d0ca5cb68d89d8fb7fd003cb309e4_15847bca.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7837,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_1_jpg.rf.0297c3fd56300fe029ca299dd7afabb3_d3bb0892.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8682,
+  "iou": 0.746,
+  "gt_area": 0.29599,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_1_jpg.rf.0297c3fd56300fe029ca299dd7afabb3_d3bb0892.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8682,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_1_jpg.rf.453ba80b57bac163d8078f4dfa5eaede_a8d4654e.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.816,
+  "iou": 0.667,
+  "gt_area": 0.29636,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_1_jpg.rf.453ba80b57bac163d8078f4dfa5eaede_a8d4654e.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.816,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_2_jpg.rf.894a4bc5097c0b550c81d7f02c7144e0_450ad7f5.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7583,
+  "iou": 0.886,
+  "gt_area": 0.22922,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_2_jpg.rf.894a4bc5097c0b550c81d7f02c7144e0_450ad7f5.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7583,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.2c55b9433ee6938c753c57ccc9aa1747_ed030495.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7897,
+  "iou": 0.839,
+  "gt_area": 0.22192,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.2c55b9433ee6938c753c57ccc9aa1747_ed030495.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7897,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.2c55b9433ee6938c753c57ccc9aa1747_ed030495.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.602,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.6e55ad1149bda250a357147ad225acc5_531e3f45.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7543,
+  "iou": 0.789,
+  "gt_area": 0.22187,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.6e55ad1149bda250a357147ad225acc5_531e3f45.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7543,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.829d64a1dd241eb0fa30a50e2729bc8f_fc861f8e.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7313,
+  "iou": 0.742,
+  "gt_area": 0.22187,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_3_jpg.rf.829d64a1dd241eb0fa30a50e2729bc8f_fc861f8e.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7313,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_45_3_5_jpg.rf.29d942fd8b3267f0eefcc5e369c151b2_2e3513f5.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7695,
+  "iou": 0.908,
+  "gt_area": 0.29625,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_45_3_5_jpg.rf.29d942fd8b3267f0eefcc5e369c151b2_2e3513f5.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7695,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_50_1_1_jpg.rf.334d8c581e5ad9b83e10640eeca721f6_ef650e82.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.8865,
+  "iou": 0.853,
+  "gt_area": 0.64972,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_50_1_1_jpg.rf.334d8c581e5ad9b83e10640eeca721f6_ef650e82.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8865,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.3a1ac983d9cde1a9ef9944dd03501b06_764ada8f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9221,
+  "iou": 0.997,
+  "gt_area": 0.99687,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.3a1ac983d9cde1a9ef9944dd03501b06_764ada8f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9221,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.5fb47bbe49153a60c48955b0b365878b_cd986eaf.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9206,
+  "iou": 0.993,
+  "gt_area": 0.99766,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.5fb47bbe49153a60c48955b0b365878b_cd986eaf.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9206,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.bc575b3349a6ca32132a5ba4fb1a8e0c_3753d256.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9181,
+  "iou": 0.996,
+  "gt_area": 0.99687,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_57_jpg.rf.bc575b3349a6ca32132a5ba4fb1a8e0c_3753d256.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9181,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.617e03c623da1450e31a15e376baaa83_dbf80eef.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9041,
+  "iou": 0.992,
+  "gt_area": 0.99531,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.617e03c623da1450e31a15e376baaa83_dbf80eef.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9041,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.b5f90e82d873a36a0c339fd1d68f4ba4_118e6841.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9016,
+  "iou": 0.994,
+  "gt_area": 0.99531,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.b5f90e82d873a36a0c339fd1d68f4ba4_118e6841.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9016,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.ee9e96a6088140275b4dd4f8bd1d4c5a_77381a3c.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9182,
+  "iou": 0.991,
+  "gt_area": 0.99531,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_61_jpg.rf.ee9e96a6088140275b4dd4f8bd1d4c5a_77381a3c.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9182,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_66_jpg.rf.869f57991fa563a60dc5578534809a58_757029fa.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8376,
+  "iou": 0.998,
+  "gt_area": 0.99844,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_66_jpg.rf.869f57991fa563a60dc5578534809a58_757029fa.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8376,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_66_jpg.rf.b4793fec70f2910cfc1cac05e9337e2c_452cc479.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8333,
+  "iou": 0.996,
+  "gt_area": 0.99844,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_66_jpg.rf.b4793fec70f2910cfc1cac05e9337e2c_452cc479.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8333,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_6_jpg.rf.f11cfa98667ce2c9b676ecbe85f45d3a_fbc04a62.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7677,
+  "iou": 0.998,
+  "gt_area": 0.99844,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_6_jpg.rf.f11cfa98667ce2c9b676ecbe85f45d3a_fbc04a62.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7677,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_77_jpg.rf.6b5e7bff636766784edcf26f3e6a0205_5f462b12.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.7981,
+  "iou": 0.994,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_77_jpg.rf.6b5e7bff636766784edcf26f3e6a0205_5f462b12.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7981,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_82_jpg.rf.30a6132f5278bb3755469d5af1b65751_e9683031.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8685,
+  "iou": 0.905,
+  "gt_area": 0.90694,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_82_jpg.rf.30a6132f5278bb3755469d5af1b65751_e9683031.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8685,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_82_jpg.rf.d0ba58c4928752c6bbc1f8607335ecec_7a57cee0.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9453,
+  "iou": 0.909,
+  "gt_area": 0.90694,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_82_jpg.rf.d0ba58c4928752c6bbc1f8607335ecec_7a57cee0.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9453,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.6e6b166d6a65a625f38b3c257c02128f_99edcdfb.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9424,
+  "iou": 0.994,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.6e6b166d6a65a625f38b3c257c02128f_99edcdfb.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9424,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.788b8718e28e290a4c5a93aff435edd5_82e9b957.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9436,
+  "iou": 0.987,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.788b8718e28e290a4c5a93aff435edd5_82e9b957.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9436,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.b77f451756011ebaa91e0e96580f21d4_7adb2781.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9448,
+  "iou": 0.996,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_88_jpg.rf.b77f451756011ebaa91e0e96580f21d4_7adb2781.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9448,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_cardboard-box-ripped-up-isolated-on-white-HDC224_jpg.rf.96b4be519c612109fbf7d37ebdac3e21_04b0ab29.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.352,
+  "gt_area": 0.55394,
+  "kind": "MISSED"
+ },
+ {
+  "image": "newbox-mixed_cardboard-box-ripped-up-isolated-on-white-HDC224_jpg.rf.e6e4cacbde3860c273e2f9d84de5359e_16ee4af9.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6171,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_damaged-torn-cardboard-box-packaging-with-hole_157402-3289_avif.rf.0eb900664309c387039f97b1ef098f_e4604a90.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.493,
+  "gt_area": 1.0,
+  "kind": "MISSED"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.026893f7f4b75c304513aa5089c7dc2d_610f1e43.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7128,
+  "iou": 0.507,
+  "gt_area": 0.86117,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.026893f7f4b75c304513aa5089c7dc2d_610f1e43.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7346,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.026893f7f4b75c304513aa5089c7dc2d_610f1e43.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7128,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.df88bf0200957a044c8dbf32f420b9b6_75caa94b.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.7474,
+  "iou": 0.511,
+  "gt_area": 0.86117,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.df88bf0200957a044c8dbf32f420b9b6_75caa94b.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8195,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_istockphoto-1260951792-612x612_jpg.rf.df88bf0200957a044c8dbf32f420b9b6_75caa94b.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.7474,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.505ec10bd1dd0ee4f1eae3ffa4cda923_18debb0f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8914,
+  "iou": 0.97,
+  "gt_area": 0.97041,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.505ec10bd1dd0ee4f1eae3ffa4cda923_18debb0f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8914,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.a442d7b2d6bad02827abaaa75ae648ab_fde6270a.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9404,
+  "iou": 0.972,
+  "gt_area": 0.97195,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.a442d7b2d6bad02827abaaa75ae648ab_fde6270a.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9404,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.c5dea333b56b8b6ee468d691727eaaff_b1cba394.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9135,
+  "iou": 0.963,
+  "gt_area": 0.97195,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_141_cropped_jpg.rf.c5dea333b56b8b6ee468d691727eaaff_b1cba394.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9135,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.414287bdd6efece0f672cb7dfec0ce27_5d8cf7ac.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9501,
+  "iou": 0.987,
+  "gt_area": 0.9922,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.414287bdd6efece0f672cb7dfec0ce27_5d8cf7ac.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9501,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.b70b80927f7da2c4f04553f726f5a6da_a4716c3a.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9479,
+  "iou": 0.991,
+  "gt_area": 0.9922,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.b70b80927f7da2c4f04553f726f5a6da_a4716c3a.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9479,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.be3270dc857405b9406ae0458b16ee1f_3f08444f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9399,
+  "iou": 0.99,
+  "gt_area": 0.9922,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_170_cropped_jpg.rf.be3270dc857405b9406ae0458b16ee1f_3f08444f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9399,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_178_cropped_jpg.rf.cb662733f58c7e11fe83b4657dd52ab1_93ede97f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9419,
+  "iou": 0.831,
+  "gt_area": 0.82826,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_178_cropped_jpg.rf.cb662733f58c7e11fe83b4657dd52ab1_93ede97f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9419,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.861bc65b18c6287f0a8afe9f5939e1d9_f0d484c4.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9377,
+  "iou": 0.994,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.861bc65b18c6287f0a8afe9f5939e1d9_f0d484c4.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9377,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.9b9a0ccf8a9bf91ab83a3d9ee8318cf3_c3250b6f.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9349,
+  "iou": 0.998,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.9b9a0ccf8a9bf91ab83a3d9ee8318cf3_c3250b6f.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9349,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.d24b52b5b1149f79f08b6e2f29cf16e8_41f0435e.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9279,
+  "iou": 0.998,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_187_cropped_jpg.rf.d24b52b5b1149f79f08b6e2f29cf16e8_41f0435e.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9279,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.157aad166e1037e137a7e8a7294c03b0_3d6cab6e.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8974,
+  "iou": 0.971,
+  "gt_area": 0.97031,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.157aad166e1037e137a7e8a7294c03b0_3d6cab6e.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8974,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.aebb3ae63d8bbcfb97d9f8749bcfb4fa_8ca02329.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8354,
+  "iou": 0.97,
+  "gt_area": 0.97031,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.aebb3ae63d8bbcfb97d9f8749bcfb4fa_8ca02329.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8354,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.b6f55143bc86b10e983f167aa2a35bc3_c019e08c.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.8793,
+  "iou": 0.969,
+  "gt_area": 0.97031,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_195_cropped_jpg.rf.b6f55143bc86b10e983f167aa2a35bc3_c019e08c.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8793,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_199_cropped_jpg.rf.10193f3c8e1c58b75f7c78a03c1ecdda_37543769.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.8323,
+  "iou": 0.978,
+  "gt_area": 0.9767,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_199_cropped_jpg.rf.10193f3c8e1c58b75f7c78a03c1ecdda_37543769.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.8323,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_199_cropped_jpg.rf.a79418f5d241cba8774efca6d7b03a1f_95ec2470.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "package",
+  "conf": 0.798,
+  "iou": 0.978,
+  "gt_area": 0.97824,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_199_cropped_jpg.rf.a79418f5d241cba8774efca6d7b03a1f_95ec2470.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.798,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_279_cropped_jpg.rf.08d16caa7e422d2851a79eb64320208f_493e2b42.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9313,
+  "iou": 0.997,
+  "gt_area": 1.0,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_279_cropped_jpg.rf.08d16caa7e422d2851a79eb64320208f_493e2b42.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9313,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_292_cropped_jpg.rf.ad4f66578305eb021f4b6f2bd43a30ec_783ac4f3.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9269,
+  "iou": 0.991,
+  "gt_area": 0.99065,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_292_cropped_jpg.rf.ad4f66578305eb021f4b6f2bd43a30ec_783ac4f3.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9269,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_new_292_cropped_jpg.rf.b93a9e5e86c43f1ebbc1fe3da66d87d9_a63c7915.jpg",
+  "src": "newbox-mixed",
+  "gt": "package",
+  "pred": "damaged-package",
+  "conf": 0.9038,
+  "iou": 0.99,
+  "gt_area": 0.99065,
+  "kind": "WRONG_CLASS"
+ },
+ {
+  "image": "newbox-mixed_new_292_cropped_jpg.rf.b93a9e5e86c43f1ebbc1fe3da66d87d9_a63c7915.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9038,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_stack-closed-cardboard-brown-paper-boxes_116441-11737_avif.rf.2765461602aebc7a84a12c7a3892e0e7_4456fb87.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.334,
+  "gt_area": 0.28482,
+  "kind": "MISSED"
+ },
+ {
+  "image": "newbox-mixed_stack-closed-cardboard-brown-paper-boxes_116441-11737_avif.rf.2765461602aebc7a84a12c7a3892e0e7_4456fb87.jpg",
+  "src": "newbox-mixed",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8126,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "newbox-mixed_whatsapp-image-2023-03-29-at-10-05-10-am-500x500_webp.rf.29d01fcfa1ca699d8d1d5c570f72896c_456257bc.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.35,
+  "gt_area": 0.29644,
+  "kind": "MISSED"
+ },
+ {
+  "image": "newbox-mixed_whatsapp-image-2023-03-29-at-10-05-10-am-500x500_webp.rf.fa0e2e5b88a4d26aa0b385df3d80bb07_0ef358dc.jpg",
+  "src": "newbox-mixed",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.442,
+  "gt_area": 0.29644,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0001_jpg.rf.ce22ea3860f850b287ff1a4e81f57488_11505756.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.316,
+  "gt_area": 0.31253,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0001_jpg.rf.ce22ea3860f850b287ff1a4e81f57488_11505756.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6485,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.067bf3fa4eca39576a3a0fcca7f2f2ab_962af9dc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.213,
+  "gt_area": 0.69548,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.067bf3fa4eca39576a3a0fcca7f2f2ab_962af9dc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.189,
+  "gt_area": 0.12694,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.067bf3fa4eca39576a3a0fcca7f2f2ab_962af9dc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.227,
+  "gt_area": 0.09664,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.785e1786e3ebb0bd64d6ebd7b76e4aa6_3f462f49.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.76946,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.785e1786e3ebb0bd64d6ebd7b76e4aa6_3f462f49.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.14534,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.785e1786e3ebb0bd64d6ebd7b76e4aa6_3f462f49.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.05599,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.227,
+  "gt_area": 0.39687,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.197,
+  "gt_area": 0.25322,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.391,
+  "gt_area": 0.55067,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7135,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6464,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_t0005_jpg.rf.ce76ff7e750092c941f01fd045977846_5789879d.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6238,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_t0008_jpg.rf.f940b4ffe25175d1c881de9319a2a568_7c225d0c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.01878,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_t0008_jpg.rf.f940b4ffe25175d1c881de9319a2a568_7c225d0c.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7084,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_v0001_jpg.rf.6b1047cb8b5123e8c66c91b6d83dc18a_9c369382.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.068,
+  "gt_area": 0.11881,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0001_jpg.rf.6b1047cb8b5123e8c66c91b6d83dc18a_9c369382.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9185,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_v0003_jpg.rf.600c110e05ce4d3a8fc08098d06a0b79_7ab31525.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.078,
+  "gt_area": 0.16717,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0003_jpg.rf.600c110e05ce4d3a8fc08098d06a0b79_7ab31525.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9389,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_v0009_jpg.rf.9ec1b72d2acc72db641c798554fdacd3_eb207f11.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.291,
+  "gt_area": 0.39829,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0009_jpg.rf.b229454e92b3a83a6e6945d20e441dd1_b9697a3d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.30447,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0009_jpg.rf.f36d801e9eb665550726e0b1a1905be9_defbdb97.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.76894,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0021_jpg.rf.70ec4bfc9a45467573e86bd33d008cf9_77f54ea1.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.032,
+  "gt_area": 0.0286,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0021_jpg.rf.bdb4313ea4d8fdf4893c3b0113b81793_2da137ec.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.214,
+  "gt_area": 0.28303,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0021_jpg.rf.bdb4313ea4d8fdf4893c3b0113b81793_2da137ec.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8605,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_v0021_jpg.rf.f07126e427ae53d5983d9510b1289149_d38bd25d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.2881,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.0f632135e9bb65b689681de4efecf81e_39b212f3.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.117,
+  "gt_area": 0.08839,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.0f632135e9bb65b689681de4efecf81e_39b212f3.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.077,
+  "gt_area": 0.32733,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.0f632135e9bb65b689681de4efecf81e_39b212f3.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.072,
+  "gt_area": 0.47224,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.80af15beb8cfdbe49d5397127280ea6f_85b63113.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.01169,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.80af15beb8cfdbe49d5397127280ea6f_85b63113.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.359,
+  "gt_area": 0.42441,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.80af15beb8cfdbe49d5397127280ea6f_85b63113.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.01228,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.8b80655dc1521fc5de105679e697cab1_1fd05f86.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.111,
+  "gt_area": 0.23366,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.8b80655dc1521fc5de105679e697cab1_1fd05f86.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.37301,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0025_jpg.rf.8b80655dc1521fc5de105679e697cab1_1fd05f86.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.142,
+  "gt_area": 0.08431,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0027_jpg.rf.2a10ae9a70778ada20929ecbd326b338_cb84b2a7.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.111,
+  "gt_area": 0.08101,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0027_jpg.rf.2a10ae9a70778ada20929ecbd326b338_cb84b2a7.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6753,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_v0027_jpg.rf.7cb421967d07bbd6f01efc2d022323b5_04d52afe.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.321,
+  "gt_area": 0.47849,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_v0027_jpg.rf.8f546fc80adb4077a3cf30922e50cb1e_87ea28ef.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.05301,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0009_jpg.rf.3d12a809ee6751fa21308d78d6260abd_558af491.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.218,
+  "gt_area": 0.14053,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0009_jpg.rf.3d12a809ee6751fa21308d78d6260abd_558af491.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.805,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.13d7b8c439b77ea4c68cb41a495ff0ce_f6a58974.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.017,
+  "gt_area": 0.00593,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.13d7b8c439b77ea4c68cb41a495ff0ce_f6a58974.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.011,
+  "gt_area": 0.56534,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.13d7b8c439b77ea4c68cb41a495ff0ce_f6a58974.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.057,
+  "gt_area": 0.41393,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.22e614e86b448572c44e84035e10da42_50f7878c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.037,
+  "gt_area": 0.01159,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.22e614e86b448572c44e84035e10da42_50f7878c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.205,
+  "gt_area": 0.89333,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.22e614e86b448572c44e84035e10da42_50f7878c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.275,
+  "gt_area": 0.12707,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.8fc97e32f26e5ed8608b7d581c96c502_f91bcfbc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.205,
+  "gt_area": 0.48481,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.8fc97e32f26e5ed8608b7d581c96c502_f91bcfbc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.099,
+  "gt_area": 0.06674,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.8fc97e32f26e5ed8608b7d581c96c502_f91bcfbc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.087,
+  "gt_area": 0.07451,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0017_jpg.rf.8fc97e32f26e5ed8608b7d581c96c502_f91bcfbc.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6629,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0035_jpg.rf.ef856b95cec816efe9b85150b85c0518_fdd0b438.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.172,
+  "gt_area": 0.14783,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0035_jpg.rf.ef856b95cec816efe9b85150b85c0518_fdd0b438.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8306,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0041_jpg.rf.57141a192f9325d8264d475b773f53fe_1685875c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.171,
+  "gt_area": 0.34976,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0041_jpg.rf.57141a192f9325d8264d475b773f53fe_1685875c.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8174,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0054_jpg.rf.10aba6c2c187b617c50d7140e7eb6d4e_177477ec.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.426,
+  "gt_area": 0.39879,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0054_jpg.rf.69898a3054c22e26519d44a88b66dd65_f88d587c.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.258,
+  "gt_area": 0.1863,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0054_jpg.rf.b8604a8276bc80604115ec7327f3fb9e_b85feb3d.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.34576,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0057_jpg.rf.0774814002acf6140a265a90d8b1a763_e3eeaf83.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.214,
+  "gt_area": 0.1833,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0057_jpg.rf.0b8ecf65450138d68a0fa847a9da7aca_191c7a89.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.162,
+  "gt_area": 0.11923,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0057_jpg.rf.e0532c2058c814e3c67f518390dc127f_9bc43a5f.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.22198,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0059_jpg.rf.95ebac97d92537103da059c304278fed_a083ed62.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.324,
+  "gt_area": 0.54987,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0059_jpg.rf.95ebac97d92537103da059c304278fed_a083ed62.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.014,
+  "gt_area": 0.01319,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0059_jpg.rf.95ebac97d92537103da059c304278fed_a083ed62.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8718,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0059_jpg.rf.95ebac97d92537103da059c304278fed_a083ed62.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8145,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0059_jpg.rf.95ebac97d92537103da059c304278fed_a083ed62.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7257,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0060_jpg.rf.9875de1b42f44e1fd711910bf23eec48_8fc8d51e.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.10953,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0069_jpg.rf.40890cbb9a87debe18b54d7e6109f7bb_d9402413.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.061,
+  "gt_area": 0.05998,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0069_jpg.rf.40890cbb9a87debe18b54d7e6109f7bb_d9402413.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9301,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.3a1fef20bbb3023e3efcc4b5ec35b7e2_251e8d73.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.259,
+  "gt_area": 0.83337,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.3a1fef20bbb3023e3efcc4b5ec35b7e2_251e8d73.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8067,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.6b16ddddeb507f2179e9def615c6bb1d_7d4f9e16.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.059,
+  "gt_area": 0.05036,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.6b16ddddeb507f2179e9def615c6bb1d_7d4f9e16.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9273,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.a3e5d164c8282994c3c2bf0fa3a385dc_e9ffe859.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.282,
+  "gt_area": 0.53797,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0072_jpg.rf.a3e5d164c8282994c3c2bf0fa3a385dc_e9ffe859.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9298,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0077_jpg.rf.75069efd5d18605b59b8768e2405ba95_2eec35e0.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.048,
+  "gt_area": 0.21977,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0077_jpg.rf.7e5cb57aca8ba1f1673521b8db2699f8_3e364bbc.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.275,
+  "gt_area": 0.37526,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0077_jpg.rf.b1264df9dec9ee1fd8e409c53876910f_691d7c6a.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.477,
+  "gt_area": 0.43649,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0081_jpg.rf.797b3e7783e70f00e64d3caede7ccb53_3be6975b.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.025,
+  "gt_area": 0.45342,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0092_jpg.rf.0fc634433d5cc7811481d0be1f9482a7_35504df7.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.071,
+  "gt_area": 0.06883,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0092_jpg.rf.0fc634433d5cc7811481d0be1f9482a7_35504df7.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7836,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "packages2-damaged_y0095_jpg.rf.f03576afce7d152e8c2b9a5a1843c354_55262b12.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.142,
+  "gt_area": 0.11585,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0099_jpg.rf.23844010da5daf9be1aeba7cfccb270a_8f6c3670.jpg",
+  "src": "packages2-damaged",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.22,
+  "gt_area": 0.34171,
+  "kind": "MISSED"
+ },
+ {
+  "image": "packages2-damaged_y0099_jpg.rf.23844010da5daf9be1aeba7cfccb270a_8f6c3670.jpg",
+  "src": "packages2-damaged",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.887,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_11FC50A9CD_JPG.rf.f55c001e655248ced5daab97184e2ccd_731823e9.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.189,
+  "gt_area": 0.18752,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_11FC50A9CD_JPG.rf.f55c001e655248ced5daab97184e2ccd_731823e9.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8583,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_14B8791BF6_JPG.rf.549aaf1cbd339f15aecae5f8f2c38b88_4046ecf9.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.405,
+  "gt_area": 0.32814,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_14B8791BF6_JPG.rf.549aaf1cbd339f15aecae5f8f2c38b88_4046ecf9.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7764,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_1A76C3A575_JPG.rf.b16059c76c3f29d22ff918938dc7b83e_3a9d0bc6.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.237,
+  "gt_area": 0.16737,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_31E674FEFD_JPG.rf.c7b61cbd194853a2273a19820e6331cf_45760838.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.036,
+  "gt_area": 0.33721,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_34B534FDE6_JPG.rf.c1907ca6ac14bd170d97b05c038cb3fb_dbcb142c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.492,
+  "gt_area": 0.25026,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_3A029962D8_JPG.rf.b4bf93570a1f88678d42a6eca1585a04_de02a0c8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.496,
+  "gt_area": 0.46149,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_3A029962D8_JPG.rf.b4bf93570a1f88678d42a6eca1585a04_de02a0c8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6154,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_3D31BF7CC5_JPG.rf.051383db1f32690b4788e554181b4795_19439b2c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.455,
+  "gt_area": 0.18081,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_3D31BF7CC5_JPG.rf.051383db1f32690b4788e554181b4795_19439b2c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6524,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_3E0E846081_JPG.rf.ab7fe864d8e640cbb526d35d22327735_b028ad10.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.255,
+  "gt_area": 0.25349,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_3E0E846081_JPG.rf.ab7fe864d8e640cbb526d35d22327735_b028ad10.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8384,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_3ED5BA0299_JPG.rf.131701c9a8deafedebf5af1d8187a2e8_1bbc8668.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.498,
+  "gt_area": 0.49807,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_3ED5BA0299_JPG.rf.131701c9a8deafedebf5af1d8187a2e8_1bbc8668.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7212,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_48838D083A_JPG.rf.8a01ccbbdad6ff1e0f7e202b4a8dc9d0_f57bc613.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.285,
+  "gt_area": 0.28175,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_48838D083A_JPG.rf.8a01ccbbdad6ff1e0f7e202b4a8dc9d0_f57bc613.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9136,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_4A2E03F893_JPG.rf.8d913569e4a08ffd16af4b32135a64fb_08e77784.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.13508,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_4D9A97C08F_JPG.rf.f5ca1e8e683e4136ea7c629fd9849c20_db508e2d.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.407,
+  "gt_area": 0.35689,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_4D9A97C08F_JPG.rf.f5ca1e8e683e4136ea7c629fd9849c20_db508e2d.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8183,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_5614C09AD0_JPG.rf.ca257566463df72771f7ba27aa6c13cf_1f9d284c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.432,
+  "gt_area": 0.42604,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_5614C09AD0_JPG.rf.ca257566463df72771f7ba27aa6c13cf_1f9d284c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8386,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_591376EBB2_JPG.rf.e290c12a864d3c55bfd092d3f038322e_17a0ce04.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.116,
+  "gt_area": 0.0945,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_5c8381e9011a885f925045808ed2d20a_JPG.rf.faafb50aad3a42909fffaf648ebf1449_f1115bad.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.283,
+  "gt_area": 0.25238,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_5EA75533C4_JPG.rf.3a9a53982e71d717270018e6f2527230_f73a3a88.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.153,
+  "gt_area": 0.12735,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_5EA75533C4_JPG.rf.3a9a53982e71d717270018e6f2527230_f73a3a88.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6887,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_6298DEB8A1_JPG.rf.b876bd43417a50b54c17f0541f0be95e_33713517.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.223,
+  "gt_area": 0.21902,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_6298DEB8A1_JPG.rf.b876bd43417a50b54c17f0541f0be95e_33713517.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.903,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_6EDB0020BD_JPG.rf.71d4d823e7ae17590ac5ae12bc02dd83_0ad00687.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.158,
+  "gt_area": 0.15728,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_6EDB0020BD_JPG.rf.71d4d823e7ae17590ac5ae12bc02dd83_0ad00687.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9042,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_7515072FC6_JPG.rf.0846bdf91ef61d32b709840f7c657901_35deec4c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.453,
+  "gt_area": 0.35254,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_897D614F30_JPG.rf.1e71dc43b476ab6858f1e83a865c1851_29a5f2f7.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.038,
+  "gt_area": 0.03783,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_897D614F30_JPG.rf.1e71dc43b476ab6858f1e83a865c1851_29a5f2f7.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8564,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_89971D9E25_JPG.rf.a6acbac295744d33a86616eb5b4a5248_ff56c79c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.371,
+  "gt_area": 0.29485,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_89971D9E25_JPG.rf.a6acbac295744d33a86616eb5b4a5248_ff56c79c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6921,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_8FQ1678_Y_Moderate_Creased_4846592_jpg.rf.c13bd8ff367dcd3282dc555b089b532a_d1c8438b.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.079,
+  "gt_area": 0.07979,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_8FQ1678_Y_Moderate_Creased_4846592_jpg.rf.c13bd8ff367dcd3282dc555b089b532a_d1c8438b.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7826,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_A348E3E3F3_JPG.rf.9bf072383cfeff8cb8704fa317956f39_08f6734d.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.392,
+  "gt_area": 0.37011,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_AC24D0DB61_JPG.rf.fa85f0480d80404b6bdda9b85c6127b8_18fe2f18.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.483,
+  "gt_area": 0.36177,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_AC24D0DB61_JPG.rf.fa85f0480d80404b6bdda9b85c6127b8_18fe2f18.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6615,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_B34AC36E1C_JPG.rf.601714c1d6b686ff100f08e6602959cc_75bfeb2c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.416,
+  "gt_area": 0.31115,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_B34AC36E1C_JPG.rf.601714c1d6b686ff100f08e6602959cc_75bfeb2c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6251,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Broken-20-11-_jpg.rf.15c81e5b939ec98f1ada137861294b62_82bf50c1.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.424,
+  "gt_area": 0.27204,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Broken-20-17-_jpg.rf.33a1c1c4c39f033f1c2d761620e58523_f0cda738.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.452,
+  "gt_area": 0.33966,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Broken-20-17-_jpg.rf.33a1c1c4c39f033f1c2d761620e58523_f0cda738.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6056,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_CF675182BE_JPG.rf.1664a5f52a208efb1e0338f5ff0e1c52_83cd43f6.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.438,
+  "gt_area": 0.4148,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_CF675182BE_JPG.rf.1664a5f52a208efb1e0338f5ff0e1c52_83cd43f6.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8363,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-13-_jpg.rf.80108bfe0fe99d411d29770295286bff_6b7b9c5c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.318,
+  "gt_area": 0.20121,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-23-_jpg.rf.63a6213a57f9d14eca2d3491afc9c5d8_3da51701.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.18,
+  "gt_area": 0.14605,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-24-_jpg.rf.8fb9042ce3c6a19a270c8ecfd5aa9ea1_3154dd17.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.049,
+  "gt_area": 0.04904,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-24-_jpg.rf.8fb9042ce3c6a19a270c8ecfd5aa9ea1_3154dd17.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.061,
+  "gt_area": 0.06132,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-24-_jpg.rf.8fb9042ce3c6a19a270c8ecfd5aa9ea1_3154dd17.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.683,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-25-_jpg.rf.c4e683d66531a49ea39fae6fcf6160bf_0aae4348.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.22,
+  "gt_area": 0.17552,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-27-_jpg.rf.625fb94b8d2c35926be9b546feef49db_fd0e664f.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.169,
+  "gt_area": 0.13507,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Compressed-20-27-_jpg.rf.625fb94b8d2c35926be9b546feef49db_fd0e664f.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8522,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_compressed-20-28-_jpg.rf.df8a746ebd795efd9edbfb74351c0f8d_f0012a66.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.4031,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-10-20-20Damp_jpg.rf.8bdfebf00d0f3d03e50e5405efc8dec9_ed5be9d2.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.383,
+  "gt_area": 0.38275,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-10-20-20Damp_jpg.rf.8bdfebf00d0f3d03e50e5405efc8dec9_ed5be9d2.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7374,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-11-20Compressed_jpg.rf.a5e2ad8186ef889ad3b92ec19fa619ba_77e082cd.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.421,
+  "gt_area": 0.35374,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-17-_jpg.rf.4e7a972c2e98939e3a71bf64821a9c9c_c35205f8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6692,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-20-20Hole_jpg.rf.14b0625a349fc009988a44406578c844_9f3f0a47.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7036,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-22-20Compressed_jpg.rf.4ef939a68d6cf26ebe9aed710a398088_a0827a60.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.31684,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-22-_jpg.rf.ce6862066d181d1ed8212e2e420b10b3_2be3b1f8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.378,
+  "gt_area": 0.27529,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-29-20Compressed_jpg.rf.efe5e073f249f7192b179c5a9148c97e_adb31bf8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.198,
+  "gt_area": 0.28869,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-30-20Hole_jpg.rf.85f5e4c665279f1d2f372864bc723ad6_75cff850.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.457,
+  "gt_area": 0.26878,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-30-20Hole_jpg.rf.85f5e4c665279f1d2f372864bc723ad6_75cff850.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6812,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-33-20Hole-20please-20check_jpg.rf.23d42dcc5896d4c14e63b3069191ec1e_5b6f2f7c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.406,
+  "gt_area": 0.40215,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-33-20Hole-20please-20check_jpg.rf.23d42dcc5896d4c14e63b3069191ec1e_5b6f2f7c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8619,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-36-_jpg.rf.36e404cc3f0d0943886537b6589c3196_ddfff614.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.138,
+  "gt_area": 0.13519,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-36-_jpg.rf.36e404cc3f0d0943886537b6589c3196_ddfff614.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8771,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-4-20Compressed_jpg.rf.c89accc22ccf6d50732e0d33ea6b3817_72ddf59a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.071,
+  "gt_area": 0.05922,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-4-20Compressed_jpg.rf.c89accc22ccf6d50732e0d33ea6b3817_72ddf59a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.663,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-40-_jpg.rf.71507ec3a952eac9a3b3a15576536404_b7aa09ad.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.472,
+  "gt_area": 0.32714,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-43-_jpg.rf.aa51d2cded7b52d65e41cf87daf279f1_214cad6f.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.195,
+  "gt_area": 0.13304,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-43-_jpg.rf.aa51d2cded7b52d65e41cf87daf279f1_214cad6f.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9151,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-51-_jpg.rf.6608d577e553fbf99971cfafbd7d64f8_6dd6ceb6.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.28472,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-65-_jpg.rf.eb59273d7151c65bd7e003a923d24563_3ea3c9cc.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.301,
+  "gt_area": 0.11965,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-67-_jpg.rf.43f0077b9d2db7f82c2926f1b1b1a54d_959afc68.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.16,
+  "gt_area": 0.17473,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-71-20Compressed_jpg.rf.d1126ff4fde071ca53e4123c8fa373b7_758719ea.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.276,
+  "gt_area": 0.34551,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-71-20Compressed_jpg.rf.d1126ff4fde071ca53e4123c8fa373b7_758719ea.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "package",
+  "conf": 0.6702,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-73-_jpg.rf.d9f5c93b8a27f84d43e731ba92122258_36bf1552.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.308,
+  "gt_area": 0.18113,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-77-20Crushed_jpg.rf.ce7d7f0729abed4ae170045c980c32a1_36efe36e.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.58933,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-82-_jpg.rf.bf8fa0cab43562e1aca649af4b1bb478_6f33b4ae.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.24472,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-87-_jpg.rf.7ac9b3c51e6dd3bd25e9439b6f714c00_3b0f735c.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.485,
+  "gt_area": 0.28284,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-94-_jpg.rf.b65ef0dadac3438cd3f7afaf40d33d60_2ed58101.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.392,
+  "gt_area": 0.37651,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_download-20-94-_jpg.rf.b65ef0dadac3438cd3f7afaf40d33d60_2ed58101.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8583,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_download-20-99-20Compressed_jpg.rf.a3f90ae03e24b5f6d34f251b394c120b_5c8af7e2.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.343,
+  "gt_area": 0.31198,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_E28AD2E1AD_JPG.rf.9bc1bf1bcee04194ee3883db79d83e4c_3ffc6464.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.415,
+  "gt_area": 0.41528,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_E28AD2E1AD_JPG.rf.9bc1bf1bcee04194ee3883db79d83e4c_3ffc6464.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9198,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_E9B0C2B730_JPG.rf.5cacfc00132cd1e93ecda771c19f4f0a_4f67959a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.379,
+  "gt_area": 0.37606,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_E9B0C2B730_JPG.rf.5cacfc00132cd1e93ecda771c19f4f0a_4f67959a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.683,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_ECC699CB8F_JPG.rf.db90384bc086c33168d9ad750fc138a8_b0a08e48.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.467,
+  "gt_area": 0.46166,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_ECC699CB8F_JPG.rf.db90384bc086c33168d9ad750fc138a8_b0a08e48.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6414,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Hole-20-16-_jpg.rf.f0ab4a82abd85f9851825ecd2f298ac5_facb2bc8.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.287,
+  "gt_area": 0.64912,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Hole-20-20-_jpg.rf.4179125f1996631d47f1a6365422d408_1ad2b860.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.431,
+  "gt_area": 0.31116,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Hole-20-20-_jpg.rf.4179125f1996631d47f1a6365422d408_1ad2b860.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7942,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_R246482_Z_Major_HOLE-20PUNCTURE_4851287_jpg.rf.0d9de4d0b86961cf87955c8db2bc6663_9a235997.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.097,
+  "gt_area": 0.09624,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_R246482_Z_Major_HOLE-20PUNCTURE_4851287_jpg.rf.0d9de4d0b86961cf87955c8db2bc6663_9a235997.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.8738,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_R246593_Z_Major_Compressed_4852056_jpg.rf.f0f9ef62e3a362f7c15a73581f645500_73628ca3.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.2329,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_R413645_Z_Major_Compressed_4852165_jpg.rf.4560c8692482b87b382f77310b76951c_71364121.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.322,
+  "gt_area": 0.27428,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_R413645_Z_Major_Compressed_4852165_jpg.rf.4560c8692482b87b382f77310b76951c_71364121.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7712,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_R433721_Y_Moderate_Compressed_4859716_jpg.rf.f4c169a1dbd5d369550fcfae1e94401f_dd695b3b.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.485,
+  "gt_area": 0.48212,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_R433721_Y_Moderate_Compressed_4859716_jpg.rf.f4c169a1dbd5d369550fcfae1e94401f_dd695b3b.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.9113,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Tear-20-16-_jpg.rf.829b4192e9bbd627b12b4a9e2d9e2179_5524c6b5.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.476,
+  "gt_area": 0.46037,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Tear-20-3-_jpg.rf.96e0f8b73421dfeadde12697929016b3_ae98667a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.292,
+  "gt_area": 0.19293,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_Tear-20-3-_jpg.rf.96e0f8b73421dfeadde12697929016b3_ae98667a.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.6972,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ },
+ {
+  "image": "parcel-box-damage_Tear-20-32-_jpg.rf.268025e1b64f0a26fb6de5727d16036f_bad2802e.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0,
+  "gt_area": 0.27994,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_VGF92987_Y_Moderate_Tear_4858102_jpg.rf.5939ae637468f96e7ef5cc1bf03f6288_079da74d.jpg",
+  "src": "parcel-box-damage",
+  "gt": "damaged-package",
+  "pred": "NO DETECTION",
+  "conf": null,
+  "iou": 0.182,
+  "gt_area": 0.17413,
+  "kind": "MISSED"
+ },
+ {
+  "image": "parcel-box-damage_VGF92987_Y_Moderate_Tear_4858102_jpg.rf.5939ae637468f96e7ef5cc1bf03f6288_079da74d.jpg",
+  "src": "parcel-box-damage",
+  "gt": "none (background)",
+  "pred": "damaged-package",
+  "conf": 0.7996,
+  "iou": 0.0,
+  "gt_area": null,
+  "kind": "FALSE_POSITIVE"
+ }
+]

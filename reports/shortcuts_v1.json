@@ -1,0 +1,58 @@
+{
+  "images_scanned": 2869,
+  "class_instances": {
+    "damaged-package": 1584,
+    "package": 1623
+  },
+  "majority_class_baseline": 0.5061,
+  "source_only": {
+    "accuracy": 0.9997,
+    "images": 2860,
+    "lift_over_baseline": 0.4936,
+    "per_source": {
+      "biradar-damage": {
+        "damaged-package": 49,
+        "package": 1
+      },
+      "box-damage-open": {
+        "damaged-package": 85
+      },
+      "haw-packages": {
+        "package": 1614
+      },
+      "moratuwa-parcel-damage": {
+        "damaged-package": 74
+      },
+      "packages2-damaged": {
+        "damaged-package": 292
+      },
+      "parcel-box-damage": {
+        "damaged-package": 745
+      }
+    }
+  },
+  "resolution_only": {
+    "accuracy": 0.9997,
+    "images": 2860,
+    "lift_over_baseline": 0.4936,
+    "per_resolution": {
+      "416x416": {
+        "package": 1614
+      },
+      "577x433": {
+        "damaged-package": 85
+      },
+      "640x640": {
+        "damaged-package": 1160,
+        "package": 1
+      }
+    }
+  },
+  "box_geometry": {
+    "median_area_by_class": {
+      "damaged-package": 0.2099,
+      "package": 0.0239
+    },
+    "ratio": 8.78
+  }
+}

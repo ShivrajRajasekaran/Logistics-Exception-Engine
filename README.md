@@ -4,9 +4,10 @@ RT-DETR-L parcel condition detection served through FastAPI, with a hand-written
 reasoning layer that decides when to call the detector, reconciles findings against a
 transit ledger, and refuses to answer when the evidence is too weak.
 
-**Read [MEMO.md](MEMO.md) section 4 before quoting any metric.** The headline 0.601
-mAP50 is inflated by a dataset artefact; 0.208 is the honest measure of this model's
-damage sensitivity, and the memo explains exactly why.
+**Read [MEMO.md](MEMO.md) section 4 before quoting any metric.** The shipped model (v3)
+reaches 0.730 mAP50 and 0.625 on `damaged-package`, up from 0.436 / 0.245 for v1 measured
+on the identical test set. Per-source recall still varies from 0.000 to 0.934, so the
+model remains partly source-dependent. The memo quantifies both.
 
 ---
 
@@ -122,15 +123,19 @@ curl -X POST http://localhost:8000/api/v1/detect \
 ```json
 {
   "status": "success",
-  "filename": "intact_parcel.jpg",
-  "image_size": [416, 416],
-  "inference_time_ms": 35.95,
+  "filename": "ambiguous_parcel.jpg",
+  "image_size": [640, 640],
+  "inference_time_ms": 24.8,
   "count": 1,
   "detections": [
-    {"label": "package", "confidence": 0.967, "bbox": [350.95, 205.96, 412.55, 302.25]}
+    {"label": "damaged-package", "confidence": 0.6227, "bbox": [103.41, 3.01, 563.7, 639.5]}
   ]
 }
 ```
+
+Overlapping same-class boxes are de-duplicated at IoU 0.7 before the response is built.
+RT-DETR is NMS-free, so duplicate decoder queries otherwise survive; suppressing them
+removed 90 of 420 false positives at zero recall cost (`scripts/tune_dedup.py`).
 
 `bbox` is `[x1, y1, x2, y2]` in absolute pixels. Errors are explicit: 415 for a
 non-image content type, 400 for undecodable bytes, 413 over the size limit, 503 when no
@@ -141,14 +146,14 @@ The first request after startup costs ~2.5 s for CUDA warm-up. Steady-state infe
 
 ### `POST /api/v1/reason`
 
-**Guardrail refusal.** A genuinely damaged parcel detected at 0.4879, below the 0.65
-threshold. The LLM is never called on this path.
+**Guardrail refusal.** A genuinely borderline parcel detected at 0.6227, just below the
+0.65 threshold. The LLM is never called on this path.
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/reason \
   -H "Content-Type: application/json" \
   -d '{"package_id":"PKG-8821",
-       "image_path":"sample_images/damaged_parcel.jpg",
+       "image_path":"sample_images/ambiguous_parcel.jpg",
        "query":"Is this parcel damaged enough to raise a carrier claim?"}'
 ```
 
@@ -158,11 +163,10 @@ curl -X POST http://localhost:8000/api/v1/reason \
   "status": "INSUFFICIENT_INFORMATION",
   "requires_vision_model": true,
   "guardrail_passed": false,
-  "max_critical_confidence": 0.4879,
-  "decision_summary": "INSUFFICIENT_INFORMATION. Defect signal present but weak: peak critical-class confidence 0.49 is below the operational threshold 0.65. Refusing to assign liability from an ambiguous detection. Routing this parcel to manual inspection rather than guessing.",
+  "max_critical_confidence": 0.6227,
+  "decision_summary": "INSUFFICIENT_INFORMATION. Defect signal present but weak: peak critical-class confidence 0.62 is below the operational threshold 0.65. Refusing to assign liability from an ambiguous detection. Routing this parcel to manual inspection rather than guessing.",
   "detections": [
-    {"label": "damaged-package", "confidence": 0.4879, "bbox": [25.12, 21.79, 637.09, 622.15]},
-    {"label": "damaged-package", "confidence": 0.4418, "bbox": [379.02, 89.86, 539.31, 289.1]}
+    {"label": "damaged-package", "confidence": 0.6227, "bbox": [103.41, 3.01, 563.7, 639.5]}
   ],
   "ledger_record": {"carrier": "Apex Logistics", "origin_label_status": "INTACT", "...": "..."}
 }
@@ -211,6 +215,28 @@ we never had the capability.
 | `INSUFFICIENT_INFORMATION` | evidence too weak, or frame unreadable. No LLM call |
 | `UNSUPPORTED_CAPABILITY` | question is outside the trained label set |
 | `ANSWERED_WITHOUT_VISION` | answered from the transit record alone |
+
+## Evaluation artefacts
+
+`reports/` holds the committed diagnostics so a reviewer never has to retrain to see them:
+
+| File | What it shows |
+| :--- | :--- |
+| `confusion_matrix.png` | normalised confusion matrix from the training run |
+| `pr_curve.png` | precision-recall curve per class |
+| `training_curves.png` | loss and mAP across all 40 epochs |
+| `metrics_test_split.json` | the exact numbers quoted in MEMO.md |
+
+Regenerate the tables, including the two analyses the brief asks for:
+
+```bash
+python scripts/evaluate.py --split test --confusion --per-source
+```
+
+`--confusion` reports class confusion, missed detections, and background false positives
+separately, because aggregate mAP collapses three different failure modes into one number.
+`--per-source` reports recall per source project; a wide spread means the model keyed on
+source appearance rather than the visual class.
 
 ## Tests
 

@@ -1,0 +1,46 @@
+{
+  "weights": "weights\\best.pt",
+  "split": "test",
+  "imgsz": 640,
+  "conf_threshold": 0.001,
+  "iou_threshold": 0.7,
+  "overall": {
+    "precision": 0.6317,
+    "recall": 0.6637,
+    "mAP50": 0.6007,
+    "mAP50_95": 0.5269
+  },
+  "per_class": {
+    "package": {
+      "precision": 0.989,
+      "recall": 1.0,
+      "mAP50": 0.9939,
+      "mAP50_95": 0.9477
+    },
+    "damaged-package": {
+      "precision": 0.2745,
+      "recall": 0.3274,
+      "mAP50": 0.2076,
+      "mAP50_95": 0.1061
+    }
+  },
+  "speed_ms": {
+    "preprocess": 0.54,
+    "inference": 24.31,
+    "loss": 0.0,
+    "postprocess": 0.43
+  },
+  "confusion": {
+    "package": {
+      "package": 242
+    },
+    "damaged-package": {
+      "MISSED": 132,
+      "damaged-package": 95
+    },
+    "BACKGROUND": {
+      "damaged-package": 451,
+      "package": 3
+    }
+  }
+}

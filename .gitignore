@@ -25,3 +25,12 @@ yolo11n.pt
 
 # RAP's own assignment brief does not belong in a public repo.
 *.pdf
+
+# Superseded and duplicate checkpoints. The SHIPPED model is weights/best.pt and
+# it is committed. These are local-only copies kept for comparison:
+#   weights/best_v3.pt          byte-identical to weights/best.pt
+#   experiments/*/weights_*.pt  the v1 and rejected-v2 checkpoints
+# Their manifests and metrics JSON ARE committed, so every number in MEMO.md
+# stays traceable without carrying 127 MB of superseded binaries.
+weights/best_v3.pt
+experiments/**/weights_*.pt

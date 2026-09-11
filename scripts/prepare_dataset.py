@@ -49,6 +49,34 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 SOURCES = [
     {
+        # THE SOURCE THAT BREAKS THE SHORTCUT.
+        #
+        # Every other source supplies exactly one class, so "which dataset is
+        # this" predicted the label at 99.85% and the v1 model learned capture
+        # provenance instead of damage. This project photographs BOTH intact
+        # and damaged boxes in one capture setup:
+        #     Intact 1,381 instances vs damaged 2,216 (crushed/punctured/torn/leaking)
+        #     all images 640x640 -> resolution-only accuracy 0.6128, which is
+        #     exactly the majority baseline, i.e. zero resolution leakage.
+        # A detector trained on this cannot separate the classes by provenance;
+        # it has to look at the box.
+        #
+        # The four damage types collapse into `damaged-package`: they trigger
+        # the same operational path, and keeping them apart would re-create the
+        # thin-class problem that forced the earlier severity-tier collapse.
+        "name": "newbox-mixed",
+        "workspace": "damages-intact-box-dataset",
+        "project": "new-box-dataset",
+        "version": 4,
+        "remap": {
+            "intact box": "package",
+            "crushed box": "damaged-package",
+            "punctured box": "damaged-package",
+            "torn box": "damaged-package",
+            "leaking box": "damaged-package",
+        },
+    },
+    {
         "name": "parcel-box-damage",
         "workspace": "project-hffml",
         "project": "parcel-box-damage-classification",
@@ -115,12 +143,56 @@ SOURCES = [
 ]
 
 
+# --- Canonical image normalization ---------------------------------------
+# Every image is resampled through an IDENTICAL pipeline before it is written:
+# downscale to a common bottleneck with INTER_AREA, then up to the canonical
+# size with INTER_LINEAR.
+#
+# WHY. The v1 dataset leaked the label through capture provenance. Measured on
+# the built v1 data: a rule using only image resolution classified 99.97% of
+# images, because haw-packages (the sole `package` source) was the sole 416x416
+# source. Resizing everything up to 640 would have hidden that from the
+# resolution diagnostic while leaving the real signal intact: after resize to
+# 640, a single sharpness threshold still separated the classes at 88.78%
+# against a 56.47% baseline, since upscaled images are blurry and native-640
+# images are sharp.
+#
+# Forcing every image through the same bottleneck equalises that. Measured on a
+# 900-image sample:
+#     native -> 640            sharpness rule 0.8922   medians 30.7 / 198.6
+#     -> 416 -> 640  (chosen)  sharpness rule 0.6289   medians 30.7 /  42.3
+#     -> 320 -> 640            sharpness rule 0.7444
+# 416 was chosen by measurement, not assumption; a harder bottleneck was worse.
+#
+# YOLO labels are relative to image dimensions, so a uniform resize leaves every
+# box valid without recomputation.
+CANONICAL_SIZE = 640
+BOTTLENECK_SIZE = 416
+
 RAW_DIR = Path("dataset/_raw")
 OUT_DIR = Path("dataset")
 
 
 def log(msg: str) -> None:
     print(msg, flush=True)
+
+
+def normalize_image(src: Path, dst: Path) -> bool:
+    """Write `src` to `dst` through the canonical resampling pipeline.
+
+    Returns False if the image cannot be decoded, so the caller can drop it
+    rather than write a corrupt file.
+    """
+    import cv2
+
+    image = cv2.imread(str(src), cv2.IMREAD_COLOR)
+    if image is None:
+        return False
+    small = cv2.resize(image, (BOTTLENECK_SIZE, BOTTLENECK_SIZE),
+                       interpolation=cv2.INTER_AREA)
+    canonical = cv2.resize(small, (CANONICAL_SIZE, CANONICAL_SIZE),
+                           interpolation=cv2.INTER_LINEAR)
+    return bool(cv2.imwrite(str(dst), canonical, [cv2.IMWRITE_JPEG_QUALITY, 95]))
 
 
 def download_sources(api_key: str) -> List[Tuple[dict, Path]]:
@@ -331,7 +403,8 @@ def check_source_independence(source_class_counts: Dict[str, Counter],
 
 
 def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float,
-          max_concentration: float = 0.95, allow_skew: bool = False) -> dict:
+          max_concentration: float = 0.95, allow_skew: bool = False,
+          normalize: bool = False) -> dict:
     """Merge, remap, split, and write the unified dataset."""
     random.seed(SEED)
 
@@ -436,7 +509,13 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float,
 
         stem = "%s_%s" % (stem, hashlib.md5(str(image_path).encode()).hexdigest()[:8])
 
-        shutil.copy2(image_path, OUT_DIR / split / "images" / (stem + image_path.suffix))
+        if normalize:
+            if not normalize_image(image_path, OUT_DIR / split / "images" / (stem + ".jpg")):
+                drop_stats["undecodable-image"] += 1
+                continue
+        else:
+            shutil.copy2(image_path,
+                         OUT_DIR / split / "images" / (stem + image_path.suffix))
         (OUT_DIR / split / "labels" / (stem + ".txt")).write_text(content, encoding="utf-8")
 
         split_counts[split] += 1
@@ -461,6 +540,37 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float,
                 "Output filenames are colliding."
                 % (split, split_counts[split], on_disk))
 
+    # --- Resolution-vs-class gate ----------------------------------------
+    # Canonical normalization should make every written image identical in
+    # size. Verify that on disk rather than trusting the code above: if a
+    # resolution still predicts the class, the shortcut survived.
+    from PIL import Image as _Image
+    res_groups = defaultdict(Counter)
+    for split in SPLIT_RATIOS:
+        for label_path in (OUT_DIR / split / "labels").glob("*.txt"):
+            classes = {c for c in (
+                [k for k, v in TARGET_CLASSES.items() if v == int(line.split()[0])][0]
+                for line in label_path.read_text(encoding="utf-8").splitlines()
+                if len(line.split()) >= 5)}
+            if len(classes) != 1:
+                continue
+            matches = list((OUT_DIR / split / "images").glob(label_path.stem + ".*"))
+            if not matches:
+                continue
+            try:
+                res_groups[_Image.open(matches[0]).size][classes.pop()] += 1
+            except Exception:
+                continue
+
+    res_total = sum(sum(c.values()) for c in res_groups.values())
+    res_correct = sum(max(c.values()) for c in res_groups.values())
+    res_acc = res_correct / res_total if res_total else 0.0
+    log("[build] resolution-only class predictability: %.4f across %d distinct size(s)"
+        % (res_acc, len(res_groups)))
+    if len(res_groups) > 1:
+        log("[build] WARNING: images were written at %d different sizes; canonical "
+            "normalization did not apply uniformly." % len(res_groups))
+
     for cache in OUT_DIR.rglob("*.cache"):
         cache.unlink()
         log("[build] removed stale label cache %s" % cache)
@@ -478,6 +588,11 @@ def build(downloaded: List[Tuple[dict, Path]], max_background_ratio: float,
         "groups": len(groups),
         "split_ratios_requested": SPLIT_RATIOS,
         "stratified_by": "source project, then capture-sequence group",
+        "canonical_normalization": normalize,
+        "canonical_size": CANONICAL_SIZE if normalize else None,
+        "bottleneck_size": BOTTLENECK_SIZE if normalize else None,
+        "resolution_only_accuracy": round(res_acc, 4),
+        "distinct_resolutions": len(res_groups),
     }
     Path("dataset/split_report.json").write_text(json.dumps(report, indent=2))
 
@@ -519,6 +634,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Build the unified logistics dataset")
     parser.add_argument("--inspect", action="store_true",
                         help="download and print source class vocabularies, then exit")
+    parser.add_argument("--normalize", action="store_true",
+                        help="resample every image through a common bottleneck to "
+                             "remove capture-provenance leakage. MEASURED RESULT: this "
+                             "cut sharpness leakage from +0.32 to +0.06 above chance, "
+                             "but damaged-package mAP50 fell 0.217 -> 0.189 and "
+                             "per-source spread widened 0.707 -> 0.829, because damage "
+                             "evidence is fine detail that the bottleneck also destroys. "
+                             "Off by default; kept so the experiment is reproducible.")
     parser.add_argument("--max-concentration", type=float, default=0.95,
                         help="fail if any class draws more than this share of its "
                              "instances from one source (default 0.95)")
@@ -547,7 +670,7 @@ def main() -> int:
 
     inspect(downloaded)
     report = build(downloaded, args.background_ratio,
-                   args.max_concentration, args.allow_source_skew)
+                   args.max_concentration, args.allow_source_skew, args.normalize)
     return 0 if report else 1
 
 

@@ -29,6 +29,66 @@ def _iou(a, b) -> float:
     return inter / union if union > 0 else 0.0
 
 
+def confusion_behaviour(model, split: str, conf: float, names: dict) -> dict:
+    """
+    Confusion behaviour on our classes, which the brief asks for alongside
+    mAP and precision/recall.
+
+    mAP compresses every error into one number. This separates the three
+    failure modes that need different fixes:
+
+      class confusion  - detected the object, called it the wrong class
+      MISSED           - ground truth with no matching prediction (recall loss)
+      BACKGROUND       - prediction matching no ground truth (precision loss)
+
+    Reported at the operational confidence threshold rather than the mAP sweep
+    threshold, so it describes what the deployed service actually does.
+    """
+    image_dir = Path("dataset") / split / "images"
+    label_dir = Path("dataset") / split / "labels"
+    classes = [names[i] for i in sorted(names)]
+    matrix = {c: collections.Counter() for c in classes}
+    matrix["BACKGROUND"] = collections.Counter()
+
+    for image_path in sorted(image_dir.glob("*")):
+        label_path = label_dir / (image_path.stem + ".txt")
+        if not label_path.exists():
+            continue
+        result = model.predict(str(image_path), conf=conf, verbose=False)[0]
+        height, width = result.orig_shape
+
+        truths = []
+        for line in label_path.read_text(encoding="utf-8").splitlines():
+            parts = line.split()
+            if len(parts) < 5:
+                continue
+            cid = int(parts[0])
+            cx, cy, w, h = (float(v) for v in parts[1:5])
+            truths.append((cid, [(cx - w / 2) * width, (cy - h / 2) * height,
+                                 (cx + w / 2) * width, (cy + h / 2) * height]))
+
+        preds = [(int(b.cls.item()), b.xyxy[0].tolist()) for b in result.boxes]
+        matched = set()
+        for cid, box in truths:
+            best, best_i = 0.0, -1
+            for i, (_, pbox) in enumerate(preds):
+                if i in matched:
+                    continue
+                overlap = _iou(box, pbox)
+                if overlap > best:
+                    best, best_i = overlap, i
+            if best >= 0.5:
+                matched.add(best_i)
+                matrix[names[cid]][names[preds[best_i][0]]] += 1
+            else:
+                matrix[names[cid]]["MISSED"] += 1
+        for i, (pcid, _) in enumerate(preds):
+            if i not in matched:
+                matrix["BACKGROUND"][names[pcid]] += 1
+
+    return {row: dict(counts) for row, counts in matrix.items() if counts}
+
+
 def per_source_recall(model, split: str, conf: float, names: dict) -> dict:
     """
     Recall per (source project, class) at the operational threshold.
@@ -143,6 +203,10 @@ def evaluate(args: argparse.Namespace) -> dict:
         "speed_ms": {k: round(float(v), 2) for k, v in metrics.speed.items()},
     }
 
+    if args.confusion:
+        summary["confusion"] = confusion_behaviour(
+            model, args.split, args.conf_operational, names)
+
     if args.per_source:
         summary["per_source"] = per_source_recall(
             model, args.split, args.conf_operational, names)
@@ -160,6 +224,18 @@ def evaluate(args: argparse.Namespace) -> dict:
     print("-" * 58)
     print(f"{'ALL':<22}{o['precision']:>8.3f}{o['recall']:>8.3f}"
           f"{o['mAP50']:>9.3f}{o['mAP50_95']:>11.3f}")
+    if args.confusion:
+        cm = summary["confusion"]
+        cols = [names[i] for i in sorted(names)] + ["MISSED"]
+        print(f"\nconfusion behaviour @ conf={args.conf_operational}"
+              f"   (rows = ground truth; BACKGROUND row = false positives)")
+        print(f"{'':<20}" + "".join(f"{c:>18}" for c in cols))
+        print("-" * (20 + 18 * len(cols)))
+        for row in [names[i] for i in sorted(names)] + ["BACKGROUND"]:
+            counts = cm.get(row, {})
+            if counts:
+                print(f"{row:<20}" + "".join(f"{counts.get(c, 0):>18}" for c in cols))
+
     if args.per_source:
         print(f"\nper-source recall @ conf={args.conf_operational} "
               f"(spread across sources is the shortcut tell)")
@@ -198,6 +274,9 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--iou", type=float, default=0.7)
     p.add_argument("--device", default="0")
     p.add_argument("--out", default="runs/eval/metrics.json")
+    p.add_argument("--confusion", action="store_true",
+                   help="report confusion behaviour: class confusion, missed "
+                        "detections, and background false positives")
     p.add_argument("--per-source", dest="per_source", action="store_true",
                    help="break recall down by source project; a large spread means "
                         "the model keyed on source appearance rather than the class")

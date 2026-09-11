@@ -61,11 +61,61 @@ class TestIntentRouting(unittest.TestCase):
         self.assertEqual(route, reasoning.ROUTE_LEDGER)
         self.assertIn("no image_path", why)
 
-    def test_word_boundary_prevents_false_routing(self):
-        """'sealant' contains 'seal' but is not a question about a seal.
-        Substring matching here would route a supplier question to the GPU."""
+    def test_word_boundary_prevents_false_unsupported(self):
+        """'sealant' contains 'seal', but this is not a question about a seal.
+        Substring matching would misfire the UNSUPPORTED_CAPABILITY branch."""
         route, _ = reasoning.route_intent("Who is our sealant supplier?", IMAGE)
-        self.assertNotEqual(route, reasoning.ROUTE_VISION)
+        self.assertNotEqual(route, reasoning.ROUTE_UNSUPPORTED)
+
+    def test_procurement_question_is_out_of_scope(self):
+        """Commercial questions must not reach the detector even with an image
+        attached, or the LLM answers a supplier question from parcel boxes."""
+        route, _ = reasoning.route_intent("Who is our sealant supplier?", IMAGE)
+        self.assertEqual(route, reasoning.ROUTE_OUT_OF_SCOPE)
+
+
+class TestRouterDoesNotOverRefuse(unittest.TestCase):
+    """A keyword whitelist cannot enumerate every phrasing, so "no keyword
+    matched" must never by itself cause a refusal when an image was supplied.
+
+    Before this was fixed, 8 of these 16 questions returned OUT_OF_SCOPE,
+    including the brief's own example "What's the most common object here?".
+    """
+
+    NATURAL_QUESTIONS = [
+        "What is the most common object here?",   # verbatim from the brief
+        "What objects do you see?",
+        "How many objects are in this image?",
+        "Describe this image",
+        "What is in this picture?",
+        "Count the boxes",
+        "Is the package okay?",
+        "Should I accept this delivery?",
+        "Any issues with this shipment?",
+        "Is this parcel fine to route?",
+        "What did you detect?",
+        "Summarize the findings",
+        "Is there a problem?",
+        "Can this be auto-routed?",
+        "How many damaged packages?",
+        "What class did you find?",
+    ]
+
+    def test_natural_questions_reach_the_detector(self):
+        refused = [q for q in self.NATURAL_QUESTIONS
+                   if reasoning.route_intent(q, IMAGE)[0] == reasoning.ROUTE_OUT_OF_SCOPE]
+        self.assertEqual(refused, [], "these should inspect the image, not refuse")
+
+    def test_unknown_phrasing_with_an_image_inspects_it(self):
+        """Positive evidence is required to refuse, not an absent keyword."""
+        route, why = reasoning.route_intent("Give me your assessment", IMAGE)
+        self.assertEqual(route, reasoning.ROUTE_VISION)
+        self.assertIn("an image was supplied", why)
+
+    def test_unknown_phrasing_without_an_image_still_refuses(self):
+        """With no image there is nothing to inspect, so refusal is correct."""
+        route, _ = reasoning.route_intent("Give me your assessment", None)
+        self.assertEqual(route, reasoning.ROUTE_OUT_OF_SCOPE)
 
 
 class TestUnsupportedCapability(unittest.TestCase):
@@ -183,5 +233,53 @@ class TestPromptAssembly(unittest.TestCase):
         self.assertIn("no record found", prompt)
 
 
+class TestDetectionDeduplication(unittest.TestCase):
+    """RT-DETR is NMS-free, so two decoder queries can lock onto one parcel and
+    both survive. Measured on the v3 test split: 12.4% of images emitted more
+    boxes than there were objects, and suppressing the weaker of two
+    heavily-overlapping same-class boxes removed 90 of 420 false positives at
+    zero recall cost. These pin the behaviour so it cannot silently regress.
+    """
+
+    def test_real_duplicate_pair_collapses(self):
+        """The exact pair found during v3 failure analysis."""
+        from app.detector import deduplicate
+        dets = [
+            {"label": "package", "confidence": 0.959, "bbox": [210.2, 200.7, 271.6, 301.5]},
+            {"label": "package", "confidence": 0.575, "bbox": [210.2, 200.5, 271.7, 301.5]},
+        ]
+        kept = deduplicate(dets)
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(kept[0]["confidence"], 0.959, "must keep the stronger box")
+
+    def test_different_classes_are_never_merged(self):
+        """A damaged parcel overlapping an intact one is a real observation."""
+        from app.detector import deduplicate
+        dets = [
+            {"label": "package", "confidence": 0.9, "bbox": [0, 0, 100, 100]},
+            {"label": "damaged-package", "confidence": 0.8, "bbox": [0, 0, 100, 100]},
+        ]
+        self.assertEqual(len(deduplicate(dets)), 2)
+
+    def test_separate_parcels_both_survive(self):
+        """Two distinct parcels of the same class must not collapse."""
+        from app.detector import deduplicate
+        dets = [
+            {"label": "package", "confidence": 0.9, "bbox": [0, 0, 100, 100]},
+            {"label": "package", "confidence": 0.8, "bbox": [200, 200, 300, 300]},
+        ]
+        self.assertEqual(len(deduplicate(dets)), 2)
+
+    def test_partial_overlap_below_threshold_survives(self):
+        """Touching parcels on a conveyor overlap without being duplicates."""
+        from app.detector import deduplicate
+        dets = [
+            {"label": "package", "confidence": 0.9, "bbox": [0, 0, 100, 100]},
+            {"label": "package", "confidence": 0.8, "bbox": [60, 0, 160, 100]},
+        ]
+        self.assertEqual(len(deduplicate(dets)), 2)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+

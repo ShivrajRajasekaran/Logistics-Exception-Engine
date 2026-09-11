@@ -1,0 +1,112 @@
+{
+  "weights": "weights\\best_v3.pt",
+  "split": "test",
+  "imgsz": 640,
+  "conf_threshold": 0.001,
+  "iou_threshold": 0.7,
+  "overall": {
+    "precision": 0.8302,
+    "recall": 0.729,
+    "mAP50": 0.7295,
+    "mAP50_95": 0.6008
+  },
+  "per_class": {
+    "package": {
+      "precision": 0.931,
+      "recall": 0.8312,
+      "mAP50": 0.8335,
+      "mAP50_95": 0.7033
+    },
+    "damaged-package": {
+      "precision": 0.7295,
+      "recall": 0.6269,
+      "mAP50": 0.6255,
+      "mAP50_95": 0.4983
+    }
+  },
+  "speed_ms": {
+    "preprocess": 0.42,
+    "inference": 24.27,
+    "loss": 0.0,
+    "postprocess": 0.49
+  },
+  "confusion": {
+    "package": {
+      "package": 321,
+      "MISSED": 1,
+      "damaged-package": 63
+    },
+    "damaged-package": {
+      "MISSED": 165,
+      "damaged-package": 419,
+      "package": 19
+    },
+    "BACKGROUND": {
+      "damaged-package": 307,
+      "package": 31
+    }
+  },
+  "per_source": {
+    "biradar-damage": {
+      "unmatched_predictions": 11,
+      "damaged-package": {
+        "instances": 9,
+        "hits": 0,
+        "recall": 0.0
+      }
+    },
+    "box-damage-open": {
+      "unmatched_predictions": 54,
+      "damaged-package": {
+        "instances": 41,
+        "hits": 30,
+        "recall": 0.7317
+      }
+    },
+    "haw-packages": {
+      "unmatched_predictions": 9,
+      "package": {
+        "instances": 242,
+        "hits": 241,
+        "recall": 0.9959
+      }
+    },
+    "moratuwa-parcel-damage": {
+      "unmatched_predictions": 13,
+      "damaged-package": {
+        "instances": 11,
+        "hits": 3,
+        "recall": 0.2727
+      }
+    },
+    "newbox-mixed": {
+      "unmatched_predictions": 158,
+      "damaged-package": {
+        "instances": 365,
+        "hits": 341,
+        "recall": 0.9342
+      },
+      "package": {
+        "instances": 143,
+        "hits": 80,
+        "recall": 0.5594
+      }
+    },
+    "packages2-damaged": {
+      "unmatched_predictions": 63,
+      "damaged-package": {
+        "instances": 63,
+        "hits": 0,
+        "recall": 0.0
+      }
+    },
+    "parcel-box-damage": {
+      "unmatched_predictions": 112,
+      "damaged-package": {
+        "instances": 114,
+        "hits": 45,
+        "recall": 0.3947
+      }
+    }
+  }
+}

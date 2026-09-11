@@ -1,0 +1,96 @@
+{
+  "weights": "weights\\best_v2.pt",
+  "split": "test",
+  "imgsz": 640,
+  "conf_threshold": 0.001,
+  "iou_threshold": 0.7,
+  "overall": {
+    "precision": 0.6172,
+    "recall": 0.646,
+    "mAP50": 0.5903,
+    "mAP50_95": 0.4867
+  },
+  "per_class": {
+    "package": {
+      "precision": 0.9628,
+      "recall": 1.0,
+      "mAP50": 0.9916,
+      "mAP50_95": 0.9046
+    },
+    "damaged-package": {
+      "precision": 0.2717,
+      "recall": 0.292,
+      "mAP50": 0.189,
+      "mAP50_95": 0.0688
+    }
+  },
+  "speed_ms": {
+    "preprocess": 0.72,
+    "inference": 24.96,
+    "loss": 0.0,
+    "postprocess": 0.5
+  },
+  "confusion": {
+    "package": {
+      "package": 242
+    },
+    "damaged-package": {
+      "MISSED": 137,
+      "damaged-package": 90
+    },
+    "BACKGROUND": {
+      "damaged-package": 467,
+      "package": 9
+    }
+  },
+  "per_source": {
+    "biradar-damage": {
+      "unmatched_predictions": 9,
+      "damaged-package": {
+        "instances": 9,
+        "hits": 2,
+        "recall": 0.2222
+      }
+    },
+    "box-damage-open": {
+      "unmatched_predictions": 117,
+      "damaged-package": {
+        "instances": 41,
+        "hits": 34,
+        "recall": 0.8293
+      }
+    },
+    "haw-packages": {
+      "unmatched_predictions": 8,
+      "package": {
+        "instances": 242,
+        "hits": 242,
+        "recall": 1.0
+      }
+    },
+    "moratuwa-parcel-damage": {
+      "unmatched_predictions": 16,
+      "damaged-package": {
+        "instances": 11,
+        "hits": 3,
+        "recall": 0.2727
+      }
+    },
+    "packages2-damaged": {
+      "unmatched_predictions": 103,
+      "damaged-package": {
+        "instances": 53,
+        "hits": 0,
+        "recall": 0.0
+      }
+    },
+    "parcel-box-damage": {
+      "unmatched_predictions": 223,
+      "damaged-package": {
+        "instances": 113,
+        "hits": 51,
+        "recall": 0.4513
+      }
+    }
+  }
+}

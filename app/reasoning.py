@@ -28,6 +28,13 @@ VISION_TOKENS = {
     "intact", "condition", "inspect", "inspection", "visible", "see", "look", "image",
     "photo", "picture", "count", "how many", "box", "carton", "parcel", "package",
     "defect", "anomaly", "claim", "liability",
+    # Vocabulary a reviewer actually types. The brief's own example question,
+    # "What's the most common object here?", refused before these were added.
+    "object", "objects", "common", "detect", "detected", "detection", "find",
+    "found", "class", "classes", "describe", "summarize", "summarise", "summary",
+    "findings", "problem", "problems", "issue", "issues", "wrong", "okay", "ok",
+    "fine", "accept", "reject", "delivery", "shipment", "consignment", "goods",
+    "auto route", "auto routed", "routed", "triage", "status",
 }
 
 UNSUPPORTED_TOKENS = {
@@ -75,6 +82,12 @@ LEDGER_TOKENS = {
 OUT_OF_SCOPE_TOKENS = {
     "weather", "stock price", "capital of", "translate", "joke", "recipe",
     "who are you", "your name", "sla definition", "company policy", "holiday",
+    # Commercial/procurement vocabulary. The router now inspects the image when
+    # nothing marks a question off-topic, so "off-topic" needs positive
+    # evidence. Without these, "Who is our sealant supplier?" would reach the
+    # detector and be answered from parcel boxes.
+    "supplier", "vendor", "procurement", "price", "pricing", "cost", "quote",
+    "contract", "budget", "invoice number", "purchase order",
 }
 
 ROUTE_VISION = "VISION_REQUIRED"
@@ -119,7 +132,20 @@ def route_intent(query: str, image_path: Optional[str]) -> Tuple[str, str]:
     if not vision:
         if ledger:
             return ROUTE_LEDGER, "matched record-only terms %s; parcel history answers this" % sorted(ledger)
-        return ROUTE_OUT_OF_SCOPE, "no visual or record vocabulary matched"
+        # An image was supplied and nothing marks the question as unsupported or
+        # off-topic. Inspect it.
+        #
+        # Refusing here was a real defect: a keyword whitelist can never
+        # enumerate every phrasing, so "no keyword matched" was silently
+        # rejecting ordinary questions. Measured before this change, 8 of 16
+        # plausible reviewer questions refused, including the brief's own
+        # example "What's the most common object here?". Refusal must require
+        # positive evidence (an unsupported concept, or an off-topic subject),
+        # never the mere absence of a keyword.
+        if image_path:
+            return ROUTE_VISION, ("no explicit visual keyword, but an image was supplied "
+                                  "and nothing marks the question off-topic; inspecting it")
+        return ROUTE_OUT_OF_SCOPE, "no image supplied and no visual or record vocabulary matched"
 
     if not image_path:
         return ROUTE_LEDGER, "visual intent detected but no image_path supplied; falling back to record"

@@ -362,7 +362,14 @@ def check_failure_cases():
 def check_dataset_justification():
     memo = read("MEMO.md")
     signals = {
-        "sources enumerated": len(re.findall(r"\|\s*\S+/\S+\s*\|", memo)) >= 3,
+        # Count workspace/project identifiers inside markdown table rows.
+        # An earlier form required the cell to contain ONLY "a/b", so adding
+        # a version suffix ("haw-odap3/packages-iw8aw v3") silently failed
+        # the check even though the memo had become MORE informative.
+        "sources enumerated": sum(
+            1 for line in memo.splitlines()
+            if line.startswith("|") and re.search(r"[A-Za-z0-9_-]+/[A-Za-z0-9_-]+", line)
+        ) >= 3,
         "pivot justified": bool(re.search(r"pivot|cut|dropped", memo, re.I)),
         "split strategy": bool(re.search(r"70\s*/\s*15\s*/\s*15|split", memo, re.I)),
         "leakage controls": bool(re.search(r"leak|dedup|grouped", memo, re.I)),
@@ -421,19 +428,50 @@ def _parses(f):
 
 def check_container_static():
     df, dc = read("Dockerfile"), read("docker-compose.yml")
+    # The brief names FOUR bonus components: "Docker containerization,
+    # VM/server deployment, logging, error handling". Scoring only the Docker
+    # ones and awarding full marks flatters the submission. Each named
+    # component is weighted separately so an absent one actually costs marks.
+    readme, main_py = read("README.md"), read("app/main.py")
+
+    docker_ok = all([
+        bool(re.search(r"FROM python:3\.\d+-slim", df)),
+        "whl/cpu" in df,
+        bool(re.search(r"^USER (?!root)", df, re.M)),
+        "HEALTHCHECK" in df,
+        bool(re.search(r"\d+:8000", dc)),
+    ])
+    logging_ok = "perf_counter" in main_py and "logging.getLogger" in main_py
+    errors_ok = all(("status_code=%d" % c) in main_py for c in (400, 413, 415, 503))
+
+    # A live deployment means a reachable URL a reviewer can hit, or a real
+    # deploy manifest. A Dockerfile is not a deployment.
+    deploy_urls = [u for u in re.findall(r"https?://[^\s)\]`]+", readme)
+                   if not re.search(r"localhost|127\.0\.0\.1|github\.com|"
+                                    r"roboflow|pytorch\.org|zenodo|docs\.", u)]
+    deploy_manifest = any((ROOT / f).exists() for f in
+                          ("fly.toml", "render.yaml", "railway.json", "Procfile",
+                           "k8s", ".github/workflows/deploy.yml"))
+    deployed = bool(deploy_urls) or deploy_manifest
+
     checks = {
-        "slim base image": bool(re.search(r"FROM python:3\.\d+-slim", df)),
-        "CPU torch index": "whl/cpu" in df,
-        "non-root USER": bool(re.search(r"^USER (?!root)", df, re.M)),
-        "HEALTHCHECK": "HEALTHCHECK" in df,
-        "compose port map": bool(re.search(r"\d+:8000", dc)),
-        "health endpoint in app": "/health" in read("app/main.py"),
+        "Docker containerisation": docker_ok,
+        "structured logging": logging_ok,
+        "error handling": errors_ok,
+        "VM/server deployment": deployed,
     }
     earned = round(10 * sum(checks.values()) / len(checks))
+    if not deployed:
+        ev_deploy = ("no live URL or deploy manifest found; the brief names "
+                     "VM/server deployment as a bonus component and a Dockerfile "
+                     "alone does not satisfy it")
+    else:
+        ev_deploy = "deployment evidence: %s" % (deploy_urls[:1] or "manifest")
     ev = ["satisfied: %s" % ", ".join(k for k, v in checks.items() if v)]
     absent = [k for k, v in checks.items() if not v]
     if absent:
         ev.append("MISSING: %s" % ", ".join(absent))
+    ev.append(ev_deploy)
 
     # Fresh-clone viability: compose declaring a gitignored env_file is a
     # documented one-command path that fails for every reviewer.

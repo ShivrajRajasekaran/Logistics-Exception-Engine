@@ -1,0 +1,83 @@
+{
+  "weights": "weights\\best.pt",
+  "split": "test",
+  "imgsz": 640,
+  "conf_threshold": 0.001,
+  "iou_threshold": 0.7,
+  "overall": {
+    "precision": 0.6317,
+    "recall": 0.6637,
+    "mAP50": 0.6007,
+    "mAP50_95": 0.5269
+  },
+  "per_class": {
+    "package": {
+      "precision": 0.989,
+      "recall": 1.0,
+      "mAP50": 0.9939,
+      "mAP50_95": 0.9477
+    },
+    "damaged-package": {
+      "precision": 0.2745,
+      "recall": 0.3274,
+      "mAP50": 0.2076,
+      "mAP50_95": 0.1061
+    }
+  },
+  "speed_ms": {
+    "preprocess": 0.81,
+    "inference": 25.43,
+    "loss": 0.0,
+    "postprocess": 0.95
+  },
+  "per_source": {
+    "biradar-damage": {
+      "unmatched_predictions": 26,
+      "damaged-package": {
+        "instances": 9,
+        "hits": 2,
+        "recall": 0.2222
+      }
+    },
+    "box-damage-open": {
+      "unmatched_predictions": 50,
+      "damaged-package": {
+        "instances": 41,
+        "hits": 30,
+        "recall": 0.7317
+      }
+    },
+    "haw-packages": {
+      "unmatched_predictions": 2,
+      "package": {
+        "instances": 242,
+        "hits": 242,
+        "recall": 1.0
+      }
+    },
+    "moratuwa-parcel-damage": {
+      "unmatched_predictions": 10,
+      "damaged-package": {
+        "instances": 11,
+        "hits": 5,
+        "recall": 0.4545
+      }
+    },
+    "packages2-damaged": {
+      "unmatched_predictions": 96,
+      "damaged-package": {
+        "instances": 53,
+        "hits": 0,
+        "recall": 0.0
+      }
+    },
+    "parcel-box-damage": {
+      "unmatched_predictions": 270,
+      "damaged-package": {
+        "instances": 113,
+        "hits": 58,
+        "recall": 0.5133
+      }
+    }
+  }
+}
