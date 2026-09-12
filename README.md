@@ -293,10 +293,10 @@ Verified on all three paths: `/health`, `/api/v1/samples`, `/samples/{name}` and
 `/api/v1/detect` all serve correctly from a container started with zero volumes and zero
 environment file, and again with a non-default `PORT`.
 
-Measured footprint: **311 MiB idle** with the checkpoint loaded, **530 MiB peak** during
-inference. That rules out 512 MB free tiers and makes Hugging Face Spaces the right free
-host. [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) deploys there on every
-push to `main` once a token is configured.
+Measured footprint: **311 MiB idle** with the checkpoint loaded, and a hard floor between
+**520 and 544 MB** found by bisecting against `--memory` caps. That rules out every 512 MB
+free tier. No live deployment is published; reviewers run `docker compose up`, which
+`scripts/smoke_test_docker.py` verifies end to end.
 
 See **[DEPLOYMENT.md](DEPLOYMENT.md)** for host comparison, setup and the manual path.
 

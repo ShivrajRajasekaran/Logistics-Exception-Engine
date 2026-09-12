@@ -444,15 +444,22 @@ def check_container_static():
     logging_ok = "perf_counter" in main_py and "logging.getLogger" in main_py
     errors_ok = all(("status_code=%d" % c) in main_py for c in (400, 413, 415, 503))
 
-    # A live deployment means a reachable URL a reviewer can hit, or a real
-    # deploy manifest. A Dockerfile is not a deployment.
+    # The brief asks for VM/server deployment. Only a URL a reviewer can
+    # actually reach counts.
+    #
+    # This check used to accept a deploy manifest as equivalent. That was too
+    # generous: a committed manifest proves the deployment is *configured*, not
+    # that it *happened*, and this repository's own manifest targets a host that
+    # began charging for Docker hosting. Scoring it as satisfied reported 95/95
+    # while nothing was reachable, which is precisely the kind of flattering
+    # self-assessment the rest of this script exists to catch.
     deploy_urls = [u for u in re.findall(r"https?://[^\s)\]`]+", readme)
                    if not re.search(r"localhost|127\.0\.0\.1|github\.com|"
                                     r"roboflow|pytorch\.org|zenodo|docs\.", u)]
     deploy_manifest = any((ROOT / f).exists() for f in
                           ("fly.toml", "render.yaml", "railway.json", "Procfile",
                            "k8s", ".github/workflows/deploy.yml"))
-    deployed = bool(deploy_urls) or deploy_manifest
+    deployed = bool(deploy_urls)
 
     checks = {
         "Docker containerisation": docker_ok,
@@ -462,9 +469,12 @@ def check_container_static():
     }
     earned = round(10 * sum(checks.values()) / len(checks))
     if not deployed:
-        ev_deploy = ("no live URL or deploy manifest found; the brief names "
-                     "VM/server deployment as a bonus component and a Dockerfile "
-                     "alone does not satisfy it")
+        ev_deploy = ("no reachable URL in README; the brief names VM/server "
+                     "deployment as a bonus component and neither a Dockerfile "
+                     "nor a deploy manifest is a deployment")
+        if deploy_manifest:
+            ev_deploy += (" (a deploy manifest IS present and tested, but it is "
+                          "configuration, not a running service)")
     else:
         ev_deploy = "deployment evidence: %s" % (deploy_urls[:1] or "manifest")
     ev = ["satisfied: %s" % ", ".join(k for k, v in checks.items() if v)]

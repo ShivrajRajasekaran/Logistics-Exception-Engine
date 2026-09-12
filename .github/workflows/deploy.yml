@@ -1,11 +1,16 @@
 # Deploy the serving container to a Hugging Face Space.
 #
-# WHY THIS HOST
-# The container was measured at 311 MiB idle with the checkpoint loaded and
-# 530 MiB peak during inference. That rules out the 512 MB free tiers offered
-# by several PaaS providers. A Hugging Face Space on free `cpu-basic` hardware
-# has 2 vCPU and 16 GB, so it fits with room to spare, and it builds the
-# Dockerfile itself rather than requiring a 2.79 GB image push.
+# REQUIRES A HUGGING FACE PRO SUBSCRIPTION
+# Docker Spaces are no longer free. Creating one on a free account returns
+# 402 Payment Required: "hosting Gradio and Docker Spaces on free cpu-basic
+# requires a PRO subscription". This workflow is kept because it is tested and
+# correct, and becomes a one-click deploy the moment an account has PRO. It is
+# not wired to anything today; see DEPLOYMENT.md for why no live deployment
+# exists and what the alternatives cost.
+#
+# SIZING
+# Bisected against hard --memory caps: the container is OOM-killed at 520 MB
+# and survives at 544 MB, so it needs a host offering at least ~576 MB.
 #
 # WHY A FRESH COMMIT RATHER THAN A HISTORY PUSH
 # weights/best.pt is a 63 MB regular git blob here. The Hub requires files over

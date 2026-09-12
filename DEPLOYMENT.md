@@ -23,14 +23,42 @@ CUDA base would add several GB for no benefit to a reviewer on a laptop.
 
 ## Choosing a host
 
-The 530 MiB peak is the number that decides this.
+### The hard floor, measured by bisection
+
+Run under successively tighter `--memory` caps, issuing one detection request at
+each. Not estimated:
+
+| Cap | Detection request | Outcome |
+| ---: | :--- | :--- |
+| 512 MB | HTTP 000 | OOM-killed |
+| 520 MB | HTTP 000 | OOM-killed |
+| 544 MB | HTTP 200 | survives |
+| 640 MB | HTTP 200 | survives, peaks at 516 MiB |
+
+**The container needs between 520 and 544 MB.** Pinning `OMP_NUM_THREADS=1` and
+`MALLOC_ARENA_MAX=2` does not close the gap; the peak is RT-DETR-L's decoder
+activations at 640 px. Lowering inference resolution would fit a 512 MB host but
+costs detection accuracy, which is not a trade worth making.
+
+### Host comparison
 
 | Host | Free tier | Verdict |
 | :--- | :--- | :--- |
-| **Hugging Face Spaces** | 2 vCPU, 16 GB | **Recommended.** Fits comfortably, and it builds the Dockerfile rather than needing a 2.79 GB image push |
-| Render | 512 MB | Too tight. Peak inference exceeds the limit, so it would be killed mid-request |
-| Fly.io | 256 MB default | Needs a 1 GB machine configured before it will hold |
+| **Google Cloud Run** | configurable to 1 GB | **Only free option that fits.** Scales to zero, so the first request after idle waits 30-60 s for a cold start. Needs a card on file |
+| Hugging Face Spaces | PRO only, $9/mo | Docker Spaces are **no longer free**. `create_repo` returns `402 Payment Required`: "hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription" |
+| Render | 512 MB | **Does not fit.** 32 MB short. The paid Starter tier is also 512 MB; 2 GB costs roughly $25/mo |
+| Fly.io | none for new accounts | No free tier for signups as of 2026 |
 | Any VM with 1 GB+ | — | Works. `docker run` and a reverse proxy is the whole setup |
+
+### Current status
+
+**No live deployment exists.** The decision was to submit without one: the
+component is worth roughly 2.5% of the grade, the other three bonus items
+(containerisation, logging, error handling) are already satisfied, and the
+free hosts either do not fit or answer the first request a minute late.
+
+Reviewers run the system with `docker compose up`, which is verified working
+end to end by `scripts/smoke_test_docker.py`.
 
 ## Automated deployment
 
@@ -87,8 +115,8 @@ git push hf deploy/hf-space:main --force
 git checkout main
 ```
 
-The first build takes roughly 4 to 8 minutes on free hardware, mostly the CPU
-torch install. Watch the Space's **Logs** tab.
+The first build takes roughly 4 to 8 minutes, mostly the CPU torch install.
+Watch the Space's **Logs** tab. This path requires a PRO subscription, as above.
 
 ## Once it is live
 
