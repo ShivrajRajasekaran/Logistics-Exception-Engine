@@ -35,6 +35,7 @@ yolo11n.pt
 weights/best_v3.pt
 experiments/**/weights_*.pt
 
-# Runtime adjudication log written by app/audit.py. It is append-only
-# operational output, not a source artifact, so it does not belong in the repo.
+# Runtime store written by app/store.py: the SQLite database of detections and
+# adjudications, plus the superseded JSONL log it migrates from. Operational
+# output, not a source artifact, so it does not belong in the repo.
 logs/

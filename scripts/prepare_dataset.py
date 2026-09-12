@@ -11,7 +11,7 @@ discarded.
 Five of the seven are single-class, which is what made the first attempt fail.
 Damage projects annotate only damaged parcels and package projects only intact
 ones, so a model could separate the classes by recognising which project an
-image came from. The first trained model did exactly that, scoring 99.85% at
+image came from. The first trained model did exactly that, scoring 99.97% at
 guessing the class from source identity alone.
 
 Two sources carry both classes and are what fixed it:
@@ -73,7 +73,7 @@ SOURCES = [
         # THE SOURCE THAT BREAKS THE SHORTCUT.
         #
         # Every other source supplies exactly one class, so "which dataset is
-        # this" predicted the label at 99.85% and the v1 model learned capture
+        # this" predicted the label at 99.97% and the v1 model learned capture
         # provenance instead of damage. This project photographs BOTH intact
         # and damaged boxes in one capture setup:
         #     Intact 1,381 instances vs damaged 2,216 (crushed/punctured/torn/leaking)

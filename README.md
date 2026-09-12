@@ -169,7 +169,7 @@ decision viewed from two directions.
 
 ### Data pipeline
 
-The first trained model scored 99.85% at guessing the class from the source project alone.
+The first trained model scored 99.97% at guessing the class from the source project alone.
 It had learned provenance, not damage. The pipeline below is what fixed that, and the
 gate at the end is what stops it recurring.
 

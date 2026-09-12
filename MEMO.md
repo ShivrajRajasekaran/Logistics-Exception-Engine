@@ -30,14 +30,16 @@ path. `Invoice`, `paint` and `label` are dropped and counted, never silently abs
 ## 2. Pivots — what we tried, the evidence, why we changed
 
 **V1 (2,869 images) scored 0.601 mAP50 with a `package` recall of exactly 1.000.** That
-perfect recall was treated as suspicious rather than good. Three shortcuts were measured,
-each an accuracy achievable *without looking at the parcel* (50.6% baseline):
+perfect recall was treated as suspicious rather than good. Two shortcuts were measured,
+each an accuracy achievable *without looking at the parcel* (baseline 50.6% on V1, 55.8% on V3):
 
 | shortcut | V1 | V3 |
 | :--- | ---: | ---: |
-| source identity alone | 99.85% | **79.05%** |
-| image resolution alone | 99.83% | **79.05%** |
+| provenance: source identity, or equivalently resolution | 99.97% | **79.05%** |
 | box-area ratio, damaged:package | 8.78x | **5.40x** |
+
+Source and resolution score identically because each source exports at one fixed size, so
+resolution is the same signal at coarser grain rather than a second confirmation.
 
 Root cause: no source contained both classes, so "which dataset is this" *was* the label.
 

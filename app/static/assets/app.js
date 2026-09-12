@@ -235,6 +235,7 @@
             }).join("")
           : "<tr><td style='color:var(--muted)'>Nothing detected above the 0.25 serving threshold.</td></tr>";
         $("detectJson").textContent = JSON.stringify(data, null, 2);
+        loadLog();          // the observation was just recorded; show it
       })
       .catch(function (err) { $("detectError").textContent = "Detection failed: " + err.message; })
       .finally(function () {
@@ -271,6 +272,7 @@
       if (i >= files.length) {
         $("dropText").innerHTML = "<strong>Done — " + files.length + " images</strong>" +
           '<span class="hint">drop another folder to run again</span>';
+        loadLog();          // once at the end, not once per image
         return;
       }
       bar.style.width = Math.round((i / files.length) * 100) + "%";
@@ -425,7 +427,59 @@
 
   // Entries come from the append-only log, which records whatever question was
   // asked. That is user-supplied text, so it is escaped rather than trusted.
+  function loadStats() {
+    return fetch("/api/v1/stats").then(function (r) { return r.json(); })
+      .then(function (st) {
+        $("storeStats").innerHTML = [
+          ["images seen", st.detections],
+          ["with damage", st.images_with_damage],
+          ["exceptions", st.exceptions_flagged],
+          ["refusals", st.refusals]
+        ].map(function (p) {
+          return "<div class='stat'><div class='n'>" + p[1] +
+                 "</div><div class='k'>" + p[0] + "</div></div>";
+        }).join("");
+      }).catch(function () { $("storeStats").innerHTML = ""; });
+  }
+
+  function loadDetections() {
+    return fetch("/api/v1/detections?limit=25")
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.entries.length) {
+          $("detTable").innerHTML = "";
+          $("detEmpty").textContent =
+            "No detections recorded yet. Run one in Part A and it will appear here.";
+          return;
+        }
+        $("detEmpty").textContent = "";
+        $("detTable").innerHTML =
+          "<tr><th>When (UTC)</th><th>Image</th><th class='num'>Objects</th>" +
+          "<th class='num'>Top conf.</th><th class='num'>ms</th><th>Verdict</th></tr>" +
+          d.entries.map(function (e) {
+            var conf = (e.max_confidence === null || e.max_confidence === undefined)
+              ? "—" : e.max_confidence.toFixed(3);
+            var verdict = e.count === 0
+              ? "<span class='badge sm b-UNSUPPORTED_CAPABILITY'>nothing found</span>"
+              : (e.has_damage
+                  ? "<span class='badge sm b-EXCEPTION_FLAGGED'>damage</span>"
+                  : "<span class='badge sm b-CLEAR'>intact</span>");
+            return "<tr>" +
+              "<td class='when'>" + escapeText(e.recorded_at.replace("T", " ").slice(0, 19)) + "</td>" +
+              "<td class='query' title='" + escapeText(e.filename) + "'>" +
+                escapeText(e.filename || "(unnamed)") + "</td>" +
+              "<td class='num'>" + e.count + "</td>" +
+              "<td class='num'>" + conf + "</td>" +
+              "<td class='num'>" + Math.round(e.inference_time_ms) + "</td>" +
+              "<td>" + verdict + "</td></tr>";
+          }).join("");
+      })
+      .catch(function () { $("detEmpty").textContent = "Could not read detections."; });
+  }
+
   function loadLog() {
+    loadStats();
+    loadDetections();
     return fetch("/api/v1/exceptions?limit=25")
       .then(function (r) { return r.json(); })
       .then(function (d) {

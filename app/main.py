@@ -26,7 +26,7 @@ from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from app import audit, detector, ledger, reasoning
+from app import detector, ledger, reasoning, store
 from app.schemas import DetectResponse, ReasonRequest, ReasonResponse
 
 load_dotenv()
@@ -201,17 +201,40 @@ def list_samples():
 def recent_exceptions(limit: int = 20):
     """Most recent adjudications, newest first.
 
-    The reasoning layer never writes to the transit ledger; this is where its
-    output goes instead. Read-only: there is no endpoint that edits or deletes
-    an entry, because the log is append-only by construction.
+    The reasoning layer never writes to the transit ledger; its output goes to
+    the store instead. Read-only: nothing here edits or deletes a row, because
+    both tables are append-only by convention.
     """
     limit = max(1, min(int(limit), 200))
+    st = store.stats()
     return {
-        "count": audit.count(),
+        "count": st["adjudications"],
         "ledger_digest": ledger.DIGEST[:16],
         "ledger_intact": ledger.verify(),
-        "entries": audit.tail(limit),
+        "entries": store.recent_adjudications(limit),
     }
+
+
+@app.get("/api/v1/detections", include_in_schema=False)
+def recent_detections(limit: int = 20):
+    """Most recent /detect observations, newest first.
+
+    Separate from adjudications on purpose: a detection is an observation, an
+    adjudication is a decision with a guardrail outcome behind it.
+    """
+    limit = max(1, min(int(limit), 200))
+    st = store.stats()
+    return {
+        "count": st["detections"],
+        "images_with_damage": st["images_with_damage"],
+        "entries": store.recent_detections(limit),
+    }
+
+
+@app.get("/api/v1/stats", include_in_schema=False)
+def store_stats():
+    """Counts behind the dashboard summary tiles."""
+    return store.stats()
 
 
 @app.get("/health")
@@ -228,7 +251,8 @@ def health():
         "guardrail_threshold": reasoning.GUARDRAIL_THRESHOLD,
         "ledger_digest": ledger.DIGEST[:16],
         "ledger_intact": ledger.verify(),
-        "adjudications_recorded": audit.count(),
+        "adjudications_recorded": store.stats()["adjudications"],
+        "detections_recorded": store.stats()["detections"],
     }
 
 
@@ -246,6 +270,10 @@ async def detect(file: UploadFile = File(...)):
     image = _decode_upload(await file.read())
     height, width = image.shape[:2]
     detections, elapsed_ms = detector.run_inference(image)
+
+    # Observations were previously discarded the moment the response was sent,
+    # so the system could not answer what it had seen. Recording never raises.
+    store.record_detection(file.filename, [width, height], elapsed_ms, detections)
 
     return DetectResponse(
         filename=file.filename,
@@ -271,7 +299,7 @@ async def reason(payload: ReasonRequest):
     no model is consulted when the guardrail fails.
     """
     response = _adjudicate(payload)
-    audit.record(
+    store.record_adjudication(
         package_id=payload.package_id,
         query=payload.query,
         status=response.status,
