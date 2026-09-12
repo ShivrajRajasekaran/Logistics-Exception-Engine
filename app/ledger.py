@@ -26,7 +26,7 @@ integrity, an append-only history, and verification by a party that does not
 have to trust the operator. This gives the first of those three, against
 accidental or in-process modification only. Anyone who can edit this file can
 also recompute the digest. Real custody integrity belongs in an append-only
-store outside the serving process; `app/audit.py` is the first half of that.
+store outside the serving process; `app/store.py` is the first half of that.
 """
 
 import copy

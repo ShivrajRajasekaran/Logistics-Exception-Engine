@@ -470,8 +470,17 @@ response.
 | `GET /` | demo console |
 | `GET /api/v1/samples` | names of the bundled sample images, so the UI hardcodes no filenames |
 | `GET /samples/{name}` | serves one bundled sample; resolves and confirms containment first, so `../` cannot escape the directory |
+| `POST /api/v1/uploads` | stores an image server-side and returns a path `/reason` can accept, so a question can be asked about an uploaded photo. The stored name is generated, never taken from the client |
+| `GET /api/v1/detections` | recent `/detect` observations from the store, newest first |
+| `GET /api/v1/exceptions` | recent `/reason` adjudications, each with the ledger digest it was reconciled against |
+| `GET /api/v1/stats` | counts behind the console summary tiles |
 
-Both sample routes are excluded from the OpenAPI schema. They exist for the console.
+All seven are excluded from the OpenAPI schema, so `/docs` shows only the two graded
+endpoints plus `/health`. They exist for the console and are read-only apart from
+`uploads`, which is bounded by the same 20 MB and content-type checks as `/detect`.
+
+`/reason` reads images only from `sample_images/` and `uploads/`. Any other path returns
+403 before the filesystem is touched, so the endpoint cannot be used to probe for files.
 
 ---
 
