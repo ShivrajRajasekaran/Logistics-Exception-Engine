@@ -440,6 +440,43 @@
         $("reasonFlags").innerHTML = flags;
         $("reasonSummary").textContent = d.decision_summary;
 
+        // Liability, shown as its own row. The status badge is identical across
+        // parcel records, so without this the reconciliation looks like it did
+        // nothing even though the conclusion differs.
+        var lia = $("liability");
+        var sawDamage = (d.detections || []).some(function (x) {
+          return x.label === "damaged-package";
+        });
+        if (!sawDamage) {
+          lia.innerHTML = "";
+        } else {
+          var rec = d.ledger_record;
+          var origin = rec ? rec.origin_label_status : null;
+          var verdict, kind, why;
+          if (!rec) {
+            verdict = "UNATTRIBUTABLE"; kind = "UNKNOWN";
+            why = "is not in the transit ledger, so the damage cannot be attributed";
+          } else if (origin === "INTACT") {
+            verdict = "CARRIER LIABLE"; kind = "CARRIER";
+            why = "left origin <b>INTACT</b> under <b>" +
+                  escapeText(rec.carrier) + "</b>, so this damage is new";
+          } else if (origin === "ALREADY_DAMAGED") {
+            verdict = "NOT A NEW CLAIM"; kind = "PREEXISTING";
+            why = "left origin <b>ALREADY_DAMAGED</b> under <b>" +
+                  escapeText(rec.carrier) + "</b>, so the damage predates dispatch";
+          } else {
+            verdict = "UNATTRIBUTABLE"; kind = "UNKNOWN";
+            why = "has origin status <b>" + escapeText(String(origin)) +
+                  "</b>, which does not establish when the damage occurred";
+          }
+          lia.className = "liability lia-" + kind;
+          lia.innerHTML = "<span class='badge sm b-" +
+            (kind === "CARRIER" ? "EXCEPTION_FLAGGED"
+              : kind === "PREEXISTING" ? "INSUFFICIENT_INFORMATION"
+              : "UNSUPPORTED_CAPABILITY") + "'>" + verdict + "</span>" +
+            "<span class='src'>" + escapeText(d.package_id) + " " + why + "</span>";
+        }
+
         $("fallbackNote").textContent =
           d.decision_summary.indexOf("[deterministic fallback") === 0
             ? "The wording above came from a fixed template, not a language model. The status, " +

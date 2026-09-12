@@ -302,6 +302,26 @@ def _deterministic_fallback(detections: List[dict], counts: Dict[str, int],
         if ledger_record:
             origin = ledger_record.get("origin_label_status", "unknown")
             carrier = ledger_record.get("carrier", "unknown carrier")
-            body += (" Ledger records origin status '%s' under %s, so the damage "
-                     "occurred in transit if origin was intact." % (origin, carrier))
+            # Reconcile against the custody record rather than restating it. The
+            # previous wording appended "the damage occurred in transit if origin
+            # was intact" unconditionally, which contradicted itself on a parcel
+            # that left origin ALREADY_DAMAGED: the ledger value changed in the
+            # sentence while the conclusion did not.
+            if origin == "INTACT":
+                body += (" Ledger records origin status INTACT under %s, so this "
+                         "damage was not present at dispatch and is attributable "
+                         "to the carrier." % carrier)
+            elif origin == "ALREADY_DAMAGED":
+                body += (" Ledger records origin status ALREADY_DAMAGED under %s, "
+                         "so this parcel left origin damaged and the finding is "
+                         "NOT a new carrier claim. Route to manual inspection only "
+                         "if the damage appears to have worsened." % carrier)
+            else:
+                body += (" Ledger records origin status '%s' under %s, which does "
+                         "not establish whether the damage predates dispatch, so "
+                         "liability cannot be attributed from the record alone."
+                         % (origin, carrier))
+        else:
+            body += (" No transit record exists for this package, so the damage "
+                     "cannot be attributed to a carrier from available data.")
     return prefix + body

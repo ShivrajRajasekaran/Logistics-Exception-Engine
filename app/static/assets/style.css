@@ -440,3 +440,20 @@ td.query { color: var(--muted); max-width: 320px; overflow: hidden;
            text-overflow: ellipsis; white-space: nowrap; }
 .badge.sm { padding: 3px 9px; font-size: 10.5px; }
 .chip.bad { border-color: var(--bad); color: var(--bad); }
+
+/* ---------- liability reconciliation ---------- */
+/* The ledger conclusion was previously only visible ~100 characters into a
+   paragraph, under an identical status badge, so switching parcel records
+   looked like it changed nothing. It is the differentiator, so it gets its
+   own row. */
+.liability {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+  margin-top: 10px; padding: 10px 13px;
+  border: 1px solid var(--line); border-left: 3px solid var(--line-strong);
+  border-radius: 0 7px 7px 0; background: var(--panel-alt); font-size: 12.5px;
+}
+.liability .src { color: var(--muted); }
+.liability .src b { color: var(--text); font-weight: 600; }
+.lia-CARRIER { border-left-color: var(--bad); }
+.lia-PREEXISTING { border-left-color: var(--warn); }
+.lia-UNKNOWN { border-left-color: var(--neutral); }
