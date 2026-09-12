@@ -9,11 +9,27 @@
 # torch.cuda.is_available() can both succeed while training is still broken,
 # so the install must be verified with a real allocation. See REPRODUCIBILITY.md.
 #
-# USAGE (Python 3.11 venv, run BEFORE requirements.txt):
+# USAGE (Python 3.11 venv). Order matters: this file FIRST, then the base file.
+#
 #   pip install -r requirements-cuda.txt
-#   pip install -r requirements.txt --no-deps-upgrade-torch
-# In practice: install this file first, then requirements.txt will see torch
-# already satisfied at the correct version and leave it alone.
+#   pip install -r requirements.txt
+#
+# No extra pip flags are needed. requirements.txt pins `torch==2.7.0`, and under
+# PEP 440 a specifier carrying no local version label matches any local version,
+# so `==2.7.0` is satisfied by the `2.7.0+cu128` wheel installed above. pip
+# reports "Requirement already satisfied: torch==2.7.0 ... (2.7.0+cu128)" and
+# leaves the CUDA build in place. Verified with `pip install --dry-run`.
+#
+# Installing them in the OTHER order gives you the CPU wheel, and the CUDA file
+# will then not downgrade it cleanly. If you are unsure which you have, check:
+#
+#   python -c "import torch; print(torch.__version__)"     # want 2.7.0+cu128
+#
+# Import success and torch.cuda.is_available() are NOT sufficient proof on this
+# hardware. Confirm with a real allocation:
+#
+#   python -c "import torch; print(torch.zeros(8, device='cuda').sum())"
+
 
 --extra-index-url https://download.pytorch.org/whl/cu128
 

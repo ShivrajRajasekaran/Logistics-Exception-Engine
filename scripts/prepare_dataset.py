@@ -2,13 +2,26 @@
 Build the unified two-class logistics dataset from Roboflow Universe exports.
 
 WHY THIS SCRIPT EXISTS
-No single public dataset covers both intact and damaged parcels. Damage
-datasets annotate only damaged parcels; package datasets annotate only intact
-ones. We merge six sources, each with its own label vocabulary, into one
-contiguous two-class scheme. That merge is the part of
-the pipeline most likely to silently corrupt a dataset, so every decision here
-is explicit and logged: which source class became which target class, and which
-were deliberately discarded.
+Seven public projects are merged here, each with its own label vocabulary, into
+one contiguous two-class scheme. That merge is the part of the pipeline most
+likely to silently corrupt a dataset, so every decision is explicit and logged:
+which source class became which target class, and which were deliberately
+discarded.
+
+Five of the seven are single-class, which is what made the first attempt fail.
+Damage projects annotate only damaged parcels and package projects only intact
+ones, so a model could separate the classes by recognising which project an
+image came from. The first trained model did exactly that, scoring 99.85% at
+guessing the class from source identity alone.
+
+Two sources carry both classes and are what fixed it:
+
+    newbox-mixed     2,110 damaged + 1,308 package   (the decisive one)
+    biradar-damage      69 damaged +     6 package   (marginal)
+
+check_source_independence() below is the guard that stops the single-class
+regime returning unnoticed: it refuses to write a dataset in which any class
+exceeds 0.95 concentration in one source.
 
 USAGE
   # Phase 1 - see what the sources actually contain before mapping anything:
@@ -17,7 +30,15 @@ USAGE
   # Phase 2 - build the merged dataset:
   python scripts/prepare_dataset.py
 
-Requires ROBOFLOW_API_KEY in .env (free account, universe.roboflow.com).
+SCOPE: OFFLINE BUILD TOOL, NOT PART OF THE SERVED APPLICATION
+This script is the only thing in the repository that talks to Roboflow, and it
+runs offline, before training. It needs ROBOFLOW_API_KEY in .env (free account,
+universe.roboflow.com) to re-download the public source projects.
+
+The served API does not import this module, does not read that variable, and
+makes no outbound request to Roboflow. The Roboflow SDK is deliberately absent
+from requirements.txt and from the Docker image; it lives only in
+requirements-data.txt. Run this only to rebuild the dataset from scratch.
 """
 
 import argparse

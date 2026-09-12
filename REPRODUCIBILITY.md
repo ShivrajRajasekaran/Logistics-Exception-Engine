@@ -72,6 +72,10 @@ For CPU-only inference, skip `requirements-cuda.txt` entirely and install
 
 ## 3. Dataset
 
+The dataset is already prepared on disk and the served API needs none of this
+section. Rebuilding it from scratch is the only reason to run the steps below,
+and the only thing in the repository that requires a Roboflow credential.
+
 The dataset is assembled from public Roboflow Universe projects by
 `scripts/prepare_dataset.py`. It is not committed to the repository; the script
 reproduces it. `dataset/split_report.json` IS committed so the exact class
@@ -239,6 +243,10 @@ default of 0.25 is an operational choice and is not what the metrics use.
 | mAP@50 `damaged-package` | 0.625 |
 | Inference latency | 24.2 ms/image warm; first request ~2.5 s (CUDA warm-up) |
 
-Read MEMO.md section 4 before quoting the 0.601. It is inflated by a
-dataset artefact, and 0.208 is the honest summary of this model's damage
-sensitivity.
+Read MEMO.md section 4 before quoting any of these. The aggregate figures are
+flattered by residual source dependence: per-source recall on `damaged-package`
+still spans 0.000 to 0.934 across the seven source projects, and source-only
+predictability remains 0.79 against a 0.56 baseline. The honest summary of this
+model's damage sensitivity is **0.625 mAP@50 on our own held-out split, with
+recall that varies sharply by capture style** — not a forecast for an unseen
+distribution.

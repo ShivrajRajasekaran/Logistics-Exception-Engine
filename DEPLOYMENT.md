@@ -10,12 +10,16 @@ docker run -p 8000:8000 logistics-exception-engine:1.0.0
 
 ## Measured footprint
 
-Taken from the running container, not estimated.
+Taken from the running container, not estimated. The authoritative sizing number
+is the hard floor in the next section, found by bisecting against `--memory`
+caps; the observed peak below is what `docker stats` reports when memory is
+plentiful, and it drifts with allocator pressure, so do not size a host from it.
 
 | State | Memory |
 | :--- | ---: |
 | Idle, checkpoint loaded | 311 MiB |
-| Peak during inference | 530 MiB |
+| Observed peak, uncapped | ~516 MiB |
+| **Hard floor (see below)** | **between 520 and 544 MB** |
 | Image on disk | 2.79 GB |
 
 CPU inference costs 1.2 to 1.7 s per image. The image is CPU-only on purpose: a
@@ -140,6 +144,10 @@ assembled tree was built with `docker build` and the resulting container served
 correctly with an injected `$PORT`, no volumes and no environment file, peaking
 at 466 MiB.
 
-What has **not** happened is an actual push to a live Space, which needs a
-Hugging Face account. Until that is done there is no public URL, and the
-submission self-audit scores the deployment component on the manifest alone.
+What has **not** happened is an actual push to a live Space, because Docker
+Spaces now require a paid subscription. There is no public URL.
+
+The submission self-audit scores this component as **not satisfied**. It checks
+for a reachable URL and deliberately does not accept a deploy manifest as a
+substitute: a manifest proves the deployment is configured, not that it
+happened. The audit therefore reports 93/95 rather than 95/95.
