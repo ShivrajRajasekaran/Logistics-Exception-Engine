@@ -27,6 +27,28 @@ claim.
 
 ---
 
+## The system running
+
+`docker compose up` brings up the whole thing at <http://localhost:8000/> — detector,
+reasoning layer and console in one container.
+
+![Detection and reasoning](docs/dashboard.png)
+
+Part A returns boxes, classes and confidences. Part B reconciles that detection against the
+transit ledger: the same image on `PKG-8821`, which left origin **INTACT**, is
+`CARRIER LIABLE`, while on `PKG-9940`, which left origin **ALREADY_DAMAGED**, the same
+detection is **not a new claim**. The verdict changes because the custody record does.
+
+![Adjudication log](docs/activity.png)
+
+Every observation and decision is appended to a SQLite store and shown back, each entry
+carrying the ledger digest it was reconciled against. The detections table is also where
+the model's honest limits are visible: `random_noise.jpg` scores 0.866 on
+`damaged-package`, which is the out-of-distribution weakness described in
+[MEMO.md](MEMO.md).
+
+---
+
 ## Contents
 
 [Constraints](#constraints-checklist) ·
