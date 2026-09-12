@@ -14,9 +14,23 @@ claim.
 </tr>
 <tr>
 <td><b>Reasoning</b></td><td>Zero agentic frameworks, plain Python</td>
-<td><b>Tests</b></td><td>32, no GPU or API key required</td>
+<td><b>Tests</b></td><td>45, no GPU or API key required</td>
 </tr>
 </table>
+
+<p>
+  <a href="https://youtu.be/BWRKb_NcjJ8">
+    <img alt="Video walkthrough" src="https://img.shields.io/badge/▶%20Video%20walkthrough-watch-red?style=for-the-badge&logo=youtube&logoColor=white">
+  </a>
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white">
+  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.7%2Bcu128-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-serving-009688?style=for-the-badge&logo=fastapi&logoColor=white">
+  <img alt="Model" src="https://img.shields.io/badge/Model-RT--DETR--L-orange?style=for-the-badge">
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-one%20command-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+</p>
+
+**▶ [Video walkthrough](https://youtu.be/BWRKb_NcjJ8)** — the problem, the detector, the
+reasoning layer, and the honest limitations, explained end to end.
 
 > [!IMPORTANT]
 > **Read [MEMO.md](MEMO.md) section 4 before quoting any metric.** The shipped model (v3)

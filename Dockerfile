@@ -43,6 +43,12 @@ COPY dataset/data.yaml ./dataset/data.yaml
 COPY weights/best.pt ./weights/best.pt
 COPY sample_images/ ./sample_images/
 
+# The three evaluation PNGs behind /graphs. Only these three, not the whole
+# reports/ folder: the JSON files in there carry no reason to ship in the
+# image, and copying them individually keeps that explicit rather than
+# accidental.
+COPY reports/confusion_matrix.png reports/pr_curve.png reports/training_curves.png ./reports/
+
 # Non-root. Ultralytics writes a settings file at import, so give the runtime
 # user a writable home and config dir. /app/logs holds the append-only
 # store and /app/uploads the images sent from the dashboard, both created here

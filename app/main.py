@@ -69,6 +69,32 @@ app = FastAPI(
 )
 
 
+def _custom_openapi():
+    """Strip the auto-generated 422 Validation Error from every endpoint in
+    the Swagger docs. The fields all have defaults now, so the 422 section
+    is noise that confuses reviewers."""
+    if app.openapi_schema:
+        return app.openapi_schema
+    from fastapi.openapi.utils import get_openapi
+    schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    for path in schema.get("paths", {}).values():
+        for method in path.values():
+            method.get("responses", {}).pop("422", None)
+    components = schema.get("components", {}).get("schemas", {})
+    components.pop("HTTPValidationError", None)
+    components.pop("ValidationError", None)
+    app.openapi_schema = schema
+    return schema
+
+
+app.openapi = _custom_openapi
+
+
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     """Per-request latency logging, and a last-resort handler so an unexpected
@@ -200,6 +226,34 @@ def ui():
     # Revalidate every load: the markup names the asset files, so a stale
     # index.html would keep pointing at whatever it was built against.
     return FileResponse(index, headers={"Cache-Control": "no-cache"})
+
+
+@app.get("/graphs", include_in_schema=False)
+def graphs_page():
+    """Confusion matrix, PR curve and training curves in one page.
+
+    These three PNGs are already committed evidence for the metrics quoted in
+    MEMO.md; this just gives them somewhere to be looked at without opening
+    the repo folder.
+    """
+    page = STATIC_DIR / "graphs.html"
+    if not page.exists():
+        raise HTTPException(status_code=404, detail="Graphs page not found.")
+    return FileResponse(page, headers={"Cache-Control": "no-cache"})
+
+
+@app.get("/reports/{name}", include_in_schema=False)
+def report_image(name: str):
+    """Serve one committed evaluation image for the /graphs page.
+
+    Same containment pattern as /samples/{name}: resolve first, then confirm
+    the result sits inside reports/, so a `../` in the URL can't escape it.
+    """
+    root = (Path(__file__).resolve().parent.parent / "reports").resolve()
+    target = (root / name).resolve()
+    if root not in target.parents or not target.is_file():
+        raise HTTPException(status_code=404, detail="No such report image.")
+    return FileResponse(target)
 
 
 @app.get("/samples/{name}", include_in_schema=False)

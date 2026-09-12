@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logistics Exception Engine — Evaluation Graphs</title>
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .shell { max-width: 1100px; }
+  .back { display: inline-block; margin-bottom: 14px; font-size: 13px; color: var(--muted); text-decoration: none; }
+  .back:hover { color: var(--accent); }
+  .graph-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px 0 40px; }
+  .graph-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); overflow: hidden; }
+  .graph-card .card-head { padding: 13px 18px; background: var(--panel-alt); border-bottom: 1px solid var(--line); }
+  .graph-card .card-head h2 { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--text); }
+  .graph-card .card-head p { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); }
+  .graph-card img { display: block; width: 100%; height: auto; background: var(--panel-alt); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <a class="back" href="/">&larr; back to the console</a>
+    <h1>Evaluation graphs</h1>
+    <p>Confusion matrix, precision&ndash;recall curve and training curves for the shipped
+       v3 checkpoint on the 939-image held-out test split. These are the exact committed
+       images behind the numbers quoted in <code>MEMO.md</code>.</p>
+  </div>
+</header>
+
+<div class="shell">
+  <div class="graph-grid">
+
+    <section class="graph-card">
+      <div class="card-head">
+        <h2>Confusion matrix</h2>
+        <p>Normalised. Rows are true class, columns are predicted class. The background
+           row/column captures missed detections and phantom boxes on empty space.</p>
+      </div>
+      <img src="/reports/confusion_matrix.png" alt="Confusion matrix for package vs damaged-package">
+    </section>
+
+    <section class="graph-card">
+      <div class="card-head">
+        <h2>Precision&ndash;recall curve</h2>
+        <p>Per class, across the confidence sweep used for mAP. Shows the trade-off this
+           project's 0.65 guardrail threshold is chosen against.</p>
+      </div>
+      <img src="/reports/pr_curve.png" alt="Precision-recall curve per class">
+    </section>
+
+    <section class="graph-card">
+      <div class="card-head">
+        <h2>Training curves</h2>
+        <p>Loss and mAP across all completed epochs of the v3 run. Best checkpoint was
+           selected by Ultralytics fitness, not simply the last epoch.</p>
+      </div>
+      <img src="/reports/training_curves.png" alt="Training loss and mAP curves across epochs">
+    </section>
+
+  </div>
+</div>
+
+</body>
+</html>
