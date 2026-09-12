@@ -2,369 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Logistics Exception Engine</title>
-<style>
-  :root{
-    --bg:#f5f6f8; --panel:#fff; --panel2:#f0f2f5; --line:#dce0e6;
-    --tx:#1a1d23; --dim:#5f6773; --accent:#2563eb;
-    --ok:#15803d; --warn:#b45309; --bad:#dc2626; --neutral:#52525b;
-    --shadow:0 1px 2px rgba(16,24,40,.06);
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--tx);
-    font:14px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-  a{color:var(--accent)}
-  header{background:var(--panel);border-bottom:1px solid var(--line);padding:22px 26px}
-  .wrap{max-width:1240px;margin:0 auto}
-  h1{margin:0 0 4px;font-size:19px;font-weight:650;letter-spacing:-.2px}
-  .tag{color:var(--dim);font-size:13.5px;max-width:760px}
-  .statusbar{display:flex;gap:18px;flex-wrap:wrap;align-items:center;
-    margin-top:14px;font-size:12.5px;color:var(--dim)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--neutral);
-    display:inline-block;margin-right:6px}
-  .dot.up{background:var(--ok)} .dot.down{background:var(--bad)}
-  .pill{background:var(--panel2);border:1px solid var(--line);border-radius:20px;
-    padding:3px 11px;font-size:12px}
-
-  main{max-width:1240px;margin:0 auto;padding:20px 26px 40px;
-    display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-  @media(max-width:1020px){main{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-    overflow:hidden;box-shadow:var(--shadow)}
-  .card>h2{margin:0;padding:13px 18px;font-size:12px;font-weight:650;
-    letter-spacing:.6px;text-transform:uppercase;color:var(--dim);
-    background:var(--panel2);border-bottom:1px solid var(--line)}
-  .card>h2 small{text-transform:none;letter-spacing:0;font-weight:400;
-    color:var(--dim);margin-left:8px;font-size:11.5px}
-  .body{padding:18px}
-  .step{font-size:11.5px;font-weight:650;color:var(--accent);
-    text-transform:uppercase;letter-spacing:.5px;margin:0 0 7px}
-  .step:not(:first-child){margin-top:20px}
-
-  .thumbs{display:flex;gap:10px;flex-wrap:wrap}
-  .thumb{border:2px solid var(--line);border-radius:9px;overflow:hidden;
-    cursor:pointer;background:var(--panel2);width:108px;transition:.15s}
-  .thumb:hover{border-color:var(--accent)}
-  .thumb.sel{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
-  .thumb img{width:100%;height:74px;object-fit:cover;display:block}
-  .thumb span{display:block;padding:5px 7px;font-size:10.5px;color:var(--dim);
-    text-align:center;line-height:1.3}
-  .drop{border:1.5px dashed var(--line);border-radius:9px;padding:14px;
-    text-align:center;color:var(--dim);cursor:pointer;font-size:12.5px;margin-top:10px}
-  .drop:hover,.drop.over{border-color:var(--accent);color:var(--tx);
-    background:rgba(37,99,235,.04)}
-
-  button{background:var(--accent);color:#fff;border:0;border-radius:7px;
-    padding:9px 16px;font:650 13px/1 inherit;cursor:pointer}
-  button:hover{filter:brightness(1.08)}
-  button:disabled{opacity:.45;cursor:not-allowed;filter:none}
-  button.ghost{background:transparent;color:var(--tx);border:1px solid var(--line);font-weight:500}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
-  select,textarea{width:100%;background:#fff;color:var(--tx);border:1px solid var(--line);
-    border-radius:7px;padding:9px 11px;font:13px/1.4 inherit}
-  textarea{resize:vertical;min-height:52px}
-  label{display:block;font-size:12px;color:var(--dim);margin:12px 0 5px}
-
-  .ask{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-  .ask button{background:var(--panel2);color:var(--tx);border:1px solid var(--line);
-    border-radius:16px;padding:5px 11px;font:500 12px/1.3 inherit;text-align:left}
-  .ask button:hover{border-color:var(--accent);color:var(--accent);filter:none}
-  .ask b{display:block;font-size:10.5px;color:var(--dim);font-weight:600}
-
-  canvas{width:100%;border-radius:9px;display:block;background:#e9ecf0;
-    border:1px solid var(--line)}
-  .hide{display:none}
-  .badge{display:inline-block;padding:4px 12px;border-radius:20px;
-    font-size:11.5px;font-weight:700;letter-spacing:.3px}
-  .b-EXCEPTION_FLAGGED{background:rgba(220,38,38,.10);color:var(--bad)}
-  .b-CLEAR{background:rgba(21,128,61,.10);color:var(--ok)}
-  .b-INSUFFICIENT_INFORMATION{background:rgba(180,83,9,.11);color:var(--warn)}
-  .b-UNSUPPORTED_CAPABILITY{background:rgba(82,82,91,.10);color:var(--neutral)}
-  .b-ANSWERED_WITHOUT_VISION{background:rgba(37,99,235,.10);color:var(--accent)}
-  .summary{margin:12px 0 0;padding:13px 15px;background:var(--panel2);
-    border-left:3px solid var(--line);border-radius:0 7px 7px 0;font-size:13.5px}
-  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:12px}
-  th{text-align:left;color:var(--dim);font-weight:500;font-size:10.5px;
-    text-transform:uppercase;letter-spacing:.4px;padding:6px 8px;
-    border-bottom:1px solid var(--line)}
-  td{padding:7px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
-  tr:last-child td{border-bottom:0}
-  .sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:7px}
-  .meta{color:var(--dim);font-size:12px;margin-top:10px}
-  pre{background:var(--panel2);border:1px solid var(--line);border-radius:7px;
-    padding:12px;overflow:auto;max-height:260px;font-size:11.5px;color:var(--dim);margin:12px 0 0}
-  .err{color:var(--bad);font-size:12.5px;margin-top:10px}
-  .kv{font-size:12px;color:var(--dim)} .kv b{color:var(--tx);font-weight:600}
-
-  .legend{max-width:1240px;margin:0 auto;padding:0 26px 46px}
-  .legend .card{padding:0}
-  .lg{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:14px;padding:18px}
-  .lg div{font-size:12.5px;color:var(--dim)}
-  .lg b{display:block;margin-bottom:3px}
-  .note{font-size:12.5px;color:var(--dim);padding:0 18px 18px;line-height:1.6}
-  .note strong{color:var(--tx)}
-</style>
+<link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
 
-<header><div class="wrap">
-  <h1>Logistics Exception Engine</h1>
-  <div class="tag">An RT-DETR-L detector finds parcels and damage in an image. A separate
-    hand-written reasoning layer decides whether a question even needs the detector, then
-    refuses to answer when the evidence is too weak to support a claim.</div>
-  <div class="statusbar">
-    <span><span class="dot" id="dot"></span><span id="mstat">checking model…</span></span>
-    <span class="pill" id="p-classes">classes …</span>
-    <span class="pill" id="p-guard">guardrail …</span>
-    <span class="pill" title="Measured on a 939-image held-out test split">damaged-package mAP50 0.625</span>
-    <span class="pill">package mAP50 0.834</span>
+<header class="masthead">
+  <div class="shell">
+    <h1>Logistics Exception Engine</h1>
+    <p>An RT-DETR-L detector finds parcels and damage in an image. A separate hand-written
+       reasoning layer decides whether a question even needs the detector, then refuses to
+       answer when the evidence is too weak to support a claim.</p>
+    <div class="statusbar">
+      <span class="chip"><span class="dot" id="dot"></span><span id="modelState">checking model…</span></span>
+      <span class="chip" id="chipClasses">detects …</span>
+      <span class="chip" id="chipGuard">guardrail …</span>
+      <span class="chip" title="Measured on a 939-image held-out test split">damaged-package mAP50 <b>0.625</b></span>
+      <span class="chip">package mAP50 <b>0.834</b></span>
+    </div>
   </div>
-</div></header>
+</header>
 
-<main>
-  <!-- ===================== PART A ===================== -->
-  <section class="card">
-    <h2>Part A · Detection <small>image in → boxes, classes, confidences</small></h2>
-    <div class="body">
-      <p class="step">1 · Pick an image</p>
-      <div class="thumbs" id="thumbs"></div>
-      <div class="drop" id="drop">…or drop your own image here / click to browse
-        <input type="file" id="file" accept="image/*" class="hide"></div>
+<div class="shell">
+  <main>
 
-      <div class="row">
-        <button id="run" disabled>Run detection</button>
-        <button id="dl" class="ghost hide">Download annotated PNG</button>
-        <button id="tog" class="ghost hide">Raw JSON</button>
+    <!-- ============ PART A ============ -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Part A · Detection</h2>
+        <span class="sub">image in → boxes, classes, confidences</span>
       </div>
-      <div id="derr" class="err"></div>
+      <div class="card-body">
 
-      <div id="dout" class="hide">
-        <p class="step">2 · What the model saw</p>
-        <canvas id="cv"></canvas>
-        <div class="meta" id="dmeta"></div>
-        <table id="dtab"></table>
-        <pre id="djson" class="hide"></pre>
+        <div class="block">
+          <p class="step">1 · Pick a bundled sample</p>
+          <div class="tiles" id="tiles"></div>
+        </div>
+
+        <div class="block">
+          <p class="step">2 · Or use your own images</p>
+          <div class="dropzone" id="dropzone" role="button" tabindex="0">
+            <span id="dropText">
+              <strong>Drop images here, or click to browse</strong>
+              <span class="hint">one image for a detailed view · many for a batch run over a folder</span>
+            </span>
+            <input type="file" id="fileInput" accept="image/*" multiple class="hidden">
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="runBtn" type="button" disabled>Run detection</button>
+          <button id="downloadBtn" type="button" class="secondary hidden">Download annotated PNG</button>
+          <button id="jsonBtn" type="button" class="secondary hidden">Raw JSON</button>
+        </div>
+        <div class="error" id="detectError"></div>
+
+        <!-- single-image result -->
+        <div class="block hidden" id="singlePanel">
+          <p class="step">3 · What the model saw</p>
+          <canvas id="canvas"></canvas>
+          <div class="meta" id="detectMeta"></div>
+          <table id="detectTable"></table>
+          <pre id="detectJson" class="hidden"></pre>
+        </div>
+
+        <!-- batch result -->
+        <div class="block hidden" id="batchPanel">
+          <p class="step">3 · Batch results</p>
+          <div class="progress"><span id="progressBar"></span></div>
+          <div class="batch-summary" id="batchSummary"></div>
+          <div class="batch-grid" id="batchGrid"></div>
+        </div>
+
       </div>
+    </section>
+
+    <!-- ============ PART B ============ -->
+    <section class="card">
+      <div class="card-head">
+        <h2>Part B · Reasoning</h2>
+        <span class="sub">question in → decision, or an honest refusal</span>
+      </div>
+      <div class="card-body">
+
+        <div class="block">
+          <p class="step">1 · Choose a parcel record</p>
+          <select id="packageSelect">
+            <option value="PKG-8821">PKG-8821 — Apex Logistics, left origin INTACT</option>
+            <option value="PKG-9940">PKG-9940 — Meridian Freight, left origin ALREADY_DAMAGED</option>
+            <option value="PKG-0000">PKG-0000 — not in the ledger</option>
+          </select>
+          <p class="footnote">The ledger decides liability: damage on a parcel that left origin
+             intact is the carrier's; on PKG-9940 it is not a new claim.</p>
+        </div>
+
+        <div class="block">
+          <p class="step">2 · Image the question refers to</p>
+          <select id="imageSelect"></select>
+        </div>
+
+        <div class="block">
+          <p class="step">3 · Ask something</p>
+          <textarea id="question">Is this parcel damaged enough to raise a carrier claim?</textarea>
+          <div class="presets" id="presets"></div>
+        </div>
+
+        <div class="controls">
+          <button id="askBtn" type="button">Ask</button>
+          <button id="reasonJsonBtn" type="button" class="secondary hidden">Raw JSON</button>
+        </div>
+        <div class="error" id="reasonError"></div>
+
+        <div class="verdict hidden" id="verdict">
+          <span class="badge" id="statusBadge"></span>
+          <div class="flags" id="reasonFlags"></div>
+          <div class="summary" id="reasonSummary"></div>
+          <p class="footnote" id="fallbackNote"></p>
+          <table id="reasonTable"></table>
+          <pre id="reasonJson" class="hidden"></pre>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ LEGEND ============ -->
+  <section class="legend">
+    <div class="card">
+      <div class="card-head">
+        <h2>The five answers this API can return</h2>
+        <span class="sub">three judge the parcel · two are the router declining to</span>
+      </div>
+      <p class="group-label">Verdicts on the parcel itself</p>
+      <div class="legend-grid">
+        <div>
+          <span class="badge b-EXCEPTION_FLAGGED">EXCEPTION_FLAGGED</span>
+          <p>Damage seen above the confidence threshold, reconciled against the ledger.</p>
+        </div>
+        <div>
+          <span class="badge b-CLEAR">CLEAR</span>
+          <p>A parcel was located confidently and no damage was found. A negative you can trust.</p>
+        </div>
+        <div>
+          <span class="badge b-INSUFFICIENT_INFORMATION">INSUFFICIENT_INFORMATION</span>
+          <p>Evidence too weak, or the frame unreadable. The language model is never called here.</p>
+        </div>
+      </div>
+
+      <p class="group-label">Router outcomes — the detector was not the right tool</p>
+      <div class="legend-grid">
+        <div>
+          <span class="badge b-UNSUPPORTED_CAPABILITY">UNSUPPORTED_CAPABILITY</span>
+          <p>The question is about something this model was never trained to see, such as people.</p>
+        </div>
+        <div>
+          <span class="badge b-ANSWERED_WITHOUT_VISION">ANSWERED_WITHOUT_VISION</span>
+          <p>Answered from the transit record alone. No inference was spent.</p>
+        </div>
+      </div>
+      <p class="limits">
+        <strong>Honest limits.</strong> The detector reaches 0.625 mAP50 on damage over a
+        held-out test split, but per-source recall still ranges from 0.000 to 0.934, so accuracy
+        depends on how closely an image resembles the training capture styles. That is exactly
+        why the guardrail exists: a detector this uneven must refuse rather than narrate. Full
+        evidence, including five real failure cases, is in <code>MEMO.md</code>.
+      </p>
     </div>
   </section>
+</div>
 
-  <!-- ===================== PART B ===================== -->
-  <section class="card">
-    <h2>Part B · Reasoning <small>question in → decision, or an honest refusal</small></h2>
-    <div class="body">
-      <p class="step">1 · Choose a parcel record</p>
-      <select id="pkg">
-        <option value="PKG-8821">PKG-8821 — Apex Logistics, left origin INTACT</option>
-        <option value="PKG-9940">PKG-9940 — Meridian Freight, left origin ALREADY_DAMAGED</option>
-        <option value="PKG-0000">PKG-0000 — not in the ledger</option>
-      </select>
-      <div class="kv" style="margin-top:6px">The ledger decides liability: damage on a parcel
-        that left origin intact is the carrier's; on PKG-9940 it is not a new claim.</div>
-
-      <p class="step">2 · Image the question refers to</p>
-      <select id="img"></select>
-
-      <p class="step">3 · Ask something</p>
-      <textarea id="q">Is this parcel damaged enough to raise a carrier claim?</textarea>
-      <div class="ask" id="presets"></div>
-
-      <div class="row">
-        <button id="ask">Ask</button>
-        <button id="tog2" class="ghost hide">Raw JSON</button>
-      </div>
-      <div id="rerr" class="err"></div>
-
-      <div id="rout" class="hide" style="margin-top:16px">
-        <span class="badge" id="rbadge"></span>
-        <div class="kv" id="rflags" style="margin-top:9px"></div>
-        <div class="summary" id="rsum"></div>
-        <div class="kv" id="rfall" style="margin-top:8px"></div>
-        <table id="rtab"></table>
-        <pre id="rjson" class="hide"></pre>
-      </div>
-    </div>
-  </section>
-</main>
-
-<div class="legend"><section class="card">
-  <h2>What each answer means</h2>
-  <div class="lg">
-    <div><b class="badge b-EXCEPTION_FLAGGED">EXCEPTION_FLAGGED</b>
-      Damage seen above the confidence threshold, reconciled against the ledger.</div>
-    <div><b class="badge b-CLEAR">CLEAR</b>
-      A parcel was located confidently and no damage was found. A negative you can trust.</div>
-    <div><b class="badge b-INSUFFICIENT_INFORMATION">INSUFFICIENT_INFORMATION</b>
-      Evidence too weak, or the frame unreadable. The language model is never called here.</div>
-    <div><b class="badge b-UNSUPPORTED_CAPABILITY">UNSUPPORTED_CAPABILITY</b>
-      The question is about something this model was never trained to see, such as people.</div>
-    <div><b class="badge b-ANSWERED_WITHOUT_VISION">ANSWERED_WITHOUT_VISION</b>
-      Answered from the transit record alone. No inference was spent.</div>
-  </div>
-  <div class="note">
-    <strong>Honest limits.</strong> The detector reaches 0.625 mAP50 on damage over a held-out
-    test split, but per-source recall still ranges from 0.000 to 0.934, so accuracy depends on
-    how closely an image resembles the training capture styles. That is exactly why the
-    guardrail exists: a detector this uneven must refuse rather than narrate. Full evidence,
-    including five real failure cases, is in <code>MEMO.md</code>.
-  </div>
-</section></div>
-
-<script>
-const COLOR={"package":"#15803d","damaged-package":"#dc2626"};
-const $=id=>document.getElementById(id);
-function why(d,res){
-  const x=d&&d.detail;
-  if(typeof x==="string")return x;
-  if(Array.isArray(x))return x.map(e=>(e.loc?e.loc.slice(-1)[0]+": ":"")+(e.msg||"")).join("; ");
-  return "HTTP "+res.status;
-}
-const SAMPLES=[
-  {file:"intact_parcel.jpg",    caption:"intact → CLEAR",          name:"Intact parcel"},
-  {file:"damaged_parcel.jpg",   caption:"clear damage → flagged",  name:"Clearly damaged parcel"},
-  {file:"ambiguous_parcel.jpg", caption:"borderline → refuses",    name:"Borderline parcel"}];
-const DEFAULT_SAMPLE="damaged_parcel.jpg";
-let picked=null, pickedName=null;
-
-fetch("/health").then(r=>r.json()).then(h=>{
-  $("dot").className="dot "+(h.model_loaded?"up":"down");
-  $("mstat").textContent=h.model_loaded?"model ready":"model NOT loaded";
-  $("p-classes").textContent="detects: "+(h.classes||[]).join(", ");
-  $("p-guard").textContent="guardrail "+h.guardrail_threshold;
-}).catch(()=>{$("dot").className="dot down";$("mstat").textContent="API unreachable";});
-
-fetch("/api/v1/samples").then(r=>r.json()).then(d=>{
-  const t=$("thumbs"), sel=$("img");
-  // Curated samples first, in a deliberate order; anything else the server
-  // happens to hold is appended so the gallery never hides a file.
-  const known=SAMPLES.filter(s=>d.samples.includes(s.file));
-  const extra=d.samples.filter(n=>!SAMPLES.some(s=>s.file===n))
-                       .map(n=>({file:n,caption:n,name:n}));
-  [...known,...extra].forEach(({file:n,caption,name})=>{
-    const el=document.createElement("div"); el.className="thumb";
-    el.innerHTML=`<img src="/samples/${n}" alt="${name}"><span>${caption}</span>`;
-    el.onclick=async()=>{
-      document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("sel"));
-      el.classList.add("sel");
-      const blob=await (await fetch("/samples/"+n)).blob();
-      picked=new File([blob],n,{type:blob.type}); pickedName=n;
-      $("run").disabled=false; $("drop").textContent="using sample: "+n;
-      sel.value="sample_images/"+n;
-    };
-    t.appendChild(el);
-    const o=document.createElement("option");
-    o.value="sample_images/"+n; o.textContent=name+"  ("+n+")"; sel.appendChild(o);
-  });
-  const none=document.createElement("option");
-  none.value=""; none.textContent="(no image — answer from the record alone)";
-  sel.appendChild(none);
-  if(d.samples.includes(DEFAULT_SAMPLE))sel.value="sample_images/"+DEFAULT_SAMPLE;
-});
-
-[["Needs the detector","Is this parcel damaged?"],
- ["Counting","How many parcels are visible?"],
- ["Record only, no inference","Which carrier handled this in transit?"],
- ["Not trained for it","How many people are in this image?"],
- ["Off topic","What is the weather in Chennai?"]].forEach(([tag,q])=>{
-  const b=document.createElement("button");
-  b.innerHTML=`<b>${tag}</b>${q}`;
-  b.onclick=()=>{$("q").value=q; $("ask").click();};
-  $("presets").appendChild(b);
-});
-
-const drop=$("drop");
-drop.onclick=()=>$("file").click();
-drop.ondragover=e=>{e.preventDefault();drop.classList.add("over")};
-drop.ondragleave=()=>drop.classList.remove("over");
-drop.ondrop=e=>{e.preventDefault();drop.classList.remove("over");
-  if(e.dataTransfer.files[0])take(e.dataTransfer.files[0])};
-$("file").onchange=e=>{if(e.target.files[0])take(e.target.files[0])};
-function take(f){
-  picked=f; pickedName=f.name;
-  document.querySelectorAll(".thumb").forEach(x=>x.classList.remove("sel"));
-  drop.innerHTML=`<b style="color:var(--tx)">${f.name}</b> · ${(f.size/1024).toFixed(0)} KB`;
-  $("run").disabled=false;
-}
-
-$("run").onclick=async()=>{
-  if(!picked)return;
-  $("derr").textContent=""; $("run").disabled=true; $("run").textContent="Detecting…";
-  try{
-    const fd=new FormData(); fd.append("file",picked);
-    const res=await fetch("/api/v1/detect",{method:"POST",body:fd});
-    const data=await res.json();
-    if(!res.ok)throw new Error(why(data,res));
-    draw(picked,data);
-    $("dout").classList.remove("hide");
-    $("dl").classList.remove("hide"); $("tog").classList.remove("hide");
-    $("djson").textContent=JSON.stringify(data,null,2);
-  }catch(err){$("derr").textContent="Detection failed: "+err.message}
-  $("run").disabled=false; $("run").textContent="Run detection";
-};
-
-function draw(file,data){
-  const img=new Image();
-  img.onload=()=>{
-    const cv=$("cv"), cx=cv.getContext("2d");
-    cv.width=img.naturalWidth; cv.height=img.naturalHeight;
-    cx.drawImage(img,0,0);
-    const lw=Math.max(2,Math.round(cv.width/300)), fs=Math.max(13,Math.round(cv.width/38));
-    cx.lineWidth=lw; cx.font=`600 ${fs}px system-ui,sans-serif`; cx.textBaseline="top";
-    data.detections.forEach(d=>{
-      const [x1,y1,x2,y2]=d.bbox, col=COLOR[d.label]||"#2563eb";
-      cx.strokeStyle=col; cx.strokeRect(x1,y1,x2-x1,y2-y1);
-      const tag=`${d.label} ${d.confidence.toFixed(3)}`;
-      const tw=cx.measureText(tag).width, th=fs*1.45;
-      const ty=y1-th<0?y1:y1-th;
-      cx.fillStyle=col; cx.fillRect(x1-lw/2,ty,tw+fs*.7,th);
-      cx.fillStyle="#fff"; cx.fillText(tag,x1+fs*.28,ty+th*.18);
-    });
-    URL.revokeObjectURL(img.src);
-  };
-  img.src=URL.createObjectURL(file);
-  $("dmeta").innerHTML=`<b>${data.count}</b> detection(s) · ${data.image_size[0]}×${data.image_size[1]} px · ${data.inference_time_ms.toFixed(1)} ms`;
-  $("dtab").innerHTML=data.detections.length
-    ? `<tr><th>Class</th><th>Confidence</th><th>Box [x1,y1,x2,y2]</th></tr>`+
-      data.detections.map(d=>{const c=COLOR[d.label]||"#2563eb";
-        return `<tr><td><span class="sw" style="background:${c}"></span>${d.label}</td>`+
-               `<td>${d.confidence.toFixed(4)}</td>`+
-               `<td class="kv">${d.bbox.map(v=>v.toFixed(1)).join(", ")}</td></tr>`}).join("")
-    : `<tr><td class="kv">Nothing detected above the 0.25 serving threshold.</td></tr>`;
-}
-
-$("dl").onclick=()=>{const a=document.createElement("a");
-  a.download=`detection_${Date.now()}.png`; a.href=$("cv").toDataURL("image/png"); a.click()};
-$("tog").onclick=()=>$("djson").classList.toggle("hide");
-$("tog2").onclick=()=>$("rjson").classList.toggle("hide");
-
-$("ask").onclick=async()=>{
-  $("rerr").textContent=""; $("ask").disabled=true; $("ask").textContent="Reasoning…";
-  try{
-    const payload={package_id:$("pkg").value, query:$("q").value};
-    if($("img").value)payload.image_path=$("img").value;
-    const res=await fetch("/api/v1/reason",{method:"POST",
-      headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const d=await res.json();
-    if(!res.ok)throw new Error(why(d,res));
-    $("rbadge").textContent=d.status; $("rbadge").className="badge b-"+d.status;
-    $("rflags").innerHTML=`detector used: <b>${d.requires_vision_model}</b> · guardrail passed: <b>${d.guardrail_passed}</b>`+
-      (d.max_critical_confidence!=null?` · peak damage conf: <b>${d.max_critical_confidence.toFixed(4)}</b>`:"");
-    $("rsum").textContent=d.decision_summary;
-    const fb=d.decision_summary.startsWith("[deterministic fallback");
-    $("rfall").innerHTML=fb
-      ? "The wording above came from a fixed template, not a language model. "+
-        "The status, the guardrail and the detections are computed the same way either way, "+
-        "so the decision does not depend on the language model being reachable."
-      : "";
-    $("rtab").innerHTML=(d.detections&&d.detections.length)
-      ? `<tr><th>Class</th><th>Confidence</th></tr>`+d.detections.map(x=>
-          `<tr><td><span class="sw" style="background:${COLOR[x.label]||"#2563eb"}"></span>${x.label}</td><td>${x.confidence.toFixed(4)}</td></tr>`).join("")
-      : "";
-    $("rjson").textContent=JSON.stringify(d,null,2);
-    $("rout").classList.remove("hide"); $("tog2").classList.remove("hide");
-  }catch(err){$("rerr").textContent="Reasoning failed: "+err.message}
-  $("ask").disabled=false; $("ask").textContent="Ask";
-};
-</script>
+<script src="/assets/app.js"></script>
 </body>
 </html>

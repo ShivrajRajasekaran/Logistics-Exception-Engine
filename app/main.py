@@ -24,8 +24,9 @@ import numpy as np
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
-from app import detector, reasoning
+from app import audit, detector, ledger, reasoning
 from app.schemas import DetectResponse, ReasonRequest, ReasonResponse
 
 load_dotenv()
@@ -40,39 +41,6 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/jpg", "image/png", "image/bmp", "image/webp"}
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", str(20 * 1024 * 1024)))
-
-
-IMMUTABLE_TRANSIT_LEDGER = {
-    "PKG-8821": {
-        "package_id": "PKG-8821",
-        "carrier": "Apex Logistics",
-        "origin_hub": "HUB-01 Chennai Sorting Center",
-        "origin_label_status": "INTACT",
-        "origin_seal_status": "INTACT",
-        "dispatched_at": "2026-09-04T06:12:00Z",
-        "sku_manifest": "SKU-9901",
-        "declared_value_inr": 48500,
-        "transit_history": [
-            {"hub": "HUB-01 Chennai", "event": "DISPATCH_SCAN", "condition": "INTACT"},
-            {"hub": "HUB-04 Bengaluru", "event": "TRANSFER_SCAN", "condition": "NOT_INSPECTED"},
-            {"hub": "HUB-09 Pune", "event": "ARRIVAL_SCAN", "condition": "PENDING_INSPECTION"},
-        ],
-    },
-    "PKG-9940": {
-        "package_id": "PKG-9940",
-        "carrier": "Meridian Freight",
-        "origin_hub": "HUB-02 Coimbatore Consolidation",
-        "origin_label_status": "ALREADY_DAMAGED",
-        "origin_seal_status": "INTACT",
-        "dispatched_at": "2026-09-05T21:47:00Z",
-        "sku_manifest": "SKU-2274",
-        "declared_value_inr": 12300,
-        "transit_history": [
-            {"hub": "HUB-02 Coimbatore", "event": "DISPATCH_SCAN", "condition": "LABEL_TORN_AT_ORIGIN"},
-            {"hub": "HUB-09 Pune", "event": "ARRIVAL_SCAN", "condition": "PENDING_INSPECTION"},
-        ],
-    },
-}
 
 
 @asynccontextmanager
@@ -159,6 +127,12 @@ def _require_model() -> None:
         )
 
 
+if (STATIC_DIR / "assets").is_dir():
+    # Stylesheet and script live on disk as separate files rather than inlined
+    # into index.html, so they are cacheable, diffable and editable on their own.
+    app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
+
+
 @app.get("/", include_in_schema=False)
 def ui():
     """Single-page demo console.
@@ -198,6 +172,23 @@ def list_samples():
                               if p.suffix.lower() in {".jpg", ".jpeg", ".png"})}
 
 
+@app.get("/api/v1/exceptions", include_in_schema=False)
+def recent_exceptions(limit: int = 20):
+    """Most recent adjudications, newest first.
+
+    The reasoning layer never writes to the transit ledger; this is where its
+    output goes instead. Read-only: there is no endpoint that edits or deletes
+    an entry, because the log is append-only by construction.
+    """
+    limit = max(1, min(int(limit), 200))
+    return {
+        "count": audit.count(),
+        "ledger_digest": ledger.DIGEST[:16],
+        "ledger_intact": ledger.verify(),
+        "entries": audit.tail(limit),
+    }
+
+
 @app.get("/health")
 def health():
     """Readiness probe. Also surfaces the thresholds, so a reviewer can see
@@ -210,6 +201,9 @@ def health():
         "critical_classes": sorted(detector.CRITICAL_CLASSES),
         "detection_threshold": detector.CONFIDENCE_THRESHOLD,
         "guardrail_threshold": reasoning.GUARDRAIL_THRESHOLD,
+        "ledger_digest": ledger.DIGEST[:16],
+        "ledger_intact": ledger.verify(),
+        "adjudications_recorded": audit.count(),
     }
 
 
@@ -251,7 +245,25 @@ async def reason(payload: ReasonRequest):
     Steps 3 and 5 are deliberately adjacent so it is obvious by reading that
     no model is consulted when the guardrail fails.
     """
-    ledger_record: Optional[dict] = IMMUTABLE_TRANSIT_LEDGER.get(payload.package_id)
+    response = _adjudicate(payload)
+    audit.record(
+        package_id=payload.package_id,
+        query=payload.query,
+        status=response.status,
+        guardrail_passed=response.guardrail_passed,
+        requires_vision_model=response.requires_vision_model,
+        max_critical_confidence=response.max_critical_confidence,
+        detections=[d.model_dump() for d in response.detections],
+        ledger_digest=ledger.DIGEST,
+        ledger_intact=ledger.verify(),
+    )
+    return response
+
+
+def _adjudicate(payload: ReasonRequest) -> ReasonResponse:
+    """The decision layer itself. Split out so `reason` has one exit point to
+    record, and so this stays readable top to bottom."""
+    ledger_record: Optional[dict] = ledger.lookup(payload.package_id)
 
     route, rationale = reasoning.route_intent(payload.query, payload.image_path)
     log.info("reason | package=%s | route=%s | %s", payload.package_id, route, rationale)

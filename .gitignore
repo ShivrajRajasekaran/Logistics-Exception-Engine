@@ -34,3 +34,7 @@ yolo11n.pt
 # stays traceable without carrying 127 MB of superseded binaries.
 weights/best_v3.pt
 experiments/**/weights_*.pt
+
+# Runtime adjudication log written by app/audit.py. It is append-only
+# operational output, not a source artifact, so it does not belong in the repo.
+logs/

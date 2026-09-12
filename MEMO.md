@@ -162,6 +162,6 @@ returns `CLEAR`.
 
 No LLM call on that path. Given section 4 this is essential: a detector with measured
 source dependence **must** refuse rather than narrate, or it invents liability claims from
-noise. `IMMUTABLE_TRANSIT_LEDGER` exercises both branches — `PKG-8821` left origin
+noise. The transit ledger exercises both branches — `PKG-8821` left origin
 `INTACT`, so damage here is the carrier's; `PKG-9940` left `ALREADY_DAMAGED`, so identical
 detections are *not* a new claim. 32 tests pin routing, guardrail boundaries and dedup.

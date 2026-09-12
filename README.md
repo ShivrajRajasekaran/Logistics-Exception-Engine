@@ -87,7 +87,8 @@ flowchart LR
         end
 
         MODEL[("RT-DETR-L<br/>weights/best.pt<br/>loaded once at startup")]
-        LEDGER[("IMMUTABLE_TRANSIT_LEDGER<br/>custody records")]
+        LEDGER[("transit ledger<br/>read-only custody records<br/>SHA-256 verified")]
+        AUDIT[("append-only<br/>adjudication log")]
     end
 
     LLM["OpenAI SDK<br/>one direct call<br/><i>optional</i>"]
@@ -99,10 +100,12 @@ flowchart LR
     DET --> MODEL
     REASON -.->|"only if the question<br/>needs pixels"| DET
     REASON --> LEDGER
+    REASON ==> AUDIT
     REASON -.->|"only if the guardrail<br/>passes"| LLM
 
     style MODEL fill:#e0e7ff,stroke:#4338ca
     style LEDGER fill:#e0e7ff,stroke:#4338ca
+    style AUDIT fill:#dcfce7,stroke:#15803d
     style LLM fill:#fef3c7,stroke:#b45309
 ```
 
@@ -200,8 +203,8 @@ py -3.11 -m venv venv
 venv\Scripts\activate              # Windows;  source venv/bin/activate elsewhere
 python -m pip install --upgrade pip
 
-pip install -r requirements-cuda.txt   # GPU (Blackwell needs CUDA 12.8). Skip for CPU.
-pip install -r requirements.txt
+pip install -r requirements-cuda.txt   # GPU FIRST (Blackwell needs CUDA 12.8). Skip for CPU.
+pip install -r requirements.txt        # leaves the +cu128 torch alone; no flags needed
 
 cp .env.example .env                   # OPENAI_API_KEY optional, see below
 uvicorn app.main:app --host 0.0.0.0 --port 8000
@@ -228,6 +231,14 @@ cp runs/train/dataset_v3/weights/best.pt weights/best.pt
 > labelled deterministic summary instead of LLM prose, so routing and guardrail behaviour
 > are fully reviewable without credentials. The status, the guardrail decision and the
 > detections are computed identically either way.
+
+> **No dataset credentials are needed to run this.** The served API loads
+> `weights/best.pt` and makes no outbound request to Roboflow or any other dataset
+> provider. `ROBOFLOW_API_KEY` is used by one offline build script,
+> [`scripts/prepare_dataset.py`](scripts/prepare_dataset.py), and only to rebuild the
+> dataset from scratch. The Roboflow SDK is not in `requirements.txt` and not in the
+> Docker image. Source attribution for the public Roboflow Universe projects the data
+> came from is in [MEMO.md](MEMO.md) section 1.
 
 ### Docker
 
@@ -282,12 +293,16 @@ which is what single-container platforms typically inject.
 flowchart LR
     REPO["this repo"] --> BUILD["docker build"]
     BUILD --> IMG[("self-sufficient image<br/>weights + samples baked in")]
-    IMG --> LOCAL["docker compose<br/><i>volumes override<br/>for checkpoint swaps</i>"]
-    IMG --> RUN["docker run<br/><i>no volumes needed</i>"]
-    IMG --> HOST["Hugging Face Spaces,<br/>Render, or a bare VM<br/><i>PORT injected</i>"]
+    IMG --> LOCAL["docker compose<br/><i>verified</i>"]
+    IMG --> RUN["docker run, no volumes<br/><i>verified</i>"]
+    IMG -.-> HOST["any host with 576 MB+<br/><b>NOT DEPLOYED</b><br/><i>see DEPLOYMENT.md</i>"]
 
     style IMG fill:#e0e7ff,stroke:#4338ca
+    style HOST fill:#f4f4f5,stroke:#a1a1aa,stroke-dasharray: 4 4
 ```
+
+The dotted path is a capability, not a claim: **no public instance is running.**
+The two solid paths are verified working.
 
 Verified on all three paths: `/health`, `/api/v1/samples`, `/samples/{name}` and
 `/api/v1/detect` all serve correctly from a container started with zero volumes and zero
