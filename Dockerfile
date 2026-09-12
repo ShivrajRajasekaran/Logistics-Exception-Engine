@@ -45,9 +45,10 @@ COPY sample_images/ ./sample_images/
 
 # Non-root. Ultralytics writes a settings file at import, so give the runtime
 # user a writable home and config dir. /app/logs holds the append-only
-# adjudication log (app/audit.py), created here so the runtime user owns it.
+# store and /app/uploads the images sent from the dashboard, both created here
+# so the runtime user owns them.
 RUN useradd --create-home --uid 1000 appuser \
-    && mkdir -p /tmp/Ultralytics /app/logs \
+    && mkdir -p /tmp/Ultralytics /app/logs /app/uploads \
     && chown -R appuser:appuser /app /tmp/Ultralytics
 USER appuser
 

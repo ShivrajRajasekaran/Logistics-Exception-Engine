@@ -39,3 +39,7 @@ experiments/**/weights_*.pt
 # adjudications, plus the superseded JSONL log it migrates from. Operational
 # output, not a source artifact, so it does not belong in the repo.
 logs/
+
+# Images uploaded through the dashboard at runtime. Operational data,
+# not a source artifact.
+uploads/

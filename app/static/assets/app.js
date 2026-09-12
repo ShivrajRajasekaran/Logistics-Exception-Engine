@@ -189,11 +189,59 @@
       $("dropText").innerHTML = "<strong>" + files[0].name + "</strong>" +
         '<span class="hint">' + (files[0].size / 1024).toFixed(0) +
         " KB · click Run detection</span>";
+      // Also store it server-side. /reason takes a path, so without this the
+      // image you just uploaded could be detected on but never asked about.
+      registerForReasoning(files[0]);
       return;
     }
     // More than one file is a batch: run the whole folder straight away.
     runBatch(files);
   }
+
+  /* ---------- make an uploaded image available to Part B ---------- */
+
+  function registerForReasoning(file) {
+    var form = new FormData();
+    form.append("file", file);
+    return fetch("/api/v1/uploads", { method: "POST", body: form })
+      .then(function (res) {
+        return res.json().then(function (body) {
+          if (!res.ok) throw new Error(describeError(body, res));
+          return body;
+        });
+      })
+      .then(function (d) {
+        var picker = $("imageSelect");
+        var label = "Your upload — " + (d.original_name || "image");
+        // Replace any previous upload entry rather than growing the list.
+        var prev = picker.querySelector("option[data-uploaded]");
+        if (prev) prev.remove();
+        var opt = document.createElement("option");
+        opt.value = d.image_path;
+        opt.textContent = label;
+        opt.setAttribute("data-uploaded", "1");
+        picker.insertBefore(opt, picker.firstChild);
+        picker.value = d.image_path;
+        clearVerdict();
+      })
+      .catch(function (err) {
+        $("detectError").textContent =
+          "Uploaded, but Part B cannot reference it: " + err.message;
+      });
+  }
+
+  // A verdict describes the inputs that produced it. Leaving it on screen after
+  // those inputs change is how a stale answer gets read as a current one.
+  function clearVerdict() {
+    $("verdict").classList.add("hidden");
+    $("reasonJsonBtn").classList.add("hidden");
+    $("reasonError").textContent = "";
+  }
+
+  ["packageSelect", "imageSelect"].forEach(function (id) {
+    $(id).addEventListener("change", clearVerdict);
+  });
+  $("question").addEventListener("input", clearVerdict);
 
   /* ---------- single image ---------- */
 

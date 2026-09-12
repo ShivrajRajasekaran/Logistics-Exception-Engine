@@ -15,6 +15,7 @@ function calls in `reason()` below, written by hand and readable top to bottom.
 import logging
 import os
 import time
+import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -107,10 +108,39 @@ def _decode_upload(raw: bytes) -> np.ndarray:
     return image
 
 
+# Roots /reason is allowed to read from. Anything else is refused before the
+# filesystem is touched: the endpoint previously accepted any path, so a caller
+# could tell which files existed by comparing a 404 against a 400. That leaks
+# the filesystem layout even though cv2 would never have decoded the contents.
+READABLE_ROOTS = [
+    (Path(__file__).resolve().parent.parent / "sample_images").resolve(),
+    (Path(__file__).resolve().parent.parent / "uploads").resolve(),
+]
+
+
+def _resolve_readable(image_path: str) -> Path:
+    """Resolve a caller-supplied path, or refuse it.
+
+    Resolution happens first so that `..` segments and symlinks are collapsed
+    before the containment test, rather than after.
+    """
+    try:
+        target = Path(image_path).resolve()
+    except (OSError, ValueError):
+        raise HTTPException(status_code=400, detail="Malformed image path.")
+    if not any(target == root or root in target.parents for root in READABLE_ROOTS):
+        raise HTTPException(
+            status_code=403,
+            detail=("Images may only be read from sample_images/ or uploads/. "
+                    "Upload one with POST /api/v1/uploads to reason about it."),
+        )
+    return target
+
+
 def _load_image_from_path(image_path: str) -> np.ndarray:
     """Read a server-side image for the reasoning endpoint."""
-    path = Path(image_path)
-    if not path.exists():
+    path = _resolve_readable(image_path)
+    if not path.is_file():
         raise HTTPException(status_code=404, detail="Image not found at '%s'." % image_path)
     image = cv2.imread(str(path))
     if image is None:
@@ -185,6 +215,41 @@ def sample_image(name: str):
     if root not in target.parents or not target.is_file():
         raise HTTPException(status_code=404, detail="No such sample image.")
     return FileResponse(target)
+
+
+@app.post("/api/v1/uploads", include_in_schema=False)
+async def upload_for_reasoning(file: UploadFile = File(...)):
+    """Store an uploaded image so /reason can be asked about it.
+
+    /reason takes a server-side path, so before this existed you could run
+    detection on your own image but never ask a question about it - the
+    dropdown could only ever offer the bundled samples. That was the gap.
+
+    The stored name is generated, never taken from the client: a filename is
+    attacker-controlled and is the usual way a write escapes its directory.
+    """
+    if file.content_type and file.content_type not in ALLOWED_IMAGE_TYPES:
+        raise HTTPException(status_code=415,
+                            detail="Unsupported content type '%s'. Send an image."
+                                   % file.content_type)
+    raw = await file.read()
+    image = _decode_upload(raw)          # reuses the 400/413 checks
+    height, width = image.shape[:2]
+
+    root = Path(__file__).resolve().parent.parent / "uploads"
+    root.mkdir(parents=True, exist_ok=True)
+    suffix = Path(file.filename or "").suffix.lower()
+    if suffix not in {".jpg", ".jpeg", ".png", ".bmp", ".webp"}:
+        suffix = ".jpg"
+    stored = root / ("u_%s%s" % (uuid.uuid4().hex[:16], suffix))
+    stored.write_bytes(raw)
+
+    log.info("upload | %s -> %s | %dx%d", file.filename, stored.name, width, height)
+    return {
+        "image_path": "uploads/%s" % stored.name,
+        "original_name": file.filename,
+        "image_size": [width, height],
+    }
 
 
 @app.get("/api/v1/samples", include_in_schema=False)

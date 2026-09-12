@@ -29,4 +29,7 @@ services:
       # filesystem, so `up --build` would otherwise discard every recorded
       # verdict. Writable on purpose; the two mounts above are read-only.
       - ./logs:/app/logs
+      # Images uploaded through the dashboard, so /reason can be asked
+      # about them. Writable; the two mounts above it are read-only.
+      - ./uploads:/app/uploads
     restart: unless-stopped
