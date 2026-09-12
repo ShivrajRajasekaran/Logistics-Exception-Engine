@@ -406,6 +406,7 @@
             }).join("")
           : "";
         $("reasonJson").textContent = JSON.stringify(d, null, 2);
+        loadLog();          // the verdict was just appended; show it
       })
       .catch(function (err) { $("reasonError").textContent = "Reasoning failed: " + err.message; })
       .finally(function () {
@@ -413,4 +414,56 @@
         btn.textContent = "Ask";
       });
   });
+
+  /* ---------- adjudication log ---------- */
+
+  function escapeText(value) {
+    var d = document.createElement("div");
+    d.textContent = value == null ? "" : String(value);
+    return d.innerHTML;
+  }
+
+  // Entries come from the append-only log, which records whatever question was
+  // asked. That is user-supplied text, so it is escaped rather than trusted.
+  function loadLog() {
+    return fetch("/api/v1/exceptions?limit=25")
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var chip = $("ledgerChip");
+        chip.innerHTML = "ledger <b>" + (d.ledger_intact ? "intact" : "MODIFIED") +
+          "</b> · " + d.ledger_digest + " · <b>" + d.count + "</b> recorded";
+        chip.className = "chip" + (d.ledger_intact ? "" : " bad");
+
+        if (!d.entries.length) {
+          $("logTable").innerHTML = "";
+          $("logEmpty").textContent =
+            "Nothing recorded yet. Ask a question in Part B and it will appear here.";
+          return;
+        }
+        $("logEmpty").textContent = "";
+        $("logTable").innerHTML =
+          "<tr><th>When (UTC)</th><th>Package</th><th>Status</th>" +
+          "<th class='num'>Peak conf.</th><th>Question</th></tr>" +
+          d.entries.map(function (e) {
+            var conf = (e.max_critical_confidence === null ||
+                        e.max_critical_confidence === undefined)
+              ? "—" : e.max_critical_confidence.toFixed(3);
+            return "<tr>" +
+              "<td class='when'>" + escapeText(e.recorded_at.replace("T", " ").slice(0, 19)) + "</td>" +
+              "<td>" + escapeText(e.package_id) + "</td>" +
+              "<td><span class='badge sm b-" + escapeText(e.status) + "'>" +
+                escapeText(e.status) + "</span></td>" +
+              "<td class='num'>" + conf + "</td>" +
+              "<td class='query' title='" + escapeText(e.query) + "'>" +
+                escapeText(e.query) + "</td>" +
+            "</tr>";
+          }).join("");
+      })
+      .catch(function () {
+        $("logEmpty").textContent = "Could not read the adjudication log.";
+      });
+  }
+
+  $("refreshLog").addEventListener("click", loadLog);
+  loadLog();
 })();

@@ -128,6 +128,33 @@
 
   </main>
 
+  <!-- ============ ADJUDICATION LOG ============ -->
+  <section class="legend">
+    <div class="card">
+      <div class="card-head">
+        <h2>Adjudication log</h2>
+        <span class="sub">append-only · every verdict this service has issued</span>
+        <span class="head-actions">
+          <span class="chip" id="ledgerChip">ledger …</span>
+          <button id="refreshLog" type="button" class="secondary small">Refresh</button>
+        </span>
+      </div>
+      <div class="card-body">
+        <p class="footnote" style="margin-top:0">
+          The reasoning layer never writes to the transit ledger — an inspection adjudicates a
+          parcel's condition, it does not revise what origin recorded. Its output goes here
+          instead, one appended line per decision, carrying the ledger digest it was reconciled
+          against. Served from <code>GET /api/v1/exceptions</code>; the file is
+          <code>logs/exceptions.jsonl</code>.
+        </p>
+        <div class="table-scroll">
+          <table id="logTable"></table>
+        </div>
+        <p class="footnote" id="logEmpty"></p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ LEGEND ============ -->
   <section class="legend">
     <div class="card">
