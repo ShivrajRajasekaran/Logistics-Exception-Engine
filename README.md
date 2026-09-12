@@ -1,11 +1,44 @@
-# Logistics Parcel Exception Detection &amp; Reasoning API
+<div align="center">
 
-**A logistics damage-triage service that knows when to stay silent.**
+# 📦 Logistics Exception Engine
 
-An RT-DETR-L detector locates parcels and damage. A hand-written reasoning layer decides
-whether a question needs the detector at all, reconciles what it sees against an immutable
-transit ledger, and refuses to answer when the evidence is too weak to support a liability
-claim.
+<hr>
+
+### Parcel Damage Detection &amp; Liability Reasoning API
+
+<p>
+  <a href="https://youtu.be/BWRKb_NcjJ8">
+    <img alt="Video walkthrough" src="https://img.shields.io/badge/▶%20VIDEO%20WALKTHROUGH-WATCH-red?style=for-the-badge&logo=youtube&logoColor=white&labelColor=555">
+  </a>
+  <a href="MEMO.md">
+    <img alt="Technical memo" src="https://img.shields.io/badge/TECHNICAL%20MEMO-MEMO.MD-8A2BE2?style=for-the-badge&logo=markdown&logoColor=white&labelColor=555">
+  </a>
+  <a href="REPRODUCIBILITY.md">
+    <img alt="Reproducibility" src="https://img.shields.io/badge/REPRODUCIBLE-SEEDED-2E8B57?style=for-the-badge&logo=gitbook&logoColor=white&labelColor=555">
+  </a>
+  <img alt="Python" src="https://img.shields.io/badge/PYTHON-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white&labelColor=555">
+</p>
+
+<p>
+  <img alt="PyTorch" src="https://img.shields.io/badge/PYTORCH-2.7%2Bcu128-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white&labelColor=555">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FASTAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=555">
+  <img alt="Model" src="https://img.shields.io/badge/MODEL-RT--DETR--L-FF8C00?style=for-the-badge&logo=pytorchlightning&logoColor=white&labelColor=555">
+  <img alt="Docker" src="https://img.shields.io/badge/DOCKER-ONE%20COMMAND-2496ED?style=for-the-badge&logo=docker&logoColor=white&labelColor=555">
+  <img alt="Tests" src="https://img.shields.io/badge/TESTS-45%20PASSING-4C1?style=for-the-badge&logo=pytest&logoColor=white&labelColor=555">
+</p>
+
+**Fine-Tuned Real-Time Detection Transformer + Framework-Free Structured Reasoning Engine**
+
+Built for logistics hubs that must decide, in seconds, whether a carrier caused the damage
+they are looking at — or whether the parcel arrived that way.
+
+</div>
+
+> ▶ &nbsp;**Video walkthrough:** <https://youtu.be/BWRKb_NcjJ8> — *the problem, the detector,
+> the reasoning layer, and the measured limits, end to end*
+>
+> 🐳 &nbsp;**Run it locally:** `docker compose up` → <http://localhost:8000/> — *detector,
+> reasoning layer and console in one CPU-only container*
 
 <table>
 <tr>
@@ -18,19 +51,10 @@ claim.
 </tr>
 </table>
 
-<p>
-  <a href="https://youtu.be/BWRKb_NcjJ8">
-    <img alt="Video walkthrough" src="https://img.shields.io/badge/▶%20Video%20walkthrough-watch-red?style=for-the-badge&logo=youtube&logoColor=white">
-  </a>
-  <img alt="Python" src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white">
-  <img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.7%2Bcu128-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white">
-  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-serving-009688?style=for-the-badge&logo=fastapi&logoColor=white">
-  <img alt="Model" src="https://img.shields.io/badge/Model-RT--DETR--L-orange?style=for-the-badge">
-  <img alt="Docker" src="https://img.shields.io/badge/Docker-one%20command-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-</p>
-
-**▶ [Video walkthrough](https://youtu.be/BWRKb_NcjJ8)** — the problem, the detector, the
-reasoning layer, and the honest limitations, explained end to end.
+An RT-DETR-L detector locates parcels and damage. A hand-written reasoning layer decides
+whether a question needs the detector at all, reconciles what it sees against a
+digest-verified transit ledger, and refuses to answer when the evidence is too weak to
+support a liability claim.
 
 > [!IMPORTANT]
 > **Read [MEMO.md](MEMO.md) section 4 before quoting any metric.** The shipped model (v3)
@@ -597,12 +621,3 @@ experiments/
   v3_final/       the shipped run: manifest, results.csv, metrics
 ```
 
----
-
-## Documents
-
-| Document | What it covers |
-| :--- | :--- |
-| [MEMO.md](MEMO.md) | the two-page technical memo: sourcing, pivots, results, five failure cases |
-| [REPRODUCIBILITY.md](REPRODUCIBILITY.md) | hardware, environment, dataset build, training command, evaluation |
-| [DEPLOYMENT.md](DEPLOYMENT.md) | measured footprint, host comparison, automated and manual deployment |
