@@ -532,7 +532,7 @@ the full table and section 5 the five failure cases behind it.
 ## Tests
 
 ```bash
-python -m pytest tests/ -q          # 32 tests, no GPU/checkpoint/API key needed
+python -m pytest tests/ -q          # 45 tests, no GPU/checkpoint/API key needed
 ```
 
 The decision layer is our own code, so it is verifiable on its own terms rather than only
@@ -569,7 +569,7 @@ scripts/
   audit_submission.py   adversarial self-audit against the brief
   smoke_test_docker.py  6-step end-to-end container test, stdlib only
 
-tests/            test_reasoning.py, 32 tests
+tests/            test_reasoning.py (32) and test_store.py (13), 45 tests total
 weights/          best.pt, the shipped checkpoint
 sample_images/    three parcels covering CLEAR, flagged and refused
 reports/          committed metrics, curves and diagnostics
