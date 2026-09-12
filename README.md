@@ -506,6 +506,8 @@ response.
 | Route | Purpose |
 | :--- | :--- |
 | `GET /` | demo console |
+| `GET /graphs` | the three evaluation figures — confusion matrix, PR curve, training curves — with captions, so the evidence behind the numbers is visible without cloning |
+| `GET /reports/{name}` | serves one evaluation figure; same resolve-then-contain check as `/samples` |
 | `GET /api/v1/samples` | names of the bundled sample images, so the UI hardcodes no filenames |
 | `GET /samples/{name}` | serves one bundled sample; resolves and confirms containment first, so `../` cannot escape the directory |
 | `POST /api/v1/uploads` | stores an image server-side and returns a path `/reason` can accept, so a question can be asked about an uploaded photo. The stored name is generated, never taken from the client |
@@ -513,7 +515,7 @@ response.
 | `GET /api/v1/exceptions` | recent `/reason` adjudications, each with the ledger digest it was reconciled against |
 | `GET /api/v1/stats` | counts behind the console summary tiles |
 
-All seven are excluded from the OpenAPI schema, so `/docs` shows only the two graded
+All nine are excluded from the OpenAPI schema, so `/docs` shows only the two graded
 endpoints plus `/health`. They exist for the console and are read-only apart from
 `uploads`, which is bounded by the same 20 MB and content-type checks as `/detect`.
 
