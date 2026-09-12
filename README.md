@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📦 Logistics Exception Engine
+# 📦 Logistics Parcel Exception Detection &amp; Reasoning API
 
 <hr>
 
