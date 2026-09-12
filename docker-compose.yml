@@ -25,4 +25,8 @@ services:
     volumes:
       - ./weights:/app/weights:ro
       - ./sample_images:/app/sample_images:ro
+      # The adjudication log is append-only and lives in the container
+      # filesystem, so `up --build` would otherwise discard every recorded
+      # verdict. Writable on purpose; the two mounts above are read-only.
+      - ./logs:/app/logs
     restart: unless-stopped

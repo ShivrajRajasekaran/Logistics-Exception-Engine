@@ -127,13 +127,36 @@ def _require_model() -> None:
         )
 
 
+class RevalidatingStaticFiles(StaticFiles):
+    """StaticFiles that always sends `Cache-Control: no-cache`.
+
+    Starlette sets ETag and Last-Modified but no Cache-Control. With no
+    freshness directive a browser falls back to heuristic caching and may reuse
+    a stored copy WITHOUT revalidating. Because these assets have stable names
+    (`style.css`, `app.js`), that showed up as a stale console after a rebuild:
+    the server had the new file and the browser never asked for it.
+
+    `no-cache` does not mean "do not store", it means "revalidate before use".
+    Paired with the ETag the normal case is a 304 with an empty body, so this
+    costs one conditional request and cannot serve stale UI. Content-hashed
+    filenames would allow immutable long-lived caching instead, but that needs
+    a build step this project deliberately does not have.
+    """
+
+    def file_response(self, *args, **kwargs):
+        response = super().file_response(*args, **kwargs)
+        response.headers["Cache-Control"] = "no-cache"
+        return response
+
+
 if (STATIC_DIR / "assets").is_dir():
     # Stylesheet and script live on disk as separate files rather than inlined
     # into index.html, so they are cacheable, diffable and editable on their own.
-    app.mount("/assets", StaticFiles(directory=STATIC_DIR / "assets"), name="assets")
+    app.mount("/assets", RevalidatingStaticFiles(directory=STATIC_DIR / "assets"),
+              name="assets")
 
 
-@app.get("/", include_in_schema=False)
+@app.api_route("/", methods=["GET", "HEAD"], include_in_schema=False)
 def ui():
     """Single-page demo console.
 
@@ -144,7 +167,9 @@ def ui():
     index = STATIC_DIR / "index.html"
     if not index.exists():
         raise HTTPException(status_code=404, detail="UI asset not found.")
-    return FileResponse(index)
+    # Revalidate every load: the markup names the asset files, so a stale
+    # index.html would keep pointing at whatever it was built against.
+    return FileResponse(index, headers={"Cache-Control": "no-cache"})
 
 
 @app.get("/samples/{name}", include_in_schema=False)
