@@ -55,6 +55,27 @@ jobs:
         if: steps.gate.outputs.configured == 'true'
         run: git lfs install
 
+      - name: Create the Space if it does not exist
+        if: steps.gate.outputs.configured == 'true'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ vars.HF_USERNAME }}
+          HF_SPACE: ${{ vars.HF_SPACE }}
+        run: |
+          pip install -q -U huggingface_hub
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          repo = "%s/%s" % (os.environ["HF_USERNAME"], os.environ["HF_SPACE"])
+          # exist_ok makes this idempotent: first run creates the Space, every
+          # later run is a no-op. Without it a missing Space fails the push
+          # with a bare 404 that is hard to read.
+          api.create_repo(repo_id=repo, repo_type="space", space_sdk="docker",
+                          exist_ok=True, private=False)
+          print("Space ready: https://huggingface.co/spaces/%s" % repo)
+          PY
+
       - name: Assemble the Space repository
         if: steps.gate.outputs.configured == 'true'
         run: |

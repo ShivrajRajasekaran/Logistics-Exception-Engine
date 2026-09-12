@@ -37,17 +37,20 @@ The 530 MiB peak is the number that decides this.
 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) pushes to a
 Hugging Face Space on every commit to `main`.
 
-Set up once:
+Set up once. The workflow creates the Space itself if it does not exist, so the
+only manual step is adding the credentials.
 
-1. Create the Space at huggingface.co: **New Space → Docker SDK → CPU basic**.
-   Do not let it generate a Dockerfile, this repository supplies one.
-2. In GitHub, under **Settings → Secrets and variables → Actions**:
+1. In GitHub, under **Settings → Secrets and variables → Actions**:
 
    | Kind | Name | Value |
    | :--- | :--- | :--- |
    | secret | `HF_TOKEN` | a Hugging Face token with **write** scope |
    | variable | `HF_USERNAME` | your Hugging Face username |
    | variable | `HF_SPACE` | the Space name |
+
+Note the two tabs on that page: `HF_TOKEN` goes under **Secrets**, while
+`HF_USERNAME` and `HF_SPACE` go under **Variables**. Mixing them up is the
+usual cause of a skipped run.
 
 Until those exist the job exits cleanly with a message rather than failing, so
 the build stays green for anyone without a Hugging Face account.
