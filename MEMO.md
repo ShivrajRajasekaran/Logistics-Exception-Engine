@@ -82,7 +82,7 @@ changed, so V1 was re-evaluated on the V3 test set (939 images).
 | damaged-package recall | 0.397 | **0.627** | +0.230 |
 | package mAP50 | 0.626 | **0.834** | +0.207 |
 | overall mAP50 | 0.436 | **0.730** | +0.294 |
-| background false positives | 1,537 | **307** | −80% |
+| background false positives (damaged-package) | 1,537 | **307** | −80% |
 
 **Confusion behaviour** @0.25: package 321 correct / 63 called damaged / 1 missed;
 damaged 419 correct / 19 called package / 165 missed.
@@ -114,12 +114,12 @@ Rendered side by side in `reports/samples/v3_failures_final.jpg`.
    IoU stays below 0.5 and the same prediction counts as both a miss and a false positive.
    *Cause:* **the sources annotate at incompatible granularity.** Median damaged-box area:
    newbox 0.607 and parcel-box-damage 0.374 (whole parcel) versus box-damage-open 0.011 and
-   biradar 0.043 (defect region) — a 55x span. newbox supplies 61% of damaged instances, so
+   biradar 0.043 (defect region) — a 55x span. newbox supplies 57% of damaged instances (61% of the test split), so
    the model learned whole-parcel boxes. This is the mechanism behind the per-source recall
    spread, and why `biradar` and `packages2` sit at 0.000. *Fix:* re-annotate to one
    convention, or train per-convention heads. Not implemented — the honest ceiling here.
 4. **Smallest missed damage, 0.00087 of frame.** In
-   `box-damage-open_IMG_20221028_174044-removebg-preview` the model does fire (0.73, 0.80)
+   `box-damage-open_IMG_20221028_174044-removebg-preview` the model does fire (0.72)
    but never matches the tiny ground truth. *Cause:* the file is a background-removed line-art outline, not a photograph, and
    the targets are a few dozen pixels wide. *Fix:* reject non-photographic inputs at ingest;
    tiled inference for genuinely small defects. Not implemented.
@@ -134,7 +134,7 @@ Rendered side by side in `reports/samples/v3_failures_final.jpg`.
 ## 6. Part B: the reasoning layer
 
 **No framework.** Control flow is plain `if` statements in `reason()`; the one LLM call
-uses the official OpenAI SDK. `audit_submission.py` verifies this by AST over real imports.
+uses the official OpenAI SDK. `scripts/audit_submission.py` verifies this by AST over real imports.
 
 **Routing** is deterministic keyword matching — explainable line by line, and it must not
 spend a network call deciding whether one is needed. Four outcomes: `VISION_REQUIRED`,
@@ -152,14 +152,14 @@ parcel located also halts, because "detected nothing" is not "nothing is wrong".
 
 ```
 image:      sample_images/ambiguous_parcel.jpg
-detections: damaged-package 0.6227          <- genuinely borderline
+detections: damaged-package 0.62            <- genuinely borderline
 status:     INSUFFICIENT_INFORMATION
 summary:    peak confidence 0.62 is below the operational threshold 0.65.
             Routing to manual inspection rather than guessing.
 ```
 
-All three branches reproduce on committed samples: `ambiguous_parcel.jpg` 0.6227 halts,
-`damaged_parcel.jpg` 0.8583 flags an exception, `intact_parcel.jpg` 0.9526 with no defect
+All three branches reproduce on committed samples: `ambiguous_parcel.jpg` 0.62 halts,
+`damaged_parcel.jpg` 0.86 flags an exception, `intact_parcel.jpg` 0.95 with no defect
 returns `CLEAR`.
 
 No LLM call on that path. Given section 4 this is essential: a detector with measured

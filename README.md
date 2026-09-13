@@ -397,7 +397,7 @@ markup that could drift.
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/detect \
-     -F "file=@sample_images/intact_parcel.jpg;type=image/jpeg"
+     -F "file=@sample_images/ambiguous_parcel.jpg;type=image/jpeg"
 ```
 
 ```json
