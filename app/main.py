@@ -69,30 +69,9 @@ app = FastAPI(
 )
 
 
-def _custom_openapi():
-    """Strip the auto-generated 422 Validation Error from every endpoint in
-    the Swagger docs. The fields all have defaults now, so the 422 section
-    is noise that confuses reviewers."""
-    if app.openapi_schema:
-        return app.openapi_schema
-    from fastapi.openapi.utils import get_openapi
-    schema = get_openapi(
-        title=app.title,
-        version=app.version,
-        description=app.description,
-        routes=app.routes,
-    )
-    for path in schema.get("paths", {}).values():
-        for method in path.values():
-            method.get("responses", {}).pop("422", None)
-    components = schema.get("components", {}).get("schemas", {})
-    components.pop("HTTPValidationError", None)
-    components.pop("ValidationError", None)
-    app.openapi_schema = schema
-    return schema
-
-
-app.openapi = _custom_openapi
+# The generated schema keeps FastAPI's 422 responses. They are real: a request
+# with no file, malformed JSON, or a wrongly typed field is refused with 422
+# before any handler runs, and scripts/smoke_test_docker.py asserts exactly that.
 
 
 @app.middleware("http")
@@ -138,20 +117,27 @@ def _decode_upload(raw: bytes) -> np.ndarray:
 # filesystem is touched: the endpoint previously accepted any path, so a caller
 # could tell which files existed by comparing a 404 against a 400. That leaks
 # the filesystem layout even though cv2 would never have decoded the contents.
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 READABLE_ROOTS = [
-    (Path(__file__).resolve().parent.parent / "sample_images").resolve(),
-    (Path(__file__).resolve().parent.parent / "uploads").resolve(),
+    (PROJECT_ROOT / "sample_images").resolve(),
+    (PROJECT_ROOT / "uploads").resolve(),
 ]
 
 
 def _resolve_readable(image_path: str) -> Path:
     """Resolve a caller-supplied path, or refuse it.
 
+    A relative path such as `sample_images/x.jpg` is anchored to the project
+    root, not the process working directory, so the same value works in Docker
+    (/app) and in a local checkout regardless of where uvicorn was started.
     Resolution happens first so that `..` segments and symlinks are collapsed
     before the containment test, rather than after.
     """
     try:
-        target = Path(image_path).resolve()
+        candidate = Path(image_path)
+        if not candidate.is_absolute():
+            candidate = PROJECT_ROOT / candidate
+        target = candidate.resolve()
     except (OSError, ValueError):
         raise HTTPException(status_code=400, detail="Malformed image path.")
     if not any(target == root or root in target.parents for root in READABLE_ROOTS):

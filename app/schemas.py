@@ -36,9 +36,10 @@ class ReasonRequest(BaseModel):
         description="Operator's question about the parcel.",
     )
     image_path: Optional[str] = Field(
-        default="/app/sample_images/damaged_parcel.jpg",
-        description="Server-side path to the parcel image. Omit for non-visual queries.",
-        examples=["/app/sample_images/damaged_parcel.jpg"],
+        default="sample_images/damaged_parcel.jpg",
+        description=("Path to the parcel image, relative to the project root, under "
+                     "sample_images/ or uploads/. Omit for non-visual queries."),
+        examples=["sample_images/damaged_parcel.jpg"],
     )
 
 
