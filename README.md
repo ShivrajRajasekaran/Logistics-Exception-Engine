@@ -4,7 +4,7 @@
 
 <hr>
 
-### Parcel Damage Detection &amp; Liability Reasoning API
+### A damage-triage service that knows when to stay silent
 
 <p>
   <a href="https://youtu.be/BWRKb_NcjJ8">
